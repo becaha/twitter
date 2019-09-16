@@ -1,0 +1,9 @@
+<h1>Login</h1>
+<div class="input-group">
+  <div class="input-group-prepend">Handle</div>
+  <input type="text" [(ngModel)]="handle"/>
+  <div class="input-group-prepend">Password</div>
+  <input type="password" [(ngModel)]="password"/>
+</div>
+<button (click)="login()">Login</button>
+<button (click)="cancel()">Cancel</button>
