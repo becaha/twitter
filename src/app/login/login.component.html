@@ -1,9 +1,19 @@
-<h1>Login</h1>
-<div class="input-group">
-  <div class="input-group-prepend">Handle</div>
-  <input type="text" [(ngModel)]="handle"/>
-  <div class="input-group-prepend">Password</div>
-  <input type="password" [(ngModel)]="password"/>
+<div class="card login">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Handle</span>
+    </div>
+    <input type="text" class="form-control" [(ngModel)]="handle"/>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Password</span>
+    </div>
+    <input type="password" class="form-control" [(ngModel)]="password"/>
+  </div>
+  <button type="button" class="btn btn-light btn-outline-dark" (click)="login()">Login</button>
+  <div *ngIf="loginError">
+    <span class="error">Login Failed: User not found or password incorrect</span>
+  </div>
+<!--  <button type="button" class="btn btn-light btn-outline-dark" (click)="cancel()">Cancel</button>-->
 </div>
-<button (click)="login()">Login</button>
-<button (click)="cancel()">Cancel</button>

@@ -1,2 +1,34 @@
-<h1>Twitter</h1>
-<app-login></app-login>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Twitter</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul *ngIf="user" class="navbar-nav">
+      <!--profile-->
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/{{user.handle}}">{{user.handle}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/feed">Feed</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/story">Story</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/followers">Followers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/following">Following</a>
+      </li>
+    </ul>
+  </div>
+  <div style="float: right">
+    <button *ngIf="!user" type="button" class="btn btn-light" routerLink="/login">Log In</button>
+    <button *ngIf="user" type="button" class="btn btn-light" routerLink="/login" (click)="logout()">Logout</button>
+  </div>
+</nav>
+
+<app-login *ngIf="!user" (loginUser)=onLogin($event)></app-login>
+<!--<app-home *ngIf="!user"></app-home>-->
+<router-outlet *ngIf="user"></router-outlet>
