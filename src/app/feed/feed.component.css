@@ -1,0 +1,19 @@
+.grid-container {
+  display: grid;
+  grid-gap: 50px 100px;
+  height:100%;
+}
+
+.grid-item-side-left {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  height: 100%;
+  background-color: var(--twitter-color);
+}
+
+.grid-item-main {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  height: 100%;
+  background-color: cadetblue;
+}

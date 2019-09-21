@@ -8,7 +8,8 @@ import {User} from './login/User';
 })
 export class AppComponent {
   title = 'TwitterLab';
-  @Input() user: User;
+  // TODO: take this default user out
+  @Input() user: User = new User('a', 'a');
 
   onLogin(event) {
     this.user = event;

@@ -5,6 +5,11 @@
   --twitter-color: #38A1F3;
 }
 
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 .error {
   color: red;
 }

@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
     // creates dummy user with the handle and password
     this.user = new User(this.handle, this.password);
     // if successful take user to his feed
-    // for now dummy user is user password
-    if (this.user.handle === 'user' && this.password === 'password') {
-      this.router.navigateByUrl('/feed');
+    // for now dummy user is a a
+    if (this.user.handle === 'a' && this.password === 'a') {
+      this.router.navigateByUrl('feed');
       this.loginUser.emit(this.user);
     } else {
       this.loginError = true;

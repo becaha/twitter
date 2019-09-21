@@ -11,8 +11,8 @@ import {ProfileComponent} from './profile/profile.component';
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
-  {path: ':user.handle', component: ProfileComponent},
   {path: 'feed', component: FeedComponent},
+  {path: ':user.handle', component: ProfileComponent},
   {path: 'story', component: StoryComponent},
   {path: 'followers', component: FollowersComponent},
   {path: 'following', component: FollowingComponent}
