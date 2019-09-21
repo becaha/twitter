@@ -9,7 +9,6 @@ import { FeedComponent } from './feed/feed.component';
 import { StoryComponent } from './story/story.component';
 import { FollowersComponent } from './followers/followers.component';
 import { FollowingComponent } from './following/following.component';
-import { ProfileComponent } from './profile/profile.component';
 import { StatusComponent } from './status/status.component';
 
 @NgModule({
@@ -20,7 +19,6 @@ import { StatusComponent } from './status/status.component';
     StoryComponent,
     FollowersComponent,
     FollowingComponent,
-    ProfileComponent,
     StatusComponent,
   ],
   imports: [

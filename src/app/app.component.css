@@ -1,0 +1,8 @@
+.menu-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  color: white !important;
+}

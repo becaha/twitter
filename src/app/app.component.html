@@ -1,15 +1,25 @@
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Twitter</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div style="float: right">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark menu-container">
+    <a class="navbar-brand logo">Twitter</a>
+    <div>
       <button *ngIf="!user" type="button" class="btn btn-light" routerLink="/login">Log In</button>
       <button *ngIf="user" type="button" class="btn btn-light" routerLink="/login" (click)="logout()">Logout</button>
     </div>
   </nav>
-
-  <app-login *ngIf="!user" (loginUser)=onLogin($event)></app-login>
-  <router-outlet *ngIf="user"></router-outlet>
+  <div class="container">
+    <div class="side-bar">
+      <ul class="navbar-nav">
+        <li class="side-bar-item">
+          <a class="nav-link side-bar-link" routerLink="/feed">Feed</a>
+        </li>
+        <li class="side-bar-item">
+          <a class="nav-link side-bar-link" routerLink="/story">Story</a>
+        </li>
+      </ul>
+    </div>
+    <div class="status-container">
+      <app-login *ngIf="!user" (loginUser)=onLogin($event)></app-login>
+      <router-outlet *ngIf="user"></router-outlet>
+    </div>
+  </div>
 </body>
