@@ -6,7 +6,6 @@ import {FeedComponent} from './feed/feed.component';
 import {FollowingComponent} from './following/following.component';
 import {FollowersComponent} from './followers/followers.component';
 import {ProfileComponent} from './profile/profile.component';
-import {HomeComponent} from './home/home.component';
 
 
 const routes: Routes = [

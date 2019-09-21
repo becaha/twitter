@@ -10,7 +10,6 @@ import { StoryComponent } from './story/story.component';
 import { FollowersComponent } from './followers/followers.component';
 import { FollowingComponent } from './following/following.component';
 import { ProfileComponent } from './profile/profile.component';
-import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { HomeComponent } from './home/home.component';
     FollowersComponent,
     FollowingComponent,
     ProfileComponent,
-    HomeComponent
   ],
   imports: [
     BrowserModule,

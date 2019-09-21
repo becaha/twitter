@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
+:root {
+  --twitter-color: #38A1F3;
+}
+
 .error {
   color: red;
 }
