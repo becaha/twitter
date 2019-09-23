@@ -63,3 +63,53 @@ html, body {
   background-color: ghostwhite;
 }
 
+.card-follow {
+  height: 30px;
+}
+
+.container-row {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.card {
+  background-color: ghostwhite;
+}
+
+.card-row {
+  margin: 5px 10px 0 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.card-row-ownership {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 0 10px;
+}
+
+.card-row-image {
+  height: 75px;
+}
+
+.card-row-footer {
+  align-self: flex-end;
+  margin-bottom: 10px;
+}
+
+.card-row-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-row-header {
+  align-self: flex-end;
+  margin: 2px 4px 0 0;
+}
+
+

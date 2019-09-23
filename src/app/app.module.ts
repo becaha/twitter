@@ -10,6 +10,7 @@ import { StoryComponent } from './story/story.component';
 import { FollowersComponent } from './followers/followers.component';
 import { FollowingComponent } from './following/following.component';
 import { StatusComponent } from './status/status.component';
+import { FollowComponent } from './follow/follow.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { StatusComponent } from './status/status.component';
     FollowersComponent,
     FollowingComponent,
     StatusComponent,
+    FollowComponent,
   ],
   imports: [
     BrowserModule,

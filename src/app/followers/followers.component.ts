@@ -8,8 +8,6 @@ import {User} from '../login/User';
 })
 export class FollowersComponent implements OnInit {
 
-  dummyUser = new User('hmm', 'password', 'Hannah');
-
   constructor() { }
 
   ngOnInit() {
