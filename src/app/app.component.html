@@ -18,8 +18,9 @@
       </ul>
     </div>
     <div class="container-col">
-      <app-login *ngIf="!user" (loginUser)=onLogin($event)></app-login>
-      <router-outlet *ngIf="user"></router-outlet>
+<!--      <app-login *ngIf="!user" (loginUser)=onLogin($event)></app-login>-->
+<!--      <router-outlet *ngIf="user"></router-outlet>-->
+      <router-outlet></router-outlet>
     </div>
   </div>
 </body>
