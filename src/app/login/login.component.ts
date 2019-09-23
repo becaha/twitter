@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   public login() {
     console.log(this.handle, this.password);
     // creates dummy user with the handle and password
-    this.user = new User(this.handle, this.password);
+    this.user = new User(this.handle, this.password, 'Becca');
     // if successful take user to his feed
     // for now dummy user is a a
     if (this.user.handle === 'a' && this.password === 'a') {
