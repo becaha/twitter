@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from '../login/User';
 
 @Component({
   selector: 'app-followers',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./followers.component.css']
 })
 export class FollowersComponent implements OnInit {
+
+  dummyUser = new User('hmm', 'password', 'Hannah');
 
   constructor() { }
 
