@@ -18,6 +18,7 @@ export class FollowingComponent implements OnInit {
     this.currentUser = userService.getCurrentUser();
     this.viewUser = userService.getViewUser();
     this.following = this.viewUser.getFollowing();
+    console.log(this.following);
   }
 
   ngOnInit() {

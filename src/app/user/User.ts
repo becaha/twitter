@@ -57,13 +57,13 @@ export class User {
   }
 
   // user unfollows another user (called a following)
-  public removeFollowing(following: User) {
+  public unfollow(following: User) {
     this.following.filter(f => f.handle !== following.handle);
   }
 
   // user follows another user (called a following)
   // add following to user and add user follow to following
-  public addFollowing(following: User) {
+  public follow(following: User) {
     this.following.push(following);
     following.addFollower(this);
   }

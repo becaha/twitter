@@ -35,6 +35,19 @@ export class UserService {
     ];
 
     this.currentUser = MOCK_USERS[10];
+    // current user's followers
+    // mock users 2-5 follow current user
+    MOCK_USERS[2].follow(this.currentUser);
+    MOCK_USERS[3].follow(this.currentUser);
+    MOCK_USERS[4].follow(this.currentUser);
+    MOCK_USERS[5].follow(this.currentUser);
+    // current user's following
+    // current user follows mock users 6-9
+    this.currentUser.follow(MOCK_USERS[6]);
+    this.currentUser.follow(MOCK_USERS[7]);
+    this.currentUser.follow(MOCK_USERS[8]);
+    this.currentUser.follow(MOCK_USERS[9]);
+
 
     // add to user story
     this.currentUser.addStatus(MOCK_STATUSES[0]);
@@ -43,7 +56,8 @@ export class UserService {
     this.dummyFollowing[0].addStatus(MOCK_STATUSES[2]);
     this.dummyFollowing[1].addStatus(MOCK_STATUSES[3]);
 
-
+    // default user is the logged in current user
+    this.viewUser = this.currentUser;
   }
 
   setCurrentUser(currentUser: User) {
