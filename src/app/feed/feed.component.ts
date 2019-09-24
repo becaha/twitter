@@ -12,13 +12,14 @@ export class FeedComponent implements OnInit {
   private userService: UserService;
   private currentUser: User;
   private following: User[];
-  private feedStatus: Status[]; // TODO: should be current -> oldest sorted
+  private feedStatus: Status[] = []; // TODO: should be current -> oldest sorted
 
   constructor(userService: UserService) {
     this.userService = userService;
     this.currentUser = userService.getCurrentUser();
     // feed should only be for current user
     this.following = this.currentUser.getFollowing();
+    this.setFeed();
   }
 
   ngOnInit() {
@@ -26,9 +27,13 @@ export class FeedComponent implements OnInit {
 
   // TODO: should be status service
   public setFeed() {
-    for (const f of this.following) {
-      this.feedStatus.concat(f.getStory());
+    console.log(this.following);
+    const followingStories = this.following.map(f => f.getStory());
+    for (const story of followingStories) {
+      console.log(story);
+      this.feedStatus = this.feedStatus.concat(story);
     }
+    console.log('feed status', this.feedStatus);
   }
 
   public getFeed() {
