@@ -1,12 +1,13 @@
 <div class="container-col">
   <div class="profile">
     <div class="profile-pic">
+      <!--TODO upload from user profile src -->
       <img class="pic" src="../../assets/images/profile.jpg" alt="profile picture">
       <button class="pic-button" type="button">Upload picture</button>
     </div>
     <div class="profile-info">
-      <p class="profile-info-item">becaha</p>
-      <p class="profile-info-item">Rebecca Haggard</p>
+      <p class="profile-info-item">{{currentUser.getHandle()}}</p>
+      <p class="profile-info-item">{{currentUser.getName()}}</p>
       <a class="profile-info-item" routerLink="/followers">Followers</a>
       <a class="profile-info-item" routerLink="/following">Following</a>
     </div>

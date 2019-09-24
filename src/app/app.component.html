@@ -2,12 +2,12 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark menu-container">
     <a class="navbar-brand logo">Twitter</a>
     <div>
-      <button *ngIf="!user" type="button" class="btn btn-light" routerLink="/login">Log In</button>
-      <button *ngIf="user" type="button" class="btn btn-light" routerLink="/login" (click)="logout()">Logout</button>
+      <button *ngIf="!currentUser" type="button" class="btn btn-light" routerLink="/login">Log In</button>
+      <button *ngIf="currentUser" type="button" class="btn btn-light" routerLink="/login" (click)="logout()">Logout</button>
     </div>
   </nav>
   <div class="container-base">
-    <div *ngIf="user" class="side-bar">
+    <div *ngIf="currentUser" class="side-bar">
       <ul class="navbar-nav">
         <li class="side-bar-item">
           <a class="nav-link side-bar-link" routerLink="/feed">Feed</a>
@@ -18,8 +18,8 @@
       </ul>
     </div>
     <div class="container-col">
-      <app-login *ngIf="!user" (loginUser)=onLogin($event)></app-login>
-      <router-outlet *ngIf="user"></router-outlet>
+      <app-login *ngIf="!currentUser" (loginUser)=onLogin($event)></app-login>
+      <router-outlet *ngIf="currentUser"></router-outlet>
 <!--      <router-outlet></router-outlet>-->
     </div>
   </div>

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {User} from '../login/User';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from '../user/User';
 
 @Component({
   selector: 'app-follow',
@@ -7,7 +7,9 @@ import {User} from '../login/User';
   styleUrls: ['./follow.component.css']
 })
 export class FollowComponent implements OnInit {
-  dummyUser = new User('hannahbanana', 'password', 'Hannah Klenton');
+  // user following or follower
+  @Input() follow: User;
+  // dummyUser = new User('hannahbanana', 'password', 'Hannah Klenton', [], [], '');
 
   constructor() { }
 

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {User} from './User';
+import {User} from '../user/User';
 import {Router} from '@angular/router';
+import {UserService} from '../user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +13,14 @@ export class LoginComponent implements OnInit {
 
   private handle;
   private password;
-  private user: User;
+  private currentUser: User;
   private router: Router;
   private loginError: boolean;
+  private userService: UserService;
 
-  constructor(router: Router) {
+  constructor(router: Router, userService: UserService) {
     this.router = router;
+    this.userService = userService;
   }
 
   ngOnInit() {
@@ -26,12 +29,12 @@ export class LoginComponent implements OnInit {
   // calls the backend and returns a user with the handle and password
   public login() {
     // creates dummy user with the handle and password
-    this.user = new User(this.handle, this.password, 'Becca');
+    this.currentUser = this.userService.getCurrentUser();
     // if successful take user to his feed
     // for now dummy user is a a
-    if (this.user.handle === 'a' && this.password === 'a') {
+    if (this.currentUser.handle === 'a' && this.password === 'a') {
       this.router.navigateByUrl('feed');
-      this.loginUser.emit(this.user);
+      this.loginUser.emit(this.currentUser);
     } else {
       this.loginError = true;
       this.loginUser.emit(null);

@@ -1,4 +1,4 @@
-import {User} from '../../login/User';
+import {User} from '../../user/User';
 
 export class Message {
   private text: string;

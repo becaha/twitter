@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {User} from './login/User';
+import {User} from './user/User';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +9,13 @@ import {User} from './login/User';
 export class AppComponent {
   title = 'TwitterLab';
   // TODO: take this default user out
-  @Input() user: User; // = new User('a', 'a');
+  @Input() currentUser: User; // = new User('a', 'a');
 
   onLogin(event) {
-    this.user = event;
+    this.currentUser = event;
   }
 
   logout() {
-    this.user = null;
+    this.currentUser = null;
   }
 }

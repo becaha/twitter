@@ -1,15 +1,18 @@
-<div class="container-row">
-  <div class="container-col">
-    <app-follow></app-follow>
-  </div>
-  <div class="container-col">
-    <app-follow></app-follow>
-  </div>
-  <div class="container-col">
-    <app-follow></app-follow>
-  </div>
-  <div class="container-col">
-    <app-follow></app-follow>
+<div *ngFor="let f of following; let i = index">
+  <!-- make a new row every 4 follows -->
+  <div *ngIf="i % 4 === 0" class="container-row">
+    <div class="container-col">
+      <app-follow [follow]="f"></app-follow>
+    </div>
+    <div class="container-col">
+      <app-follow [follow]="following[i + 1]"></app-follow>
+    </div>
+    <div class="container-col">
+      <app-follow [follow]="following[i + 2]"></app-follow>
+    </div>
+    <div class="container-col">
+      <app-follow [follow]="following[i + 3]"></app-follow>
+    </div>
   </div>
 </div>
 

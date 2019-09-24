@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../login/User';
+import {User} from '../user/User';
+import {UserService} from '../user/user.service';
 
 @Component({
   selector: 'app-followers',
@@ -7,8 +8,17 @@ import {User} from '../login/User';
   styleUrls: ['./followers.component.css']
 })
 export class FollowersComponent implements OnInit {
+  private userService: UserService;
+  private currentUser: User;
+  private viewUser: User;
+  private followers: User[];
 
-  constructor() { }
+  constructor(userService: UserService) {
+    this.userService = userService;
+    this.currentUser = userService.getCurrentUser();
+    this.viewUser = userService.getViewUser();
+    this.followers = this.viewUser.getFollowers();
+  }
 
   ngOnInit() {
   }
