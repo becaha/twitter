@@ -11,6 +11,7 @@ import { FollowersComponent } from './followers/followers.component';
 import { FollowingComponent } from './following/following.component';
 import { StatusComponent } from './status/status.component';
 import { FollowComponent } from './follow/follow.component';
+import { StatusesComponent } from './statuses/statuses.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FollowComponent } from './follow/follow.component';
     FollowingComponent,
     StatusComponent,
     FollowComponent,
+    StatusesComponent,
   ],
   imports: [
     BrowserModule,

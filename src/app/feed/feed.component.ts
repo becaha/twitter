@@ -19,25 +19,25 @@ export class FeedComponent implements OnInit {
     this.currentUser = userService.getCurrentUser();
     // feed should only be for current user
     this.following = this.currentUser.getFollowing();
-    this.setFeed();
+    console.log('following', this.following);
+    // this.setFeed();
   }
 
   ngOnInit() {
   }
 
-  // TODO: should be status service
-  public setFeed() {
-    console.log(this.following);
-    const followingStories = this.following.map(f => f.getStory());
-    for (const story of followingStories) {
-      console.log(story);
-      this.feedStatus = this.feedStatus.concat(story);
-    }
-    console.log('feed status', this.feedStatus);
-  }
+  // public setFeed() {
+  //   console.log(this.following);
+  //   const followingStories = this.following.map(f => f.getStory());
+  //   for (const story of followingStories) {
+  //     console.log(story);
+  //     this.feedStatus = this.feedStatus.concat(story);
+  //   }
+  //   console.log('feed status', this.feedStatus);
+  // }
 
-  public getFeed() {
-    return this.feedStatus;
-  }
+  // public getFeed() {
+  //   return this.feedStatus;
+  // }
 
 }

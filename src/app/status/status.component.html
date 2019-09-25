@@ -1,14 +1,14 @@
 <div class="card card-row">
   <div class="card-row-ownership">
     <img class="card-row-image" src="../../assets/images/profile.jpg" alt="profile picture">
-    <p>becaha</p>
+    <p>{{status.getOwner().getHandle()}}</p>
     <div class="card-row-footer">
       <button type="button">Attachment</button>
     </div>
   </div>
   <div class="card-row-info">
     <div class="card-row-header">
-      <p>Date: 9/21/2019</p>
+      <p>{{status.getDate().getMonth()}}/{{status.getDate().getDate()}}/{{status.getDate().getFullYear()}}</p>
     </div>
     <div class="card-body">
       <p class="card-text">{{status.getMessageText()}}</p>

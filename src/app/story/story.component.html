@@ -13,6 +13,6 @@
     </div>
   </div>
   <div>
-    <app-feed></app-feed>
+    <app-statuses *ngIf="viewUser" [owners]="getViewUsers()"></app-statuses>
   </div>
 </div>

@@ -21,4 +21,11 @@ export class StoryComponent implements OnInit {
   ngOnInit() {
   }
 
+  // returns view user in an array of one object
+  getViewUsers() {
+    const viewUsers: User[] = [];
+    viewUsers.push(this.viewUser);
+    return viewUsers;
+  }
+
 }

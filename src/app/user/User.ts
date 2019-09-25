@@ -75,5 +75,6 @@ export class User {
 
   public addStatus(status: Status) {
     this.story.push(status);
+    status.setOwner(this);
   }
 }
