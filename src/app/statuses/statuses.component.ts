@@ -30,13 +30,11 @@ export class StatusesComponent implements OnInit {
   }
 
   public setStatuses() {
-    console.log(this.owners);
+    this.statuses = [];
     const stories = this.owners.map(f => f.getStory());
     for (const story of stories) {
-      console.log(story);
       this.statuses = this.statuses.concat(story);
     }
-    console.log('statuses', this.statuses);
   }
 
   public getStatuses() {
@@ -44,13 +42,14 @@ export class StatusesComponent implements OnInit {
   }
 
   // on posting of the status, time stamp it with the current date
-  // TODO: refresh story
   public post() {
     const message = new Message(this.text);
     const newStatus = new Status(message, this.viewUser);
     this.currentUser.addStatus(newStatus);
     // close status form
     this.statusForm = false;
+    // reset statuses
+    this.setStatuses();
   }
 
   // cancel post
