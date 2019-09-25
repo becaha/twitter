@@ -1,9 +1,9 @@
 <div class="container-col">
   <div class="profile">
     <div class="profile-pic">
-      <!--TODO upload from user profile src -->
-      <img class="pic" src="../../assets/images/profile.jpg" alt="profile picture">
-      <button class="pic-button" type="button">Upload picture</button>
+      <!--TODO upload from user profile src, from assets/images -->
+      <img class="pic" src='../../assets/images/{{currentUser.getAttachmentSrc()}}' alt="profile picture">
+      <button class="pic-button" type="button" (click)="loadPic()">Upload picture</button>
     </div>
     <div class="profile-info">
       <p class="profile-info-item">{{currentUser.getHandle()}}</p>

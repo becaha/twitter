@@ -49,6 +49,14 @@ export class User {
     return this.story;
   }
 
+  public getAttachmentSrc() {
+    return this.profile.getSrc();
+  }
+
+  public addProfile(src: string) {
+    this.profile = new Attachment(src);
+  }
+
   // not called by UI!!
   // someone (called a follower) follows the user
   // add follower to user

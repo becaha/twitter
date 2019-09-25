@@ -28,4 +28,8 @@ export class StoryComponent implements OnInit {
     return viewUsers;
   }
 
+  loadPic() {
+
+  }
+
 }

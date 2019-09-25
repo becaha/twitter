@@ -39,7 +39,9 @@ export class StatusesComponent implements OnInit {
   }
 
   /**
-   * orders statuses from newest to oldest
+   * orders statuses from oldest to newest
+   * so when it prints out the cards, the oldest will be first
+   * and it will be at the bottom
    */
   public orderStatuses() {
     this.statuses = this.statuses.sort((a, b) => {

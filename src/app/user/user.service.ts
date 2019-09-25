@@ -52,6 +52,7 @@ export class UserService {
     // add to user story
     this.currentUser.addStatus(MOCK_STATUSES[0]);
     this.currentUser.addStatus(MOCK_STATUSES[1]);
+    this.currentUser.addProfile('redHat.jpg');
     // add to user feed
     this.dummyFollowing[0].addStatus(MOCK_STATUSES[2]);
     this.dummyFollowing[1].addStatus(MOCK_STATUSES[3]);

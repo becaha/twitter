@@ -1,3 +1,10 @@
 export class Attachment {
-  constructor() {}
+  private src: string;
+  constructor(src: string) {
+    this.src = src;
+  }
+
+  public getSrc() {
+    return this.src;
+  }
 }
