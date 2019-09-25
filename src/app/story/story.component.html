@@ -3,7 +3,7 @@
     <div class="profile-pic">
       <!--TODO upload from user profile src, from assets/images -->
       <img class="pic" src='../../assets/images/{{currentUser.getAttachmentSrc()}}' alt="profile picture">
-      <button class="pic-button" type="button" (click)="loadPic()">Upload picture</button>
+      <app-upload></app-upload>
     </div>
     <div class="profile-info">
       <p class="profile-info-item">{{currentUser.getHandle()}}</p>
