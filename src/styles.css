@@ -74,14 +74,18 @@ html, body {
   flex-direction: row;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
 .card {
   background-color: ghostwhite;
 }
 
 .card-row {
-  margin: 5px 10px 0 10px;
   display: flex;
   flex-direction: row;
+  margin: 5px 10px 0 10px;
 }
 
 .card-row-ownership {

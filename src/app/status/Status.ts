@@ -12,7 +12,7 @@ export class Status {
     this.message = message;
     this.owner = owner;
     this.attachment = attachment;
-    // default date is when it is constructed
+    // date is when it is constructed
     this.date = new Date();
   }
 
@@ -32,8 +32,8 @@ export class Status {
     return this.date;
   }
 
-  // on posting of the status, time stamp it with the current date
-  public post() {
-    this.date = new Date();
-  }
+  // // on posting of the status, time stamp it with the current date
+  // public post() {
+  //   this.date = new Date();
+  // }
 }

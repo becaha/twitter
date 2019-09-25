@@ -1,5 +1,17 @@
 <div class="container-col">
-  <button type="button" class="button-right">Post new status</button>
+  <button *ngIf="!statusForm" type="button" class="button-right" (click)="statusForm = true">Post new status</button>
+  <div *ngIf="statusForm" class="card container-col status-form">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Message</span>
+      </div>
+      <textarea class="form-control" [(ngModel)]="text"></textarea>
+    </div>
+    <div class="container-row space-between">
+      <button type="button">Add attachment</button>
+      <button type="button">Post</button>
+    </div>
+  </div>
   <div *ngFor="let status of getStatuses()">
     <app-status [status]="status"></app-status>
   </div>
