@@ -35,6 +35,21 @@ export class StatusesComponent implements OnInit {
     for (const story of stories) {
       this.statuses = this.statuses.concat(story);
     }
+    this.orderStatuses();
+  }
+
+  /**
+   * orders statuses from newest to oldest
+   */
+  public orderStatuses() {
+    this.statuses = this.statuses.sort((a, b) => {
+      if (a.getDate().getTime() < b.getDate().getTime()) {
+        return 1;
+      } else if (a.getDate().getTime() === b.getDate().getTime()){
+        return 0;
+      }
+      return -1;
+    });
   }
 
   public getStatuses() {
