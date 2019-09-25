@@ -9,7 +9,7 @@
     </div>
     <div class="container-row space-between">
       <button type="button">Add attachment</button>
-      <button type="button">Post</button>
+      <button type="button" (click)="post()">Post</button>
     </div>
   </div>
   <div *ngFor="let status of getStatuses()">

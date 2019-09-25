@@ -13,12 +13,14 @@ export class StatusesComponent implements OnInit {
   @Input() owners: User[];
   private statuses: Status[] = [];
   private userService: UserService;
+  private currentUser: User;
   private viewUser: User;
   private statusForm: boolean;
   private text: string;
 
   constructor(userService: UserService) {
     this.userService = userService;
+    this.currentUser = userService.getCurrentUser();
     this.viewUser = userService.getViewUser();
     this.statusForm = false;
   }
@@ -42,8 +44,18 @@ export class StatusesComponent implements OnInit {
   }
 
   // on posting of the status, time stamp it with the current date
+  // TODO: refresh story
   public post() {
     const message = new Message(this.text);
     const newStatus = new Status(message, this.viewUser);
+    this.currentUser.addStatus(newStatus);
+    // close status form
+    this.statusForm = false;
+  }
+
+  // cancel post
+  public cancel() {
+    // close status form
+    this.statusForm = false;
   }
 }
