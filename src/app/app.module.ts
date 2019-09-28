@@ -12,7 +12,6 @@ import { FollowingComponent } from './following/following.component';
 import { StatusComponent } from './status/status.component';
 import { FollowComponent } from './follow/follow.component';
 import { StatusesComponent } from './statuses/statuses.component';
-import { AttachmentComponent } from './attachment/attachment.component';
 import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { UploadComponent } from './upload/upload.component';
     StatusComponent,
     FollowComponent,
     StatusesComponent,
-    AttachmentComponent,
     UploadComponent,
   ],
   imports: [

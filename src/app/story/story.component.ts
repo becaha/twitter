@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../user/user.service';
 import {User} from '../user/User';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-story',
@@ -8,14 +9,22 @@ import {User} from '../user/User';
   styleUrls: ['./story.component.css']
 })
 export class StoryComponent implements OnInit {
+  // @Input() viewableUser: User;
+  private viewableUser: User;
   private userService: UserService;
   private currentUser: User;
-  private viewUser: User;
+  private viewUser: User; // don't need
+  private route: ActivatedRoute;
 
-  constructor(userService: UserService) {
+  constructor(userService: UserService, route: ActivatedRoute) {
     this.userService = userService;
     this.currentUser = userService.getCurrentUser();
     this.viewUser = userService.getViewUser();
+    this.route = route;
+    this.route.params.subscribe(params => {
+      console.log(params);
+      this.viewableUser = params.viewableUser;
+    });
   }
 
   ngOnInit() {
@@ -24,7 +33,7 @@ export class StoryComponent implements OnInit {
   // returns view user in an array of one object
   getViewUsers() {
     const viewUsers: User[] = [];
-    viewUsers.push(this.viewUser);
+    viewUsers.push(this.viewableUser);
     return viewUsers;
   }
 

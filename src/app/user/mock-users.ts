@@ -1,19 +1,20 @@
 import {User} from './User';
+import {Attachment} from '../status/Attachment/Attachment';
 
 export const MOCK_USERS: User[] = [
-  new User('j', 'j', 'jacob', [], [], ''),
+  new User('j', 'j', 'jacob', [], [], new Attachment('')),
 
-  new User('k', 'k', 'kenny', [], [], ''),
+  new User('k', 'k', 'kenny', [], [], new Attachment('')),
 
-  new User('b', 'b', 'bailey', [], [], '../../assets/images/couple.jpg'),
-  new User('c', 'c', 'claire', [], [], '../../assets/images/redHat.jpg'),
-  new User('d', 'd', 'derek', [], [], '../../assets/images/couple.jpg'),
-  new User('e', 'e', 'ethan', [], [], '../../assets/images/tongue.jpg'),
+  new User('b', 'b', 'bailey', [], [], new Attachment('../../assets/images/couple.jpg')),
+  new User('c', 'c', 'claire', [], [], new Attachment('../../assets/images/redHat.jpg')),
+  new User('d', 'd', 'derek', [], [], new Attachment('../../assets/images/couple.jpg')),
+  new User('e', 'e', 'ethan', [], [], new Attachment('../../assets/images/tongue.jpg')),
 
-  new User('f', 'f', 'fred', [], [], '../../assets/images/tongue.jpg'),
-  new User('g', 'g', 'greg', [], [], '../../assets/images/tongue.jpg'),
-  new User('h', 'h', 'heidi', [], [], '../../assets/images/tongue.jpg'),
-  new User('i', 'i', 'isabel', [], [], '../../assets/images/redHat.jpg'),
+  new User('f', 'f', 'fred', [], [], new Attachment('../../assets/images/tongue.jpg')),
+  new User('g', 'g', 'greg', [], [], new Attachment('../../assets/images/tongue.jpg')),
+  new User('h', 'h', 'heidi', [], [], new Attachment('../../assets/images/tongue.jpg')),
+  new User('i', 'i', 'isabel', [], [], new Attachment('../../assets/images/redHat.jpg')),
 
-  new User('a', 'a', 'Becca', [], [], '../../assets/images/tongue.jpg')
+  new User('a', 'a', 'Becca', [], [], new Attachment('../../assets/images/tongue.jpg'))
 ];

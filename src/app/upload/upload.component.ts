@@ -14,7 +14,6 @@ export class UploadComponent implements OnInit {
 
   public onFileUpload(event) {
     const file = event.target.files[0];
-
   }
 
   public uploadPic() {
