@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {User} from './User';
 import {MOCK_USERS} from './mock-users';
 import {MOCK_STATUSES} from '../status/mock-statuses';
+import {Status} from '../status/Status';
+import {Message} from '../status/Message/Message';
 
 @Injectable({
   providedIn: 'root'
@@ -54,8 +56,12 @@ export class UserService {
     this.currentUser.addStatus(MOCK_STATUSES[1]);
     this.currentUser.addProfile('redHat.jpg');
     // add to user feed
-    this.dummyFollowing[0].addStatus(MOCK_STATUSES[2]);
-    this.dummyFollowing[1].addStatus(MOCK_STATUSES[3]);
+    for (const following of this.dummyFollowing) {
+      following.addStatus(new Status(new Message(MOCK_STATUSES[2].getMessageText() + ' ' + following.getName())));
+    }
+    for (const follower of this.dummyFollowers) {
+      follower.addStatus(new Status(new Message(MOCK_STATUSES[3].getMessageText() + ' ' + follower.getName())));
+    }
 
     // default user is the logged in current user
     this.viewUser = this.currentUser;

@@ -13,6 +13,7 @@ import { StatusComponent } from './status/status.component';
 import { FollowComponent } from './follow/follow.component';
 import { StatusesComponent } from './statuses/statuses.component';
 import { UploadComponent } from './upload/upload.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { UploadComponent } from './upload/upload.component';
     FollowComponent,
     StatusesComponent,
     UploadComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

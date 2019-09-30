@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
+import {Attachment} from '../status/Attachment/Attachment';
 
 @Component({
   selector: 'app-upload',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
+  @Output() attachment: Attachment;
 
   constructor() { }
 

@@ -5,12 +5,14 @@ import {StoryComponent} from './story/story.component';
 import {FeedComponent} from './feed/feed.component';
 import {FollowingComponent} from './following/following.component';
 import {FollowersComponent} from './followers/followers.component';
+import {SignupComponent} from './signup/signup.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignupComponent},
   {path: 'feed', component: FeedComponent},
-  {path: 'story/:variableUser', component: StoryComponent},
+  {path: 'story', component: StoryComponent},
   {path: 'followers', component: FollowersComponent},
   {path: 'following', component: FollowingComponent}
 ];

@@ -4,7 +4,7 @@
   </div>
   <div class="card-row-info">
     <div class="card-body">
-      <a class="card-text" [routerLink]="['/story', this.follow]">{{follow.getHandle()}}</a>
+      <a class="card-text" (click)="goToUser()">{{follow.getHandle()}}</a>
       <p class="card-text">{{follow.getName()}}</p>
     </div>
   </div>

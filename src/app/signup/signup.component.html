@@ -1,0 +1,26 @@
+<div class="card login">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Name</span>
+    </div>
+    <input type="text" class="form-control" [(ngModel)]="name"/>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Handle</span>
+    </div>
+    <input type="text" class="form-control" [(ngModel)]="handle"/>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Password</span>
+    </div>
+    <input type="password" class="form-control" [(ngModel)]="password"/>
+  </div>
+  <app-upload></app-upload>
+  <button type="button" class="btn btn-light btn-outline-dark" (click)="signup()">Sign Up</button>
+  <div *ngIf="signupError">
+    <span class="error">Login Failed: User not found or password incorrect</span>
+  </div>
+  <!--  <button type="button" class="btn btn-light btn-outline-dark" (click)="cancel()">Cancel</button>-->
+</div>

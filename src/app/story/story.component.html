@@ -2,17 +2,17 @@
   <div class="profile">
     <div class="profile-pic">
       <!--TODO upload from user profile src, from assets/images -->
-      <img class="pic" src='../../assets/images/{{viewableUser.getAttachmentSrc()}}' alt="profile picture">
+      <img class="pic" src='../../assets/images/{{viewUser.getAttachmentSrc()}}' alt="profile picture">
       <app-upload></app-upload>
     </div>
     <div class="profile-info">
-      <p class="profile-info-item">{{viewableUser.getHandle()}}</p>
-      <p class="profile-info-item">{{viewableUser.getName()}}</p>
+      <p class="profile-info-item">{{viewUser.getHandle()}}</p>
+      <p class="profile-info-item">{{viewUser.getName()}}</p>
       <a class="profile-info-item" routerLink="/followers">Followers</a>
       <a class="profile-info-item" routerLink="/following">Following</a>
     </div>
   </div>
   <div>
-    <app-statuses *ngIf="viewableUser" [owners]="getViewUsers()"></app-statuses>
+    <app-statuses *ngIf="viewUser" [owners]="getViewUsers()"></app-statuses>
   </div>
 </div>
