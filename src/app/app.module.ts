@@ -12,6 +12,9 @@ import { FollowingComponent } from './following/following.component';
 import { StatusComponent } from './status/status.component';
 import { FollowComponent } from './follow/follow.component';
 import { StatusesComponent } from './statuses/statuses.component';
+import { UploadComponent } from './upload/upload.component';
+import { SignupComponent } from './signup/signup.component';
+import { FollowsComponent } from './follows/follows.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { StatusesComponent } from './statuses/statuses.component';
     StatusComponent,
     FollowComponent,
     StatusesComponent,
+    UploadComponent,
+    SignupComponent,
+    FollowsComponent,
   ],
   imports: [
     BrowserModule,

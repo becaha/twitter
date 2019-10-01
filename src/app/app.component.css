@@ -6,3 +6,17 @@
 .logo {
   color: white !important;
 }
+
+button {
+  margin-right: 5px;
+}
+
+/*clickable a links*/
+a:not([href]):not([tabindex]) {
+  color: white;
+}
+
+a:not([href]):not([tabindex]):hover {
+  color: darkblue;
+  cursor: pointer;
+}

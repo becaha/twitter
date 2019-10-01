@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import {User} from './User';
 import {MOCK_USERS} from './mock-users';
 import {MOCK_STATUSES} from '../status/mock-statuses';
+import {Status} from '../status/Status';
+import {Message} from '../status/Message/Message';
+import {Attachment} from '../status/Attachment/Attachment';
 
 @Injectable({
   providedIn: 'root'
@@ -54,8 +57,12 @@ export class UserService {
     this.currentUser.addStatus(MOCK_STATUSES[1]);
     this.currentUser.addProfile('redHat.jpg');
     // add to user feed
-    this.dummyFollowing[0].addStatus(MOCK_STATUSES[2]);
-    this.dummyFollowing[1].addStatus(MOCK_STATUSES[3]);
+    for (const following of this.dummyFollowing) {
+      following.addStatus(new Status(new Message(MOCK_STATUSES[2].getMessageText() + ' ' + following.getName())));
+    }
+    for (const follower of this.dummyFollowers) {
+      follower.addStatus(new Status(new Message(MOCK_STATUSES[3].getMessageText() + ' ' + follower.getName())));
+    }
 
     // default user is the logged in current user
     this.viewUser = this.currentUser;
@@ -73,7 +80,18 @@ export class UserService {
     this.viewUser = viewUser;
   }
 
-  getViewUser() {
-    return this.viewUser;
+  // getViewUser() {
+  //   return this.viewUser;
+  // }
+
+  getUser(handle: string) {
+    const userByHandle = MOCK_USERS.filter(user => user.handle === handle);
+    return userByHandle[0];
+  }
+
+  createUser(handle: string, password: string, name: string, followers: User[], following: User[], attachment: Attachment) {
+    const newUser = new User(handle, password, name, followers, following, attachment);
+    MOCK_USERS.push(newUser);
+    return newUser;
   }
 }

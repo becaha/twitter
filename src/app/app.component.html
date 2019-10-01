@@ -1,7 +1,14 @@
+<!-- don't need to paginate, buttons don't need to work -->
+<!-- method interfaces -->
+<!-- view to view model = post status , login, sign up -->
+<!-- view : html -->
+<!-- view model: js-->
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark menu-container">
     <a class="navbar-brand logo">Twitter</a>
     <div>
+      <button *ngIf="!currentUser" type="button" class="btn btn-light" routerLink="/signup" (click)="signup = true">Sign Up</button>
       <button *ngIf="!currentUser" type="button" class="btn btn-light" routerLink="/login">Log In</button>
       <button *ngIf="currentUser" type="button" class="btn btn-light" routerLink="/login" (click)="logout()">Logout</button>
     </div>
@@ -13,12 +20,13 @@
           <a class="nav-link side-bar-link" routerLink="/feed">Feed</a>
         </li>
         <li class="side-bar-item">
-          <a class="nav-link side-bar-link" routerLink="/story">Story</a>
+          <a class="nav-link side-bar-link" routerLink="/story/{{currentUser.getHandle()}}">Story</a>
         </li>
       </ul>
     </div>
     <div class="container-col">
-      <app-login *ngIf="!currentUser" (loginUser)=onLogin($event)></app-login>
+      <app-login *ngIf="!currentUser && !signup" (loginUser)=onLogin($event)></app-login>
+      <app-signup *ngIf="!currentUser && signup" (loginUser)=onLogin($event)></app-signup>
       <router-outlet *ngIf="currentUser"></router-outlet>
 <!--      <router-outlet></router-outlet>-->
     </div>

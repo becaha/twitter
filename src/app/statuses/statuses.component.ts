@@ -3,6 +3,7 @@ import {Status} from '../status/Status';
 import {User} from '../user/User';
 import {Message} from '../status/Message/Message';
 import {UserService} from '../user/user.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-statuses',
@@ -17,15 +18,22 @@ export class StatusesComponent implements OnInit {
   private viewUser: User;
   private statusForm: boolean;
   private text: string;
+  private route: ActivatedRoute;
 
-  constructor(userService: UserService) {
+  constructor(userService: UserService, route: ActivatedRoute) {
     this.userService = userService;
     this.currentUser = userService.getCurrentUser();
-    this.viewUser = userService.getViewUser();
+    this.route = route;
     this.statusForm = false;
   }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(paramMap => {
+      this.viewUser = this.userService.getUser(paramMap.get('handle'));
+      if (this.viewUser == null) {
+        this.viewUser = this.userService.getCurrentUser();
+      }
+    });
     this.setStatuses();
   }
 
