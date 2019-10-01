@@ -82,4 +82,10 @@ export class UserService {
   getViewUser() {
     return this.viewUser;
   }
+
+  getUser(handle: string) {
+    const userByHandle = MOCK_USERS.filter(user => user.handle === handle);
+    console.log(userByHandle, MOCK_USERS);
+    return userByHandle[0];
+  }
 }

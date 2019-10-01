@@ -21,31 +21,22 @@ export class StoryComponent implements OnInit {
   constructor(userService: UserService, route: ActivatedRoute) {
     this.userService = userService;
     this.currentUser = userService.getCurrentUser();
-    this.viewUser = userService.getViewUser();
-    console.log('view', this.viewUser);
+    // this.viewUser = userService.getViewUser();
     this.route = route;
     this.users = MOCK_USERS;
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe( paramMap => {
-      // this.viewUser = this.userService.getUser(paramMap.get('handle');
+      this.viewUser = this.userService.getUser(paramMap.get('handle'));
     });
-  }
-
-  getUser(handle: string) {
-    // let userByHandle = this.users.filter(user => user.handle === handle);
-    // return userByHandle[0];
   }
 
   // returns view user in an array of one object
   getViewUsers() {
-    // this.route.params.handle;
-    //
-    //
-    // const viewUsers: User[] = [];
-    // viewUsers.push(this.viewUser);
-    // return viewUsers;
+    const viewUsers: User[] = [];
+    viewUsers.push(this.viewUser);
+    return viewUsers;
   }
 
   loadPic() {
