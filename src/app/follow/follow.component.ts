@@ -37,10 +37,12 @@ export class FollowComponent implements OnInit {
 
   onFollow() {
     this.currentUser.follow(this.follow);
+    this.isFollowing = true;
   }
 
   onUnfollow() {
     this.currentUser.unfollow(this.follow);
+    this.isFollowing = false;
     // reset follows
     this.followUpdate.emit();
   }

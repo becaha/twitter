@@ -7,7 +7,7 @@
       <a class="card-text" routerLink="/story/{{follow.getHandle()}}">{{follow.getHandle()}}</a>
       <p class="card-text">{{follow.getName()}}</p>
     </div>
-    <div class="card-row-header">
+    <div *ngIf="currentUser !== follow" class="card-row-header">
       <button *ngIf="!isFollowing" type="button" (click)="onFollow()">Follow</button>
       <button *ngIf="isFollowing" type="button" (click)="onUnfollow()">Unfollow</button>
     </div>

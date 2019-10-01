@@ -16,6 +16,7 @@ export class StoryComponent implements OnInit {
   private viewUser: User;
   private route: ActivatedRoute;
   private users: User[];
+  private isFollowing: boolean;
 
   constructor(userService: UserService, route: ActivatedRoute) {
     this.userService = userService;
@@ -30,6 +31,7 @@ export class StoryComponent implements OnInit {
       if (this.viewUser == null) {
         this.viewUser = this.userService.getCurrentUser();
       }
+      this.setIsFollowing();
     });
   }
 
@@ -42,6 +44,26 @@ export class StoryComponent implements OnInit {
 
   loadPic() {
 
+  }
+
+  setIsFollowing() {
+    if (this.currentUser.getFollowing().includes(this.viewUser)) {
+      this.isFollowing = true;
+    } else {
+      this.isFollowing = false;
+    }
+  }
+
+  onFollow() {
+    this.currentUser.follow(this.viewUser);
+    // reset button
+    this.isFollowing = true;
+  }
+
+  onUnfollow() {
+    this.currentUser.unfollow(this.viewUser);
+    // reset button
+    this.isFollowing = false;
   }
 
 }

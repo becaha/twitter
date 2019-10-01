@@ -11,6 +11,10 @@
       <a class="profile-info-item" routerLink="/{{viewUser.getHandle()}}/followers">Followers</a>
       <a class="profile-info-item" routerLink="/{{viewUser.getHandle()}}/following">Following</a>
     </div>
+    <div *ngIf="currentUser !== viewUser" class="card-row-header">
+      <button *ngIf="!isFollowing" type="button" (click)="onFollow()">Follow</button>
+      <button *ngIf="isFollowing" type="button" (click)="onUnfollow()">Unfollow</button>
+    </div>
   </div>
   <div>
     <app-statuses *ngIf="viewUser" [owners]="getViewUsers()"></app-statuses>
