@@ -14,6 +14,7 @@ import { FollowComponent } from './follow/follow.component';
 import { StatusesComponent } from './statuses/statuses.component';
 import { UploadComponent } from './upload/upload.component';
 import { SignupComponent } from './signup/signup.component';
+import { FollowsComponent } from './follows/follows.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SignupComponent } from './signup/signup.component';
     StatusesComponent,
     UploadComponent,
     SignupComponent,
+    FollowsComponent,
   ],
   imports: [
     BrowserModule,

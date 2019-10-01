@@ -1,6 +1,6 @@
 <div class="card card-row">
   <div class="card-row-ownership">
-    <img class="card-row-image" src="../../assets/images/profile.jpg" alt="profile picture">
+    <img class="card-row-image" src='../../assets/images/{{status.getOwner().getAttachmentSrc()}}' alt="profile picture">
     <a class="card-text" routerLink="/story/{{status.getOwner().getHandle()}}">{{status.getOwner().getHandle()}}</a>
     <div class="card-row-footer">
       <button type="button">Attachment</button>

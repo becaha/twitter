@@ -22,9 +22,4 @@ export class FollowComponent implements OnInit {
   ngOnInit() {
   }
 
-  goToUser() {
-    this.userService.setViewUser(this.follow);
-    this.router.navigateByUrl('story');
-  }
-
 }

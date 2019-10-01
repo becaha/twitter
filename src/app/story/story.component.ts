@@ -11,7 +11,6 @@ import {MOCK_USERS} from '../user/mock-users';
   styleUrls: ['./story.component.css']
 })
 export class StoryComponent implements OnInit {
-  private viewableUser: User;
   private userService: UserService;
   private currentUser: User;
   private viewUser: User;
@@ -21,7 +20,6 @@ export class StoryComponent implements OnInit {
   constructor(userService: UserService, route: ActivatedRoute) {
     this.userService = userService;
     this.currentUser = userService.getCurrentUser();
-    // this.viewUser = userService.getViewUser();
     this.route = route;
     this.users = MOCK_USERS;
   }
@@ -29,6 +27,9 @@ export class StoryComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe( paramMap => {
       this.viewUser = this.userService.getUser(paramMap.get('handle'));
+      if (this.viewUser == null) {
+        this.viewUser = this.userService.getCurrentUser();
+      }
     });
   }
 

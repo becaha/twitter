@@ -22,10 +22,14 @@ export class AppComponent {
   }
 
   onLogin(event) {
+    this.userService.setCurrentUser(event);
+    this.userService.setViewUser(event);
     this.currentUser = event;
   }
 
   logout() {
+    this.userService.setCurrentUser(null);
+    this.userService.setViewUser(null);
     this.currentUser = null;
   }
 

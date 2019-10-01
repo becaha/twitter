@@ -1,0 +1,9 @@
+<div *ngFor="let f of this.follows; let i = index">
+  <!-- make a new row every 4 follows -->
+  <div *ngIf="i % 4 === 0" class="container-row">
+    <div *ngFor="let a of createArray(this.follows.length - i); let colIndex = index" class="container-col">
+      <app-follow [follow]="this.follows[i + colIndex]"></app-follow>
+    </div>
+  </div>
+</div>
+

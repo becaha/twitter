@@ -3,6 +3,7 @@ import {User} from '../user/User';
 import {Attachment} from '../status/Attachment/Attachment';
 import {UserService} from '../user/user.service';
 import {Router} from '@angular/router';
+import {MOCK_USERS} from '../user/mock-users';
 
 @Component({
   selector: 'app-signup',
@@ -33,10 +34,9 @@ export class SignupComponent implements OnInit {
   signup() {
     // TODO: real attachment
     this.attachment = new Attachment('redHat.jpg');
-    this.currentUser = new User(this.handle, this.password, this.name, [], [], this.attachment);
+    this.currentUser = this.userService.createUser(this.handle, this.password, this.name, [], [], this.attachment);
     this.userService.setCurrentUser(this.currentUser);
     this.userService.setViewUser(this.currentUser);
-    console.log('view', this.userService.getViewUser());
     // TODO: add this.attachment
     if (this.handle && this.password && this.name) {
       this.router.navigateByUrl('feed');

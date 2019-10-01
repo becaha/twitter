@@ -4,6 +4,7 @@ import {MOCK_USERS} from './mock-users';
 import {MOCK_STATUSES} from '../status/mock-statuses';
 import {Status} from '../status/Status';
 import {Message} from '../status/Message/Message';
+import {Attachment} from '../status/Attachment/Attachment';
 
 @Injectable({
   providedIn: 'root'
@@ -79,13 +80,18 @@ export class UserService {
     this.viewUser = viewUser;
   }
 
-  getViewUser() {
-    return this.viewUser;
-  }
+  // getViewUser() {
+  //   return this.viewUser;
+  // }
 
   getUser(handle: string) {
     const userByHandle = MOCK_USERS.filter(user => user.handle === handle);
-    console.log(userByHandle, MOCK_USERS);
     return userByHandle[0];
+  }
+
+  createUser(handle: string, password: string, name: string, followers: User[], following: User[], attachment: Attachment) {
+    const newUser = new User(handle, password, name, followers, following, attachment);
+    MOCK_USERS.push(newUser);
+    return newUser;
   }
 }
