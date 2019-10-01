@@ -27,4 +27,9 @@ export class FollowersComponent implements OnInit {
       this.followers = this.viewUser.getFollowers();
     });
   }
+
+  receiveUpdate(event) {
+    this.followers = this.viewUser.getFollowers();
+    console.log("update followers");
+  }
 }
