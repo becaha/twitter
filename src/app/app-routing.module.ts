@@ -12,9 +12,9 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'feed', component: FeedComponent},
-  {path: 'story', component: StoryComponent},
-  {path: 'followers', component: FollowersComponent},
-  {path: 'following', component: FollowingComponent}
+  {path: 'story/:handle', component: StoryComponent},
+  {path: ':handle/followers', component: FollowersComponent},
+  {path: ':handle/following', component: FollowingComponent}
 ];
 
 @NgModule({

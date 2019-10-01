@@ -29,9 +29,9 @@ export class AppComponent {
     this.currentUser = null;
   }
 
-  goToUser() {
-    console.log(this.currentUser);
-    this.userService.setViewUser(this.currentUser);
-    this.router.navigateByUrl('/story');
-  }
+  // goToUser() {
+  //   console.log(this.currentUser);
+  //   this.userService.setViewUser(this.currentUser);
+  //   this.router.navigateByUrl('/story');
+  // }
 }

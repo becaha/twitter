@@ -116,6 +116,10 @@ html, body {
   margin: 2px 4px 0 0;
 }
 
+a {
+  color: black;
+}
+
 a:hover {
   cursor: pointer;
 }

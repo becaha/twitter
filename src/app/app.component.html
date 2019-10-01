@@ -20,7 +20,7 @@
           <a class="nav-link side-bar-link" routerLink="/feed">Feed</a>
         </li>
         <li class="side-bar-item">
-          <a class="nav-link side-bar-link" (click)="goToUser()">Story</a>
+          <a class="nav-link side-bar-link" routerLink="/story/{{currentUser.getHandle()}}">Story</a>
         </li>
       </ul>
     </div>

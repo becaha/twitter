@@ -8,8 +8,8 @@
     <div class="profile-info">
       <p class="profile-info-item">{{viewUser.getHandle()}}</p>
       <p class="profile-info-item">{{viewUser.getName()}}</p>
-      <a class="profile-info-item" routerLink="/followers">Followers</a>
-      <a class="profile-info-item" routerLink="/following">Following</a>
+      <a class="profile-info-item" routerLink="/{{viewUser.getHandle()}}/followers">Followers</a>
+      <a class="profile-info-item" routerLink="/{{viewUser.getHandle()}}/following">Following</a>
     </div>
   </div>
   <div>
