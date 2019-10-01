@@ -28,4 +28,9 @@ export class FollowingComponent implements OnInit {
     });
   }
 
+  receiveUpdate(event) {
+    this.following = this.viewUser.getFollowing();
+    console.log("update following");
+  }
+
 }

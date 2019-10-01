@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../user/User';
 
 @Component({
@@ -8,6 +8,8 @@ import {User} from '../user/User';
 })
 export class FollowsComponent implements OnInit {
   @Input() follows: User[];
+  // @Input() followUpdate: Event;
+  @Output() updateFollows = new EventEmitter();
 
   constructor() { }
 
@@ -17,5 +19,9 @@ export class FollowsComponent implements OnInit {
   createArray(num: number) {
     console.log(Array(num));
     return Array(num);
+  }
+
+  receiveUpdate(event) {
+    this.updateFollows.emit();
   }
 }
