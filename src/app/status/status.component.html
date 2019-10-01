@@ -2,9 +2,6 @@
   <div class="card-row-ownership">
     <img class="card-row-image" src='../../assets/images/{{status.getOwner().getAttachmentSrc()}}' alt="profile picture">
     <a class="card-text" routerLink="/story/{{status.getOwner().getHandle()}}">{{status.getOwner().getHandle()}}</a>
-    <div class="card-row-footer">
-      <button type="button">Attachment</button>
-    </div>
   </div>
   <div class="card-row-info">
     <div class="card-row-header">
@@ -12,6 +9,9 @@
     </div>
     <div class="card-body">
       <p class="card-text">{{status.getMessageText()}}</p>
+    </div>
+    <div class="card-row-footer">
+      <button type="button">Attachment</button>
     </div>
   </div>
 </div>

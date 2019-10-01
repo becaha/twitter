@@ -1,37 +1,37 @@
-.card {
-  background-color: ghostwhite;
-}
+/*.card {*/
+/*  background-color: ghostwhite;*/
+/*}*/
 
-.status {
-  margin: 5px 10px 0 10px;
-  display: flex;
-  flex-direction: row;
-}
+/*.status {*/
+/*  margin: 5px 10px 0 10px;*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*}*/
 
-.status-ownership {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 10px 0 0 10px;
-}
+/*.status-ownership {*/
+/*  height: 100%;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  margin: 10px 0 0 10px;*/
+/*}*/
 
-.status-image {
-  height: 75px;
-}
+/*.status-image {*/
+/*  height: 75px;*/
+/*}*/
 
-.status-footer {
-  align-self: flex-end;
-  margin-bottom: 10px;
-}
+/*.status-footer {*/
+/*  align-self: flex-end;*/
+/*  margin-bottom: 10px;*/
+/*}*/
 
-.status-info {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+/*.status-info {*/
+/*  width: 100%;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  align-items: center;*/
+/*}*/
 
-.status-header {
-  align-self: flex-end;
-  margin: 2px 4px 0 0;
-}
+/*.status-header {*/
+/*  align-self: flex-end;*/
+/*  margin: 2px 4px 0 0;*/
+/*}*/

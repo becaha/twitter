@@ -39,7 +39,11 @@ export class StatusesComponent implements OnInit {
 
   public setStatuses() {
     this.statuses = [];
-    const stories = this.owners.map(f => f.getStory());
+    let stories = this.owners.map(f => f.getStory());
+    // if it is a feed and not a story we have to add the current user to its following
+    if (this.owners.length !== 1) {
+      stories = stories.concat(this.currentUser.getStory());
+    }
     for (const story of stories) {
       this.statuses = this.statuses.concat(story);
     }
