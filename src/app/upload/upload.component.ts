@@ -9,13 +9,16 @@ import {Attachment} from '../status/Attachment/Attachment';
 export class UploadComponent implements OnInit {
   @Output() attachment: Attachment;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
   public onFileUpload(event) {
     const file = event.target.files[0];
+    console.log(file);
+    // saveAs(file, file);
   }
 
   public uploadPic() {

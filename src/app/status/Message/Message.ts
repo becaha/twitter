@@ -15,13 +15,19 @@ export class Message {
     return this.text;
   }
 
+  // starts with #
   getHashtags(): Set<string> {
+    const regex = '#[^\s]*(?=$|\s)';
+    const hashtags = this.text.match(regex);
+    console.log(hashtags);
     return this.hashtags;
   }
 
+  // starts with @
   getUserMentions(): Set<User> {
     return this.userMentions;
   }
+
 
   getUrls(): Set<string> {
     return this.urls;
