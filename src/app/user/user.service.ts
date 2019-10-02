@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {User} from './User';
 import {MOCK_USERS} from './mock-users';
-import {MOCK_STATUSES} from '../status/mock-statuses';
+import {MOCK_STATUSES} from '../statuses/mock-statuses';
 import {Status} from '../status/Status';
 import {Message} from '../status/Message/Message';
 import {Attachment} from '../status/Attachment/Attachment';
