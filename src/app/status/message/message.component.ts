@@ -17,6 +17,7 @@ export class MessageComponent implements OnInit {
   private router: Router;
   private linkifyService: NgxLinkifyjsService;
   private statusId: string;
+  private messageText: string;
 
   private options: NgxLinkifyOptions =
     {
@@ -63,10 +64,48 @@ export class MessageComponent implements OnInit {
   }
 
   parseMessage() {
-    const foundLinks = this.linkifyService.find(this.messageStatus.getMessageText());
+    this.messageText = this.messageStatus.getMessageText();
+    const foundLinks = this.linkifyService.find(this.messageText);
     if (foundLinks.length > 0) {
-      const inner = this.linkifyService.linkify(this.messageStatus.getMessageText(), this.options);
-      document.getElementById('messageText').innerHTML = inner;
+      // const inner = this.linkifyService.linkify(this.messageText, this.options);
+      // document.getElementById('messageText').innerHTML = inner;
+      // console.log(document.getElementById('messageText'));
+      // console.log(document.getElementById('link'));
+
+
+      const hashtagRegex = /#[^\s]*(?=$|\s)/g;
+      const hashtags = this.messageText.match(hashtagRegex);
+      let messageHTML = this.messageText;
+      if (hashtags !== null) {
+        messageHTML = messageHTML.replace(hashtagRegex, (text) => {
+          // cut off hashtag
+          text = text.substr(1);
+          const link = '\"/search/' + text + '\"';
+          return '<a routerLink=' + link + ' ng-reflect-router-link=' + link + ' href=' + link + '>#' + text + '</a>';
+        });
+      }
+      const urlRegex = /http([^\s])*/g;
+      const urls = this.messageText.match(urlRegex);
+      if (urls != null) {
+        messageHTML = messageHTML.replace(urlRegex, (text) => {
+          const link = '\"' + text + '\"';
+          return '<a href=' + link + '>' + text + '</a>';
+        });
+      }
+      const userMentionsRegex = /@([^\s])*/g;
+      const userMentions = this.messageText.match(userMentionsRegex);
+      if (userMentions != null) {
+        messageHTML = messageHTML.replace(userMentionsRegex, (text) => {
+          // cut off @
+          text = text.substr(1);
+          const link = '\"/search/' + text + '\"';
+          return '<a routerLink=' + link + ' ng-reflect-router-link=' + link + ' href=' + link + '>@' + text + '</a>';
+        });
+      }
+      // <a _ngcontent-kqs-c6="" id="link" ng-reflect-router-link="/search/#" href="/search/%23">#</a>
+      document.getElementById('messageText').innerHTML = messageHTML;
+      console.log(document.getElementById('messageText'));
+      console.log(document.getElementById('link'));
     }
   }
 
