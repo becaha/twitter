@@ -16,6 +16,10 @@ export class Status {
     this.date = new Date();
   }
 
+  public getMessage() {
+    return this.message;
+  }
+
   public getMessageText() {
     return this.message.getText();
   }

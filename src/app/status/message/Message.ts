@@ -17,9 +17,8 @@ export class Message {
 
   // starts with #
   getHashtags(): Set<string> {
-    const regex = '#[^\s]*(?=$|\s)';
+    const regex = /#[^\s]*(?=$|\s)/g;
     const hashtags = this.text.match(regex);
-    console.log(hashtags);
     return this.hashtags;
   }
 
