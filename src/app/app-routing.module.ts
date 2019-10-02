@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'story/:handle', component: StoryComponent},
   {path: ':handle/followers', component: FollowersComponent},
   {path: ':handle/following', component: FollowingComponent},
-  {path: 'search', component: SearchComponent}
+  {path: 'search/:text', component: SearchComponent}
 ];
 
 @NgModule({

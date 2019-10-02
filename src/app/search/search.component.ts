@@ -14,12 +14,14 @@ export class SearchComponent implements OnInit {
 
   constructor(userService: UserService, route: ActivatedRoute) {
     this.userService = userService;
+    console.log(this.userService.getCurrentUser());
     this.route = route;
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe( paramMap => {
       this.searchText = paramMap.get('text');
+      console.log(this.searchText);
     });
   }
 

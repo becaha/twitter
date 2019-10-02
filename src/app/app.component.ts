@@ -11,14 +11,17 @@ import {Router} from '@angular/router';
 export class AppComponent {
   title = 'TwitterLab';
   // TODO: take this default user out
-  @Input() currentUser: User;
+  // @Input() currentUser: User;
   private userService: UserService;
   private router: Router;
   private signup: boolean;
+  private currentUser: User;
 
   constructor(router: Router, userService: UserService) {
     this.router = router;
     this.userService = userService;
+    this.currentUser = this.userService.getCurrentUser();
+    console.log(this.currentUser);
   }
 
   onLogin(event) {

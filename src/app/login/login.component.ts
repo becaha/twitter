@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
   // calls the backend and returns a user with the handle and password
   public login() {
     // creates dummy user with the handle and password
-    this.currentUser = this.userService.getCurrentUser();
-    this.userService.setViewUser(this.currentUser);
+    this.currentUser = this.userService.getMockUser();
+    this.userService.setCurrentUser(this.currentUser);
     // if successful take user to his feed
     // for now dummy user is a a
     if (this.currentUser.handle === 'a' && this.password === 'a') {

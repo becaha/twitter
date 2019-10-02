@@ -11,6 +11,7 @@ import {Attachment} from '../status/Attachment/Attachment';
 })
 export class UserService {
   private currentUser: User; // logged in user
+  private mockUser: User; // TODO get rid of and replace mockUser with currentUser
   private viewUser: User; // user displayed in page
   private dummyFollowers: User[];
   private dummyFollowing: User[];
@@ -37,25 +38,25 @@ export class UserService {
       MOCK_USERS[9]
     ];
 
-    this.currentUser = MOCK_USERS[10];
+    this.mockUser = MOCK_USERS[10];
     // current user's followers
     // mock users 2-5 follow current user
-    MOCK_USERS[2].follow(this.currentUser);
-    MOCK_USERS[3].follow(this.currentUser);
-    MOCK_USERS[4].follow(this.currentUser);
-    MOCK_USERS[5].follow(this.currentUser);
+    MOCK_USERS[2].follow(this.mockUser);
+    MOCK_USERS[3].follow(this.mockUser);
+    MOCK_USERS[4].follow(this.mockUser);
+    MOCK_USERS[5].follow(this.mockUser);
     // current user's following
     // current user follows mock users 6-9
-    this.currentUser.follow(MOCK_USERS[6]);
-    this.currentUser.follow(MOCK_USERS[7]);
-    this.currentUser.follow(MOCK_USERS[8]);
-    this.currentUser.follow(MOCK_USERS[9]);
+    this.mockUser.follow(MOCK_USERS[6]);
+    this.mockUser.follow(MOCK_USERS[7]);
+    this.mockUser.follow(MOCK_USERS[8]);
+    this.mockUser.follow(MOCK_USERS[9]);
 
 
     // add to user story
-    this.currentUser.addStatus(MOCK_STATUSES[0]);
-    this.currentUser.addStatus(MOCK_STATUSES[1]);
-    this.currentUser.addProfile('redHat.jpg');
+    this.mockUser.addStatus(MOCK_STATUSES[0]);
+    this.mockUser.addStatus(MOCK_STATUSES[1]);
+    this.mockUser.addProfile('redHat.jpg');
     // add to user feed
     for (const following of this.dummyFollowing) {
       following.addStatus(new Status(new Message(MOCK_STATUSES[2].getMessageText() + ' ' + following.getName())));
@@ -63,13 +64,16 @@ export class UserService {
     for (const follower of this.dummyFollowers) {
       follower.addStatus(new Status(new Message(MOCK_STATUSES[3].getMessageText() + ' ' + follower.getName())));
     }
+  }
 
-    // default user is the logged in current user
-    this.viewUser = this.currentUser;
+  getMockUser() {
+    return this.mockUser;
   }
 
   setCurrentUser(currentUser: User) {
     this.currentUser = currentUser;
+    // default user is the logged in current user
+    this.viewUser = this.currentUser;
   }
 
   getCurrentUser() {
