@@ -18,6 +18,8 @@ export class StatusComponent implements OnInit {
   }
 
   ngOnInit() {
+    // console.log(this.status.getMessage(), this.status.getMessageText());
   }
+
 
 }

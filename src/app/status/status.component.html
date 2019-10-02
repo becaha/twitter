@@ -7,7 +7,9 @@
     <div class="card-row-header">
       <p>{{status.getDate().getMonth()}}/{{status.getDate().getDate()}}/{{status.getDate().getFullYear()}}</p>
     </div>
-    <div class="card-body"><app-message [message]="status.getMessage()"></app-message>
+    <div class="card-body">
+<!--      <p class="card-text">{{status.getMessageText()}}</p>-->
+      <app-message [messageText]="status.getMessageText()"></app-message>
     </div>
     <div class="card-row-footer">
       <button type="button">Attachment</button>

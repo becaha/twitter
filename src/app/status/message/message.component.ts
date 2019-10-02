@@ -7,7 +7,7 @@ import {Message} from './Message';
   styleUrls: ['./message.component.css']
 })
 export class MessageComponent implements OnInit {
-  @Input() message: Message;
+  @Input() messageText: string;
 
   constructor() { }
 
@@ -17,9 +17,10 @@ export class MessageComponent implements OnInit {
 
   parseMessage() {
     const regex = /#[^\s]*(?=$|\s)/g;
-    const hashtags = this.message.getText().match(regex);
+    const hashtags = this.messageText.match(regex);
     let element = document.getElementById('messageText');
-    let messageHTML = this.message.getText();
+    let messageHTML = this.messageText;
+    // console.log('messageText', this.messageText);
     messageHTML = messageHTML.replace(regex, (text) => {
       // cut off hashtag
       text = text.substr(1);
