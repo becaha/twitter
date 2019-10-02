@@ -59,7 +59,7 @@ export class StatusesComponent implements OnInit {
     this.statuses = this.statuses.sort((a, b) => {
       if (a.getDate().getTime() < b.getDate().getTime()) {
         return 1;
-      } else if (a.getDate().getTime() === b.getDate().getTime()){
+      } else if (a.getDate().getTime() === b.getDate().getTime()) {
         return 0;
       }
       return -1;
