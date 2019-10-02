@@ -1,5 +1,5 @@
 import {Attachment} from './Attachment/Attachment';
-import {Message} from './Message/Message';
+import {Message} from './message/Message';
 import {User} from '../user/User';
 
 export class Status {
@@ -7,6 +7,7 @@ export class Status {
   private attachment?: Attachment;
   private owner: User;
   private date: Date;
+  private id: string;
 
   constructor(message: Message, owner?: User, attachment?: Attachment) {
     this.message = message;
@@ -14,6 +15,15 @@ export class Status {
     this.attachment = attachment;
     // date is when it is constructed
     this.date = new Date();
+    this.setId();
+  }
+
+  public setId() {
+    this.id = this.date.getDate().toString() + this.date.getMonth() + this.date.getFullYear() + this.date.getTime();
+  }
+
+  public getId() {
+    return this.id;
   }
 
   public getMessage() {
@@ -30,6 +40,7 @@ export class Status {
 
   public setOwner(owner: User) {
     this.owner = owner;
+    this.id += owner.handle;
   }
 
   public getDate() {

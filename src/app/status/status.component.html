@@ -8,7 +8,10 @@
       <p>{{status.getDate().getMonth()}}/{{status.getDate().getDate()}}/{{status.getDate().getFullYear()}}</p>
     </div>
     <div class="card-body">
-      <app-message [messageText]="status.getMessageText()"></app-message>
+      <app-message [messageStatus]="status"></app-message>
+    </div>
+    <div *ngIf="!isSingleStatus" class="card-row-footer">
+      <a routerLink="/status/{{status.getId()}}">View Status</a>
     </div>
     <div class="card-row-footer">
       <button type="button">Attachment</button>

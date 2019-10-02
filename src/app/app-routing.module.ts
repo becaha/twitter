@@ -7,6 +7,7 @@ import {FollowingComponent} from './following/following.component';
 import {FollowersComponent} from './followers/followers.component';
 import {SignupComponent} from './signup/signup.component';
 import {SearchComponent} from './search/search.component';
+import {StatusComponent} from './status/status.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'story/:handle', component: StoryComponent},
   {path: ':handle/followers', component: FollowersComponent},
   {path: ':handle/following', component: FollowingComponent},
-  {path: 'search/:text', component: SearchComponent}
+  {path: 'search/:text', component: SearchComponent},
+  {path: 'status/:id', component: StatusComponent}
 ];
 
 @NgModule({

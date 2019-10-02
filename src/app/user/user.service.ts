@@ -3,7 +3,7 @@ import {User} from './User';
 import {MOCK_USERS} from './mock-users';
 import {MOCK_STATUSES} from '../statuses/mock-statuses';
 import {Status} from '../status/Status';
-import {Message} from '../status/Message/Message';
+import {Message} from '../status/message/Message';
 import {Attachment} from '../status/Attachment/Attachment';
 
 @Injectable({
@@ -15,12 +15,11 @@ export class UserService {
   private viewUser: User; // user displayed in page
   private dummyFollowers: User[];
   private dummyFollowing: User[];
+  private mockAllUsers: User[] = [];
+  private mockAllStatuses: Status[] = [];
 
   constructor() {
     // TODO: remove mock data
-    const dummyFollowers2 = [MOCK_USERS[0]];
-
-    const dummyFollowing2 = [MOCK_USERS[1]];
 
     // currentUser should be in following2
     this.dummyFollowers = [
@@ -54,16 +53,29 @@ export class UserService {
 
 
     // add to user story
-    this.mockUser.addStatus(MOCK_STATUSES[0]);
-    this.mockUser.addStatus(MOCK_STATUSES[1]);
+    this.mockAllStatuses.push(this.mockUser.addStatus(MOCK_STATUSES[0]));
+    this.mockAllStatuses.push(this.mockUser.addStatus(MOCK_STATUSES[1]));
     this.mockUser.addProfile('redHat.jpg');
     // add to user feed
     for (const following of this.dummyFollowing) {
-      following.addStatus(new Status(new Message(MOCK_STATUSES[2].getMessageText() + ' ' + following.getName())));
+      this.mockAllStatuses.push(following.addStatus(new Status(new Message(MOCK_STATUSES[2].getMessageText() + ' ' + following.getName()))));
+      this.mockAllUsers.push(following);
     }
     for (const follower of this.dummyFollowers) {
-      follower.addStatus(new Status(new Message(MOCK_STATUSES[3].getMessageText() + ' ' + follower.getName())));
+      this.mockAllStatuses.push(follower.addStatus(new Status(new Message(MOCK_STATUSES[3].getMessageText() + ' ' + follower.getName()))));
+      this.mockAllUsers.push(follower);
     }
+
+    this.mockAllUsers.push(this.mockUser);
+  }
+
+  getAllStatuses() {
+    return this.mockAllStatuses;
+  }
+
+  getAllUsers() {
+    //TODO: not mock
+    return this.mockAllUsers;
   }
 
   getMockUser() {

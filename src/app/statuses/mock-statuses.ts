@@ -1,5 +1,5 @@
-import {Status} from '../status/Status';
 import {Message} from '../status/message/Message';
+import {Status} from '../status/Status';
 
 export const MOCK_STATUSES: Status[] = [
   new Status(new Message('I\'m so happpy it is Monday!!!')),

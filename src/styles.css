@@ -102,7 +102,7 @@ html, body {
 
 .card-row-footer {
   align-self: flex-end;
-  /*margin: 0 10px 10px 0;*/
+  margin-top: 10px;
 }
 
 .card-row-info {

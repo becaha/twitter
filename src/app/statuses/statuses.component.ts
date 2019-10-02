@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Status} from '../status/Status';
 import {User} from '../user/User';
-import {Message} from '../status/Message/Message';
+import {Message} from '../status/message/Message';
 import {UserService} from '../user/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {StatusesService} from './statuses.service';
