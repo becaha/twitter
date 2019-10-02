@@ -17,6 +17,7 @@ import { SignupComponent } from './signup/signup.component';
 import { FollowsComponent } from './follows/follows.component';
 import { MessageComponent } from './status/message/message.component';
 import { SearchComponent } from './search/search.component';
+import {NgxLinkifyjsModule} from 'ngx-linkifyjs';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SearchComponent } from './search/search.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxLinkifyjsModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
