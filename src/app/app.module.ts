@@ -16,6 +16,7 @@ import { UploadComponent } from './upload/upload.component';
 import { SignupComponent } from './signup/signup.component';
 import { FollowsComponent } from './follows/follows.component';
 import { MessageComponent } from './status/message/message.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MessageComponent } from './status/message/message.component';
     SignupComponent,
     FollowsComponent,
     MessageComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
