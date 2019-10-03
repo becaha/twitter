@@ -59,7 +59,7 @@ export class MessageComponent implements OnInit {
 
   ngOnInit() {
     this.statusId = this.messageStatus.getId();
-    console.log('id', this.statusId);
+    // console.log('id', this.statusId);
     this.parseMessage();
   }
 

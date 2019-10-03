@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../user/user.service';
 import {User} from '../user/User';
+import {FollowService} from './follow.service';
 
 @Component({
   selector: 'app-follow',
@@ -16,10 +17,12 @@ export class FollowComponent implements OnInit {
   private userService: UserService;
   private isFollowing: boolean;
   private currentUser: User;
+  private followService: FollowService;
 
-  constructor(router: Router, userService: UserService) {
+  constructor(router: Router, userService: UserService, followService: FollowService) {
     this.router = router;
     this.userService = userService;
+    this.followService = followService;
     this.currentUser = this.userService.getCurrentUser();
   }
 
@@ -28,7 +31,7 @@ export class FollowComponent implements OnInit {
   }
 
   setIsFollowing() {
-    if (this.currentUser.getFollowing().includes(this.follow)) {
+    if (this.followService.isFollowing(this.currentUser, this.follow)) {
       this.isFollowing = true;
     } else {
       this.isFollowing = false;

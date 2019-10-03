@@ -5,6 +5,7 @@ import {MOCK_STATUSES} from '../statuses/mock-statuses';
 import {Status} from '../status/Status';
 import {Message} from '../status/message/Message';
 import {Attachment} from '../status/attachment/Attachment';
+import {StatusesService} from '../statuses/statuses.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,11 @@ export class UserService {
   private dummyFollowers: User[];
   private dummyFollowing: User[];
   private mockAllUsers: User[] = [];
-  private mockAllStatuses: Status[] = [];
+  private statusesService: StatusesService;
+  // private mockAllStatuses: Status[] = [];
 
-  constructor() {
+  constructor(statusesService: StatusesService) {
+    this.statusesService = statusesService;
     // TODO: remove mock data
 
     // currentUser should be in following2
@@ -55,28 +58,26 @@ export class UserService {
     // add to user story
     const status = MOCK_STATUSES[0];
     status.addAttachment(new Attachment('twitter.jpg'));
-    this.mockAllStatuses.push(this.mockUser.addStatus(status));
-    this.mockAllStatuses.push(this.mockUser.addStatus(MOCK_STATUSES[1]));
+    this.statusesService.addStatus(this.mockUser.addStatus(status));
+    this.statusesService.addStatus(this.mockUser.addStatus(MOCK_STATUSES[1]));
     this.mockUser.addProfile('redHat.jpg');
     // add to user feed
     for (const following of this.dummyFollowing) {
-      this.mockAllStatuses.push(following.addStatus(new Status(new Message(MOCK_STATUSES[2].getMessageText() + ' ' + following.getName()))));
+      this.statusesService.addStatus(following.addStatus(
+        new Status(new Message(MOCK_STATUSES[2].getMessageText() + ' ' + following.getName()))));
       this.mockAllUsers.push(following);
     }
     for (const follower of this.dummyFollowers) {
-      this.mockAllStatuses.push(follower.addStatus(new Status(new Message(MOCK_STATUSES[3].getMessageText() + ' ' + follower.getName()))));
+      this.statusesService.addStatus(follower.addStatus(
+        new Status(new Message(MOCK_STATUSES[3].getMessageText() + ' ' + follower.getName()))));
       this.mockAllUsers.push(follower);
     }
 
     this.mockAllUsers.push(this.mockUser);
   }
 
-  getAllStatuses() {
-    return this.mockAllStatuses;
-  }
-
   getAllUsers() {
-    //TODO: not mock
+    // TODO: not mock
     return this.mockAllUsers;
   }
 

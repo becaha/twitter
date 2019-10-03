@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserService} from '../user/user.service';
 import {User} from '../user/User';
 import {ActivatedRoute, ParamMap} from '@angular/router';
@@ -11,6 +11,7 @@ import {MOCK_USERS} from '../user/mock-users';
   styleUrls: ['./story.component.css']
 })
 export class StoryComponent implements OnInit {
+  @Output() followUpdate = new EventEmitter();
   private userService: UserService;
   private currentUser: User;
   private viewUser: User;

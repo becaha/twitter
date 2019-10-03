@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import {MOCK_STATUSES} from './mock-statuses';
 import {Status} from '../status/Status';
-import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatusesService {
-  private userService: UserService;
+  private mockAllStatuses: Status[] = [];
 
-  constructor(userService: UserService) {
-    this.userService = userService;
+  constructor() {
+  }
+
+  addStatus(status: Status) {
+    // TODO: not mock
+    this.mockAllStatuses.push(status);
   }
 
   getStatus(id: string) {
@@ -22,7 +24,7 @@ export class StatusesService {
 
   getAllStatuses() {
     // TODO: no mock
-    return this.userService.getAllStatuses();
+    return this.mockAllStatuses;
   }
 
   /**

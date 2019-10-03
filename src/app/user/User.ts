@@ -65,8 +65,10 @@ export class User {
   }
 
   // user unfollows another user (called a following)
+  // user is removed from that other user's followers
   public unfollow(following: User) {
     this.following = this.following.filter(f => f.handle !== following.handle);
+    following.followers = following.getFollowers().filter(f => f.handle !== this.handle);
   }
 
   // user follows another user (called a following)

@@ -61,7 +61,7 @@ export class StatusesComponent implements OnInit {
   public post() {
     const message = new Message(this.text);
     const newStatus = new Status(message, this.viewUser);
-    this.currentUser.addStatus(newStatus);
+    this.statusesService.addStatus(this.currentUser.addStatus(newStatus));
     // close status form
     this.statusForm = false;
     // reset statuses

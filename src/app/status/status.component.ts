@@ -35,9 +35,4 @@ export class StatusComponent implements OnInit {
     });
   }
 
-  openAttachment() {
-
-  }
-
-
 }
