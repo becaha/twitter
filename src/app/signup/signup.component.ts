@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {User} from '../user/User';
-import {Attachment} from '../status/Attachment/Attachment';
+import {Attachment} from '../status/attachment/Attachment';
 import {UserService} from '../user/user.service';
 import {Router} from '@angular/router';
 import {MOCK_USERS} from '../user/mock-users';

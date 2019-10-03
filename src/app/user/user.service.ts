@@ -4,7 +4,7 @@ import {MOCK_USERS} from './mock-users';
 import {MOCK_STATUSES} from '../statuses/mock-statuses';
 import {Status} from '../status/Status';
 import {Message} from '../status/message/Message';
-import {Attachment} from '../status/Attachment/Attachment';
+import {Attachment} from '../status/attachment/Attachment';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +53,9 @@ export class UserService {
 
 
     // add to user story
-    this.mockAllStatuses.push(this.mockUser.addStatus(MOCK_STATUSES[0]));
+    const status = MOCK_STATUSES[0];
+    status.addAttachment(new Attachment('twitter.jpg'));
+    this.mockAllStatuses.push(this.mockUser.addStatus(status));
     this.mockAllStatuses.push(this.mockUser.addStatus(MOCK_STATUSES[1]));
     this.mockUser.addProfile('redHat.jpg');
     // add to user feed

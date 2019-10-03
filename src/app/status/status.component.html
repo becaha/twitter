@@ -13,8 +13,8 @@
     <div *ngIf="!isSingleStatus" class="card-row-footer">
       <a routerLink="/status/{{status.getId()}}">View Status</a>
     </div>
-    <div class="card-row-footer">
-      <button type="button">Attachment</button>
+    <div *ngIf="status.getAttachment()" class="card-row-footer">
+      <app-attachment [attachment]="status.getAttachment()"></app-attachment>
     </div>
   </div>
 </div>

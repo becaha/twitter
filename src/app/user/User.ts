@@ -1,4 +1,4 @@
-import {Attachment} from '../status/Attachment/Attachment';
+import {Attachment} from '../status/attachment/Attachment';
 import {Status} from '../status/Status';
 
 export class User {

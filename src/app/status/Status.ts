@@ -1,4 +1,4 @@
-import {Attachment} from './Attachment/Attachment';
+import {Attachment} from './attachment/Attachment';
 import {Message} from './message/Message';
 import {User} from '../user/User';
 
@@ -45,6 +45,14 @@ export class Status {
 
   public getDate() {
     return this.date;
+  }
+
+  public addAttachment(attachment: Attachment) {
+    this.attachment = attachment;
+  }
+
+  public getAttachment() {
+    return this.attachment;
   }
 
   // // on posting of the status, time stamp it with the current date

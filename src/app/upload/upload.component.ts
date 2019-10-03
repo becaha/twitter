@@ -1,5 +1,5 @@
 import {Component, OnInit, Output} from '@angular/core';
-import {Attachment} from '../status/Attachment/Attachment';
+import {Attachment} from '../status/attachment/Attachment';
 
 @Component({
   selector: 'app-upload',

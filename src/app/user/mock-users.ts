@@ -1,5 +1,5 @@
 import {User} from './User';
-import {Attachment} from '../status/Attachment/Attachment';
+import {Attachment} from '../status/attachment/Attachment';
 
 export const MOCK_USERS: User[] = [
   new User('j', 'j', 'jacob', [], [], new Attachment('')),

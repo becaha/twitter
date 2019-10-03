@@ -18,6 +18,8 @@ import { FollowsComponent } from './follows/follows.component';
 import { MessageComponent } from './status/message/message.component';
 import { SearchComponent } from './search/search.component';
 import {NgxLinkifyjsModule} from 'ngx-linkifyjs';
+import { AttachmentComponent } from './status/attachment/attachment.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -35,10 +37,12 @@ import {NgxLinkifyjsModule} from 'ngx-linkifyjs';
     FollowsComponent,
     MessageComponent,
     SearchComponent,
+    AttachmentComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgbModule,
     FormsModule,
     NgxLinkifyjsModule.forRoot()
   ],
