@@ -17,7 +17,7 @@
     </div>
     <input type="password" class="form-control" [(ngModel)]="password"/>
   </div>
-  <app-upload></app-upload>
+  <app-upload [uploadMessage]="'Upload Picture'"></app-upload>
   <button type="button" class="btn btn-light btn-outline-dark" (click)="signup()">Sign Up</button>
   <div *ngIf="signupError">
     <span class="error">Login Failed: User not found or password incorrect</span>

@@ -1,2 +1,2 @@
 <input style="display: none" type="file" (change)="onFileUpload($event)" #selectPic>
-<button class="pic-button" type="button" (click)="selectPic.click()">Upload picture</button>
+<button class="pic-button" type="button" (click)="selectPic.click()">{{uploadMessage}}</button>

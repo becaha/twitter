@@ -3,7 +3,7 @@
     <div class="profile-pic">
       <!--TODO upload from user profile src, from assets/images -->
       <img class="pic" src='../../assets/images/{{viewUser.getAttachmentSrc()}}' alt="profile picture">
-      <app-upload></app-upload>
+      <app-upload [uploadMessage]="'Upload Picture'"></app-upload>
     </div>
     <div class="profile-info">
       <p class="profile-info-item">{{viewUser.getHandle()}}</p>

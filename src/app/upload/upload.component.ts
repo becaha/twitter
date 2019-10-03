@@ -1,4 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {Attachment} from '../status/attachment/Attachment';
 
 @Component({
@@ -7,6 +7,7 @@ import {Attachment} from '../status/attachment/Attachment';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit {
+  @Input() uploadMessage: string;
   @Output() attachment: Attachment;
 
   constructor() {
