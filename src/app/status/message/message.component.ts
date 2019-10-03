@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgxLinkifyjsService, Link, LinkType, NgxLinkifyOptions} from 'ngx-linkifyjs';
 import {Status} from '../Status';
 import {element} from 'protractor';
+import {hasLifecycleHook} from '@angular/compiler/src/lifecycle_reflector';
 
 
 @Component({
@@ -81,7 +82,15 @@ export class MessageComponent implements OnInit {
           // cut off hashtag
           text = text.substr(1);
           const link = '\"/search/' + text + '\"';
-          return '<a routerLink=' + link + ' ng-reflect-router-link=' + link + ' href=' + link + '>#' + text + '</a>';
+          // return '<a routerLink=' + link + ' ng-reflect-router-link=' + link + ' href=' + link + '>#' + text + '</a>';
+          const hashtagInner = '<span id=\"' + text + '\">#' + text + '</span>';
+          // const hashtagElement = document.createElement('span').innerHTML = hashtagSpan;
+          // console.log(hashtagElement);
+          // hashtagElement.addEventListener('click', (event) => {
+          //   this.onHashtagClick(event);
+          // });
+          console.log(hashtagInner);
+          return hashtagInner;
         });
       }
       const urlRegex = /http([^\s])*/g;
@@ -106,14 +115,18 @@ export class MessageComponent implements OnInit {
       document.getElementById('messageText').innerHTML = messageHTML;
       console.log(document.getElementById('messageText'));
       console.log(document.getElementById('link'));
+      document.getElementById('wow').addEventListener('click', (event) => {
+        this.onHashtagClick(event);
+      });
     }
+
   }
 
 
 
   onHashtagClick(event) {
-    this.router.navigateByUrl('/search');
-    console.log(event);
+    this.router.navigateByUrl('/search/');
+    console.log('hashtag', event);
   }
 
 }
