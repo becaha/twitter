@@ -13,8 +13,8 @@ export class SearchComponent implements OnInit {
   private userService: UserService;
   private route: ActivatedRoute;
   private searchText: string;
-  private statuses: Status[];
   private statusesService: StatusesService;
+  private foundStatuses: Status[];
 
   constructor(userService: UserService, statusesService: StatusesService, route: ActivatedRoute) {
     this.userService = userService;
@@ -26,14 +26,15 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe( paramMap => {
       this.searchText = paramMap.get('text');
-      console.log(this.searchText);
+      this.search(this.searchText);
     });
   }
 
   // finds all mentions of the searchText and displays stories
   // TODO: more than hashtag
   search(hashtag: string) {
-    this.statuses = this.statusesService.getHashtagStatuses(hashtag);
+    this.foundStatuses = this.statusesService.getHashtagStatuses(hashtag);
+    console.log('found statuses', this.foundStatuses);
   }
 
 }

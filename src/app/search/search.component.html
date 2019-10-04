@@ -1,1 +1,4 @@
-<p>Search results for {{searchText}}</p>
+<h4>Search results for {{searchText}}</h4>
+<div *ngFor="let foundStatus of foundStatuses">
+  <app-status [status]="foundStatus"></app-status>
+</div>

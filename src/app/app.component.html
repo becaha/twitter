@@ -9,7 +9,7 @@
     <a class="navbar-brand logo">Twitter</a>
     <div>
       <button *ngIf="!currentUser" type="button" class="btn btn-light" routerLink="/signup" (click)="signup = true">Sign Up</button>
-      <button *ngIf="!currentUser" type="button" class="btn btn-light" routerLink="/login">Log In</button>
+      <button *ngIf="!currentUser" type="button" class="btn btn-light" routerLink="/login" (click)="signup = false">Log In</button>
       <button *ngIf="currentUser" type="button" class="btn btn-light" routerLink="/login" (click)="logout()">Logout</button>
     </div>
   </nav>
