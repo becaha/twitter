@@ -37,10 +37,9 @@ export class StatusesComponent implements OnInit {
         this.viewUser = this.userService.getCurrentUser();
       }
     });
-    this.setStatuses();
   }
 
-  public setStatuses() {
+  public getStatuses() {
     this.statuses = [];
     let stories = this.owners.map(f => f.getStory());
     // if it is a feed and not a story we have to add the current user to its following
@@ -51,9 +50,6 @@ export class StatusesComponent implements OnInit {
       this.statuses = this.statuses.concat(story);
     }
     this.statuses = this.statusesService.orderStatuses(this.statuses);
-  }
-
-  public getStatuses() {
     return this.statuses;
   }
 
@@ -65,7 +61,7 @@ export class StatusesComponent implements OnInit {
     // close status form
     this.statusForm = false;
     // reset statuses
-    this.setStatuses();
+    // this.setStatuses();
   }
 
   // cancel post

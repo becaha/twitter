@@ -27,6 +27,7 @@ export class StoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('on init');
     this.route.paramMap.subscribe( paramMap => {
       this.viewUser = this.userService.getUser(paramMap.get('handle'));
       if (this.viewUser == null) {
