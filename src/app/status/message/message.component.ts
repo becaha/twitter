@@ -68,31 +68,20 @@ export class MessageComponent implements OnInit {
     this.messageText = this.messageStatus.getMessageText();
     const foundLinks = this.linkifyService.find(this.messageText);
     if (foundLinks.length > 0) {
-      // const inner = this.linkifyService.linkify(this.messageText, this.options);
-      // document.getElementById('messageText').innerHTML = inner;
-      // console.log(document.getElementById('messageText'));
-      // console.log(document.getElementById('link'));
-
-
+      // hashtags
       const hashtagRegex = /#[^\s]*(?=$|\s)/g;
-      const hashtags = this.messageText.match(hashtagRegex);
+      const hashtags: string[] = this.messageText.match(hashtagRegex);
       let messageHTML = this.messageText;
       if (hashtags !== null) {
         messageHTML = messageHTML.replace(hashtagRegex, (text) => {
           // cut off hashtag
           text = text.substr(1);
           const link = '\"/search/' + text + '\"';
-          // return '<a routerLink=' + link + ' ng-reflect-router-link=' + link + ' href=' + link + '>#' + text + '</a>';
           const hashtagInner = '<span id=\"' + text + '\">#' + text + '</span>';
-          // const hashtagElement = document.createElement('span').innerHTML = hashtagSpan;
-          // console.log(hashtagElement);
-          // hashtagElement.addEventListener('click', (event) => {
-          //   this.onHashtagClick(event);
-          // });
-          console.log(hashtagInner);
           return hashtagInner;
         });
       }
+      // urls
       const urlRegex = /http([^\s])*/g;
       const urls = this.messageText.match(urlRegex);
       if (urls != null) {
@@ -101,32 +90,52 @@ export class MessageComponent implements OnInit {
           return '<a href=' + link + '>' + text + '</a>';
         });
       }
+      // user mentions
       const userMentionsRegex = /@([^\s])*/g;
-      const userMentions = this.messageText.match(userMentionsRegex);
+      const userMentions: string[] = this.messageText.match(userMentionsRegex);
       if (userMentions != null) {
         messageHTML = messageHTML.replace(userMentionsRegex, (text) => {
           // cut off @
           text = text.substr(1);
           const link = '\"/search/' + text + '\"';
-          return '<a routerLink=' + link + ' ng-reflect-router-link=' + link + ' href=' + link + '>@' + text + '</a>';
+          const userInner = '<span id=\"' + text + '\">@' + text + '</span>';
+          return userInner;
         });
       }
-      // <a _ngcontent-kqs-c6="" id="link" ng-reflect-router-link="/search/#" href="/search/%23">#</a>
       document.getElementById('messageText').innerHTML = messageHTML;
-      console.log(document.getElementById('messageText'));
-      console.log(document.getElementById('link'));
-      document.getElementById('wow').addEventListener('click', (event) => {
-        this.onHashtagClick(event);
+      this.addHashtagListeners(hashtags);
+      this.addUserMentionListeners(userMentions);
+    }
+  }
+
+  addUserMentionListeners(userMentions: string[]) {
+    // cut off userMentions
+    userMentions = userMentions.map((userMention) => {
+      return userMention.substr(1);
+    });
+    for (const userMention of userMentions) {
+      console.log(userMention, 'add listener');
+      document.getElementById(userMention).addEventListener('click', (event) => {
+        this.onLinkClick('/story/', event);
       });
     }
-
   }
 
-
-
-  onHashtagClick(event) {
-    this.router.navigateByUrl('/search/');
-    console.log('hashtag', event);
+  addHashtagListeners(hashtags: string[]) {
+    // cut off hashtags
+    hashtags = hashtags.map((hashtag) => {
+      return hashtag.substr(1);
+    });
+    for (const hashtag of hashtags) {
+      console.log(hashtag, 'add listener');
+      document.getElementById(hashtag).addEventListener('click', (event) => {
+        this.onLinkClick('/search/', event);
+      });
+    }
   }
 
+  onLinkClick(path, event) {
+    const userMentionElement: Element = event.target;
+    this.router.navigateByUrl(path + userMentionElement.id);
+  }
 }
