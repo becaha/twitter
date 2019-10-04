@@ -1,1 +1,1 @@
-<p class="card-text message-text" id="messageText">{{this.messageStatus.getMessageText()}}</p>
+<p class="card-text message-text" id="messageText" (click)="onMessageClick($event)" [innerHTML]="this.messageStatus.getMessage().getInnerHTML()"></p>
