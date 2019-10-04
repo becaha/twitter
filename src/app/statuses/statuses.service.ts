@@ -46,11 +46,9 @@ export class StatusesService {
 
   // returns all statuses with given hashtag
   getHashtagStatuses(hashtag: string) {
-    return this.getAllStatuses().filter((status) => {
-      console.log(status.getMessage().getHashtags());
-      console.log(hashtag);
-      console.log(status.getMessage().getHashtags().has(hashtag));
+    const hashtagStatuses =  this.getAllStatuses().filter((status) => {
       return status.getMessage().getHashtags().has(hashtag);
     });
+    return this.orderStatuses(hashtagStatuses);
   }
 }
