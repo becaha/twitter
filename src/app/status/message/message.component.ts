@@ -38,9 +38,6 @@ export class MessageComponent implements OnInit {
       this.router.navigateByUrl('/search/' + messageLink);
     } else if (symbol === '@') {
       this.router.navigateByUrl('/story/' + messageLink);
-    } else {
-      // urls
-      location.href = spanText;
     }
   }
 }

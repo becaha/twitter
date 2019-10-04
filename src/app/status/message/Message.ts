@@ -31,7 +31,7 @@ export class Message {
     if (urls != null) {
         messageHTML = messageHTML.replace(urlRegex, (text) => {
           const link = '\"' + text + '\"';
-          return '<a href=' + link + '>' + text + '</a>';
+          return '<a href=' + link + ' target="_blank">' + text + '</a>';
         });
       }
     // user mentions
@@ -47,7 +47,7 @@ export class Message {
         // cut off starting symbol
         text = text.substr(1);
         const link = '\"/search/' + text + '\"';
-        const inner = '<span class=\"' + text + '\"  style=\"cursor: pointer\">' + symbol + text + '</span>';
+        const inner = '<a class=\"' + text + '\"  style=\"cursor: pointer;\">' + symbol + text + '</a>';
         return inner;
       });
     }
