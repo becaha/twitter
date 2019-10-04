@@ -34,6 +34,7 @@ export class AppComponent {
     this.userService.setCurrentUser(null);
     this.userService.setViewUser(null);
     this.currentUser = null;
+    this.signup = false;
   }
 
   // goToUser() {
