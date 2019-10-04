@@ -66,21 +66,13 @@ export class MessageComponent implements OnInit {
 
   parseMessage() {
     this.messageText = this.messageStatus.getMessageText();
+    let messageHTML = this.messageText;
     const foundLinks = this.linkifyService.find(this.messageText);
     if (foundLinks.length > 0) {
       // hashtags
       const hashtagRegex = /#[^\s]*(?=$|\s)/g;
       const hashtags: string[] = this.messageText.match(hashtagRegex);
-      let messageHTML = this.messageText;
-      if (hashtags !== null) {
-        messageHTML = messageHTML.replace(hashtagRegex, (text) => {
-          // cut off hashtag
-          text = text.substr(1);
-          const link = '\"/search/' + text + '\"';
-          const hashtagInner = '<span id=\"' + text + '\" style=\"cursor: pointer\">#' + text + '</span>';
-          return hashtagInner;
-        });
-      }
+      messageHTML = this.createMessageLinks(messageHTML, hashtags, '#', hashtagRegex);
       // urls
       const urlRegex = /http([^\s])*/g;
       const urls = this.messageText.match(urlRegex);
@@ -93,48 +85,45 @@ export class MessageComponent implements OnInit {
       // user mentions
       const userMentionsRegex = /@([^\s])*/g;
       const userMentions: string[] = this.messageText.match(userMentionsRegex);
-      if (userMentions != null) {
-        messageHTML = messageHTML.replace(userMentionsRegex, (text) => {
-          // cut off @
-          text = text.substr(1);
-          const link = '\"/search/' + text + '\"';
-          const userInner = '<span id=\"' + text + '\" style=\"cursor: pointer\">@' + text + '</span>';
-          return userInner;
-        });
-      }
+      messageHTML = this.createMessageLinks(messageHTML, userMentions, '@', userMentionsRegex);
+
       document.getElementById('messageText').innerHTML = messageHTML;
-      this.addHashtagListeners(hashtags);
-      this.addUserMentionListeners(userMentions);
+
+      this.addListeners('/search/', hashtags);
+      this.addListeners('/story/', userMentions);
     }
   }
 
-  addUserMentionListeners(userMentions: string[]) {
-    // cut off userMentions
-    userMentions = userMentions.map((userMention) => {
-      return userMention.substr(1);
+  createMessageLinks(messageHTML, messageLinks, symbol, regex) {
+    if (messageLinks != null) {
+      messageHTML = messageHTML.replace(regex, (text) => {
+        // cut off starting symbol
+        text = text.substr(1);
+        const link = '\"/search/' + text + '\"';
+        const inner = '<span id=\"' + text + '\"  style=\"cursor: pointer\">' + symbol + text + '</span>';
+        return inner;
+      });
+    }
+    return messageHTML;
+  }
+
+  // adds event listeners to the message links (hashtags and userMentions)
+  addListeners(path: string, messageLinks: string[]) {
+    // cut off starting symbol
+    messageLinks = messageLinks.map((messageLink) => {
+      return messageLink.substr(1);
     });
-    for (const userMention of userMentions) {
-      console.log(userMention, 'add listener');
-      document.getElementById(userMention).addEventListener('click', (event) => {
-        this.onLinkClick('/story/', event);
+    for (const messageLink of messageLinks) {
+      console.log(document.getElementById(messageLink));
+      document.getElementById(messageLink).addEventListener('click', (event) => {
+        this.onLinkClick(path, event);
       });
     }
   }
 
-  addHashtagListeners(hashtags: string[]) {
-    // cut off hashtags
-    hashtags = hashtags.map((hashtag) => {
-      return hashtag.substr(1);
-    });
-    for (const hashtag of hashtags) {
-      console.log(hashtag, 'add listener');
-      document.getElementById(hashtag).addEventListener('click', (event) => {
-        this.onLinkClick('/search/', event);
-      });
-    }
-  }
-
+  // on messageLink click (hashtag or userMentions) route to path + id
   onLinkClick(path, event) {
+    console.log(document.getElementById(this.messageStatus.getId()));
     const userMentionElement: Element = event.target;
     this.router.navigateByUrl(path + userMentionElement.id);
   }
