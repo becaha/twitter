@@ -77,7 +77,7 @@ export class MessageComponent implements OnInit {
           // cut off hashtag
           text = text.substr(1);
           const link = '\"/search/' + text + '\"';
-          const hashtagInner = '<span id=\"' + text + '\">#' + text + '</span>';
+          const hashtagInner = '<span id=\"' + text + '\" style=\"cursor: pointer\">#' + text + '</span>';
           return hashtagInner;
         });
       }
@@ -98,7 +98,7 @@ export class MessageComponent implements OnInit {
           // cut off @
           text = text.substr(1);
           const link = '\"/search/' + text + '\"';
-          const userInner = '<span id=\"' + text + '\">@' + text + '</span>';
+          const userInner = '<span id=\"' + text + '\" style=\"cursor: pointer\">@' + text + '</span>';
           return userInner;
         });
       }
