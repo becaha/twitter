@@ -16,6 +16,10 @@ export class UploadComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * when user uploads a file
+   * @param event
+   */
   public onFileUpload(event) {
     const file = event.target.files[0];
     console.log(file);

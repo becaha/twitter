@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {User} from './user/User';
 import {UserService} from './user/user.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,36 +9,34 @@ import {Router} from '@angular/router';
 })
 export class AppComponent {
   title = 'TwitterLab';
-  // TODO: take this default user out
-  // @Input() currentUser: User;
   private userService: UserService;
-  private router: Router;
   private signup: boolean;
   private currentUser: User;
 
-  constructor(router: Router, userService: UserService) {
-    this.router = router;
+  constructor(userService: UserService) {
     this.userService = userService;
     this.currentUser = this.userService.getCurrentUser();
     console.log(this.currentUser);
   }
 
+  /**
+   * when user logs in, set the current user and
+   * the view user as that logged in user
+   * @param event
+   */
   onLogin(event) {
     this.userService.setCurrentUser(event);
     this.userService.setViewUser(event);
     this.currentUser = event;
   }
 
+  /**
+   * logout the current user by setting the users to null
+   */
   logout() {
     this.userService.setCurrentUser(null);
     this.userService.setViewUser(null);
     this.currentUser = null;
     this.signup = false;
   }
-
-  // goToUser() {
-  //   console.log(this.currentUser);
-  //   this.userService.setViewUser(this.currentUser);
-  //   this.router.navigateByUrl('/story');
-  // }
 }

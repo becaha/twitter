@@ -1,3 +1,8 @@
 .container-col {
   width: 25%;
+  /*flex-wrap: wrap;*/
+
+}
+
+.container-row {
 }

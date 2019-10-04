@@ -26,7 +26,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  // calls the backend and returns a user with the handle and password
+  /**
+   *   calls the backend and returns a user with the handle and password
+   *   if no user exists, login fails
+   *   if success, navigate to user's feed
+   */
   public login() {
     // creates dummy user with the handle and password
     this.currentUser = this.userService.getMockUser();

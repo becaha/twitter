@@ -8,18 +8,18 @@ import {User} from '../user/User';
 })
 export class FollowsComponent implements OnInit {
   @Input() follows: User[];
-  // @Input() followUpdate: Event;
   @Output() updateFollows = new EventEmitter();
   private followsArray;
 
   constructor() { }
 
   ngOnInit() {
-    this.followsArray = Array(this.follows.length / 4);
+    const rows = Math.ceil(this.follows.length / 4);
+    console.log(rows);
+    this.followsArray = Array(rows);
   }
 
   createArray(num: number) {
-    console.log(Array(num));
     return Array(num);
   }
 

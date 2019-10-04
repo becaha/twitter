@@ -30,6 +30,10 @@ export class StatusesComponent implements OnInit {
     this.statusesService = statusesService;
   }
 
+  /**
+   * gets the viewUser from the route parameters by
+   * getting the user by handle from the user service
+   */
   ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
       this.viewUser = this.userService.getUser(paramMap.get('handle'));
@@ -39,6 +43,11 @@ export class StatusesComponent implements OnInit {
     });
   }
 
+  /**
+   * gets the statuses of the owners
+   * the owners are the users whose statuses are to be displayed
+   * (a story user or a user following)
+   */
   public getStatuses() {
     this.statuses = [];
     let stories = this.owners.map(f => f.getStory());
@@ -53,18 +62,21 @@ export class StatusesComponent implements OnInit {
     return this.statuses;
   }
 
-  // on posting of the status, time stamp it with the current date
+  /** on posting of the status,
+   * time stamp it with the current date and
+   * add it to the current user's statuses
+   */
   public post() {
     const message = new Message(this.text);
     const newStatus = new Status(message, this.viewUser);
     this.statusesService.addStatus(this.currentUser.addStatus(newStatus));
     // close status form
     this.statusForm = false;
-    // reset statuses
-    // this.setStatuses();
   }
 
-  // cancel post
+  /**
+   * cancel post
+   */
   public cancel() {
     // close status form
     this.statusForm = false;

@@ -24,6 +24,11 @@ export class StatusComponent implements OnInit {
     this.route = route;
   }
 
+  /**
+   * gets a single status id from the route parameters
+   * to display a status view
+   * if no parameter 'id', it is not a single status view
+   */
   ngOnInit() {
     // stand alone status has status id in route params
     this.route.paramMap.subscribe((paramMap) => {

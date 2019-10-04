@@ -31,6 +31,12 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * signs the user up by creating a new user
+   * logs the user in by setting the current and view users
+   * to the new user
+   * if not all the inputs are given, sign up error
+   */
   signup() {
     // TODO: real attachment
     this.attachment = new Attachment('redHat.jpg');

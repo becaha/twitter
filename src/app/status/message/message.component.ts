@@ -17,8 +17,6 @@ export class MessageComponent implements OnInit {
   private userService: UserService;
   private router: Router;
   private statusId: string;
-  private messageText: string;
-
 
   constructor(userService: UserService, router: Router) {
     this.userService = userService;
@@ -29,6 +27,11 @@ export class MessageComponent implements OnInit {
     this.statusId = this.messageStatus.getId();
   }
 
+  /**
+   * when the user clicks on a message link, navigate to
+   * the url corresponding to the link
+   * @param event
+   */
   onMessageClick(event) {
     console.log(event.target.innerText);
     const spanText = event.target.innerText;
