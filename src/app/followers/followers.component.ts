@@ -28,8 +28,13 @@ export class FollowersComponent implements OnInit {
     });
   }
 
-  receiveUpdate(event) {
+  /**
+   * receives follow update
+   * (user has been followed/unfollowed by another user)
+   * re-fetch view users followers
+   * @param event
+   */
+  receiveFollowUpdate(event) {
     this.followers = this.viewUser.getFollowers();
-    console.log("update followers");
   }
 }

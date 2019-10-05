@@ -82,10 +82,4 @@ export class Message {
   getUrls(): Set<string> {
     return this.urls;
   }
-
-// constructor(hashtags: Set<string>, userMentions: Set<User>, urls: Set<string>) {
-  //   this.hashtags = hashtags;
-  //   this.userMentions = userMentions;
-  //   this.urls = urls;
-  // }
 }

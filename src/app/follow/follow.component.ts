@@ -30,6 +30,10 @@ export class FollowComponent implements OnInit {
     this.setIsFollowing();
   }
 
+  /**
+   * if current user is following the displayed follow user,
+   * sets isFollowing to true
+   */
   setIsFollowing() {
     if (this.followService.isFollowing(this.currentUser, this.follow)) {
       this.isFollowing = true;
@@ -38,11 +42,17 @@ export class FollowComponent implements OnInit {
     }
   }
 
+  /**
+   * current user follows the displayed follow user
+   */
   onFollow() {
     this.currentUser.follow(this.follow);
     this.isFollowing = true;
   }
 
+  /**
+   * current user unfollows the displayed follow user
+   */
   onUnfollow() {
     this.currentUser.unfollow(this.follow);
     this.isFollowing = false;

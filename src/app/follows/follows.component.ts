@@ -15,7 +15,6 @@ export class FollowsComponent implements OnInit {
 
   ngOnInit() {
     const rows = Math.ceil(this.follows.length / 4);
-    console.log(rows);
     this.followsArray = Array(rows);
   }
 
@@ -23,7 +22,13 @@ export class FollowsComponent implements OnInit {
     return Array(num);
   }
 
-  receiveUpdate(event) {
+  /**
+   * receives follow update
+   * (user has followed/unfollowed another user)
+   * send update to parent component
+   * @param event
+   */
+  receiveFollowUpdate(event) {
     this.updateFollows.emit();
   }
 }

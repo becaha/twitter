@@ -4,7 +4,7 @@ import {User} from '../user/User';
 
 export class Status {
   private message: Message;
-  private attachment?: Attachment;
+  private attachment: Attachment;
   private owner: User;
   private date: Date;
   private id: string;

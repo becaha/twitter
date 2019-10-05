@@ -6,15 +6,10 @@ export class User {
   handle: string;
   password: string;
   name: string;
-  followers?: User[] = [];
-  following?: User[] = [];
+  followers: User[] = [];
+  following: User[] = [];
   profile: Attachment; // url image
   story: Status[] = [];
-
-  // constructor(handle: string, password: string) {
-  //   this.handle = handle;
-  //   this.password = password;
-  // }
 
   constructor(handle: string, password: string, name: string, followers: User[], following: User[], profile: Attachment) {
     this.handle = handle;
