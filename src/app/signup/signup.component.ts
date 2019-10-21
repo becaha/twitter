@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
    */
   signup() {
     // TODO: real attachment
-    this.attachment = new Attachment('redHat.jpg');
+    this.attachment = new Attachment('redHat.jpg', 'image');
     this.currentUser = this.userService.createUser(this.handle, this.password, this.name, [], [], this.attachment);
     this.userService.setCurrentUser(this.currentUser);
     this.userService.setViewUser(this.currentUser);

@@ -49,7 +49,7 @@ export class User {
   }
 
   public addProfile(src: string) {
-    this.profile = new Attachment(src);
+    this.profile = new Attachment(src, 'image');
   }
 
   // not called by UI!!

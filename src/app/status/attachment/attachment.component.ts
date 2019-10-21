@@ -13,6 +13,5 @@ export class AttachmentComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   }

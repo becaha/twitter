@@ -57,7 +57,7 @@ export class UserService {
 
     // add to user story
     const status = MOCK_STATUSES[0];
-    status.addAttachment(new Attachment('twitter.jpg'));
+    status.addAttachment(new Attachment('twitter.jpg', 'image'));
     this.statusesService.addStatus(this.mockUser.addStatus(status));
     this.statusesService.addStatus(this.mockUser.addStatus(MOCK_STATUSES[1]));
     this.mockUser.addProfile('redHat.jpg');
@@ -108,8 +108,8 @@ export class UserService {
     return userByHandle[0];
   }
 
-  createUser(handle: string, password: string, name: string, followers: User[], following: User[], attachment: Attachment) {
-    const newUser = new User(handle, password, name, followers, following, attachment);
+  createUser(handle: string, password: string, name: string, followers: User[], following: User[], profile: Attachment) {
+    const newUser = new User(handle, password, name, followers, following, profile);
     MOCK_USERS.push(newUser);
     return newUser;
   }

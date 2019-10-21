@@ -20,6 +20,8 @@
     "@angular/platform-browser-dynamic": "~8.2.5",
     "@angular/router": "~8.2.5",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
+    "aws-amplify": "^1.2.2",
+    "aws-amplify-angular": "^3.1.2",
     "bootstrap": "^4.3.1",
     "file-saver": "^2.0.2",
     "fs": "0.0.1-security",

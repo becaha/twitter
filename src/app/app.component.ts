@@ -12,11 +12,13 @@ export class AppComponent {
   private userService: UserService;
   private signup: boolean;
   private currentUser: User;
+  // private apigClient;
 
   constructor(userService: UserService) {
     this.userService = userService;
     this.currentUser = this.userService.getCurrentUser();
     console.log(this.currentUser);
+    // this.apigClient = apigClientFactory.newClient();
   }
 
   /**
