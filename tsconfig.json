@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "twitter-swagger-client": [
+        "dist/twitter-swagger-client"
+      ],
+      "twitter-swagger-client/*": [
+        "dist/twitter-swagger-client/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
