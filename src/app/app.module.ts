@@ -20,6 +20,7 @@ import { SearchComponent } from './search/search.component';
 import {NgxLinkifyjsModule} from 'ngx-linkifyjs';
 import { AttachmentComponent } from './status/attachment/attachment.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+// import {ApiModule} from '././projects/twitter-swagger-client';
 
 @NgModule({
   declarations: [

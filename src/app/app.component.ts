@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {User} from './user/User';
 import {UserService} from './user/user.service';
+import {ProxyService} from './proxy.service';
 
 @Component({
   selector: 'app-root',
@@ -12,13 +13,13 @@ export class AppComponent {
   private userService: UserService;
   private signup: boolean;
   private currentUser: User;
-  // private apigClient;
+  private proxy: ProxyService;
 
-  constructor(userService: UserService) {
+  constructor(userService: UserService, proxy: ProxyService) {
     this.userService = userService;
     this.currentUser = this.userService.getCurrentUser();
     console.log(this.currentUser);
-    // this.apigClient = apigClientFactory.newClient();
+    this.proxy = proxy;
   }
 
   /**
