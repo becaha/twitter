@@ -9,4 +9,9 @@ describe('ProxyService', () => {
     const service: ProxyService = TestBed.get(ProxyService);
     expect(service).toBeTruthy();
   });
+
+  it ('should get isFollowing from the api', () => {
+    const service: ProxyService = TestBed.get(ProxyService);
+    service.isFollowing('user', 'follow');
+  });
 });

@@ -20,7 +20,8 @@ import { SearchComponent } from './search/search.component';
 import {NgxLinkifyjsModule} from 'ngx-linkifyjs';
 import { AttachmentComponent } from './status/attachment/attachment.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-// import {ApiModule} from '././projects/twitter-swagger-client';
+import { HttpClientModule } from '@angular/common/http';
+import {ApiModule} from '../../api';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AttachmentComponent,
   ],
   imports: [
+    ApiModule,
+    // make sure to import the HttpClientModule in the AppModule only,
+    // see https://github.com/angular/angular/issues/20575
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,

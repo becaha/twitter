@@ -1,19 +1,19 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-10-21T21:52:33Z"
+  version: "2019-10-25T01:33:53Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
 schemes:
-- "https"
+  - "https"
 paths:
   /follow:
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -29,9 +29,9 @@ paths:
   /follow/{userHandle}:
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -47,47 +47,53 @@ paths:
   /follow/{userHandle}/{followHandle}:
     get:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "followHandle"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "userHandle"
-        in: "path"
-        required: true
-        type: "string"
+        - name: "followHandle"
+          in: "path"
+          required: true
+          type: "string"
+        - name: "userHandle"
+          in: "path"
+          required: true
+          type: "string"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/IsFollowingResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     post:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "followHandle"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "userHandle"
-        in: "path"
-        required: true
-        type: "string"
+        - name: "followHandle"
+          in: "path"
+          required: true
+          type: "string"
+        - name: "userHandle"
+          in: "path"
+          required: true
+          type: "string"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/Response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -103,28 +109,31 @@ paths:
   /follow/{userHandle}/{followHandle}/unfollow:
     post:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "followHandle"
-        in: "path"
-        required: true
-        type: "string"
-      - name: "userHandle"
-        in: "path"
-        required: true
-        type: "string"
+        - name: "followHandle"
+          in: "path"
+          required: true
+          type: "string"
+        - name: "userHandle"
+          in: "path"
+          required: true
+          type: "string"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/Response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -140,9 +149,9 @@ paths:
   /statuses:
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -158,25 +167,28 @@ paths:
   /statuses/post:
     post:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - in: "body"
-        name: "PostStatusRequest"
-        required: true
-        schema:
-          $ref: "#/definitions/PostStatusRequest"
+        - in: "body"
+          name: "PostStatusRequest"
+          required: true
+          schema:
+            $ref: "#/definitions/PostStatusRequest"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/Response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -189,27 +201,48 @@ paths:
               type: "string"
             Access-Control-Allow-Headers:
               type: "string"
-  /statuses/{statusId}:
+  /statuses/status:
+    options:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /statuses/status/{statusId}:
     get:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "statusId"
-        in: "path"
-        required: true
-        type: "string"
+        - name: "statusId"
+          in: "path"
+          required: true
+          type: "string"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/StatusResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -225,43 +258,9 @@ paths:
   /users:
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
-              type: "string"
-  /users/signup:
-    post:
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "SignupRequest"
-        required: true
-        schema:
-          $ref: "#/definitions/SignupRequest"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Response"
-    options:
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -277,24 +276,27 @@ paths:
   /users/{handle}:
     get:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "handle"
-        in: "path"
-        required: true
-        type: "string"
+        - name: "handle"
+          in: "path"
+          required: true
+          type: "string"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/UserResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -310,24 +312,27 @@ paths:
   /users/{handle}/feed:
     get:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "handle"
-        in: "path"
-        required: true
-        type: "string"
+        - name: "handle"
+          in: "path"
+          required: true
+          type: "string"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/FeedResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -343,24 +348,27 @@ paths:
   /users/{handle}/followers:
     get:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "handle"
-        in: "path"
-        required: true
-        type: "string"
+        - name: "handle"
+          in: "path"
+          required: true
+          type: "string"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/FollowersResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -376,24 +384,27 @@ paths:
   /users/{handle}/following:
     get:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "handle"
-        in: "path"
-        required: true
-        type: "string"
+        - name: "handle"
+          in: "path"
+          required: true
+          type: "string"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/FollowingResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -409,44 +420,91 @@ paths:
   /users/{handle}/profile:
     get:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "handle"
-        in: "path"
-        required: true
-        type: "string"
+        - name: "handle"
+          in: "path"
+          required: true
+          type: "string"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/ProfileResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     post:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "handle"
-        in: "path"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "UpdateProfileRequest"
-        required: true
-        schema:
-          $ref: "#/definitions/UpdateProfileRequest"
+        - name: "handle"
+          in: "path"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "UpdateProfileRequest"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateProfileRequest"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/Response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+  /users/{handle}/signup:
+    post:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "handle"
+          in: "path"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "SignupRequest"
+          required: true
+          schema:
+            $ref: "#/definitions/SignupRequest"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+    options:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
       responses:
         200:
           description: "200 response"
@@ -462,24 +520,27 @@ paths:
   /users/{handle}/story:
     get:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "handle"
-        in: "path"
-        required: true
-        type: "string"
+        - name: "handle"
+          in: "path"
+          required: true
+          type: "string"
       responses:
         200:
           description: "200 response"
           schema:
             $ref: "#/definitions/StoryResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
     options:
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "200 response"

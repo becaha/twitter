@@ -20,6 +20,13 @@ export class AppComponent {
     this.currentUser = this.userService.getCurrentUser();
     console.log(this.currentUser);
     this.proxy = proxy;
+    this.test();
+  }
+
+  test() {
+    console.log('test');
+    this.proxy.getUser('bec');
+    this.proxy.isFollowing('bec', 'friend');
   }
 
   /**
