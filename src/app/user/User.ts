@@ -28,6 +28,10 @@ export class User {
     return this.name;
   }
 
+  public getPassword() {
+    return this.password;
+  }
+
   public getFollowers() {
     return this.followers;
   }

@@ -1,49 +1,13 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-10-25T01:33:53Z"
+  version: "2019-10-29T19:03:02Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
 schemes:
   - "https"
 paths:
-  /follow:
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
-              type: "string"
-  /follow/{userHandle}:
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
-              type: "string"
   /follow/{userHandle}/{followHandle}:
     get:
       consumes:
@@ -89,23 +53,6 @@ paths:
           headers:
             Access-Control-Allow-Origin:
               type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
-              type: "string"
   /follow/{userHandle}/{followHandle}/unfollow:
     post:
       consumes:
@@ -128,41 +75,6 @@ paths:
             $ref: "#/definitions/Response"
           headers:
             Access-Control-Allow-Origin:
-              type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
-              type: "string"
-  /statuses:
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
               type: "string"
   /statuses/post:
     post:
@@ -201,24 +113,6 @@ paths:
               type: "string"
             Access-Control-Allow-Headers:
               type: "string"
-  /statuses/status:
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
-              type: "string"
   /statuses/status/{statusId}:
     get:
       consumes:
@@ -237,41 +131,6 @@ paths:
             $ref: "#/definitions/StatusResponse"
           headers:
             Access-Control-Allow-Origin:
-              type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
-              type: "string"
-  /users:
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
               type: "string"
   /users/{handle}:
     get:
@@ -292,23 +151,6 @@ paths:
           headers:
             Access-Control-Allow-Origin:
               type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
-              type: "string"
   /users/{handle}/feed:
     get:
       consumes:
@@ -324,26 +166,9 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/FeedResponse"
+            $ref: "#/definitions/StatusesResponse"
           headers:
             Access-Control-Allow-Origin:
-              type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
               type: "string"
   /users/{handle}/followers:
     get:
@@ -360,26 +185,9 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/FollowersResponse"
+            $ref: "#/definitions/UsersResponse"
           headers:
             Access-Control-Allow-Origin:
-              type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
               type: "string"
   /users/{handle}/following:
     get:
@@ -396,26 +204,9 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/FollowingResponse"
+            $ref: "#/definitions/UsersResponse"
           headers:
             Access-Control-Allow-Origin:
-              type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
               type: "string"
   /users/{handle}/profile:
     get:
@@ -532,31 +323,36 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/StoryResponse"
+            $ref: "#/definitions/StatusesResponse"
           headers:
             Access-Control-Allow-Origin:
-              type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
               type: "string"
 definitions:
-  FollowersResponse:
+  Response:
     type: "object"
-    title: "FollowersResponse"
+    properties:
+      message:
+        type: "string"
+        description: "Operation status message"
+    title: "Response"
+  UserResponse:
+    type: "object"
+    properties:
+      handle:
+        type: "string"
+        description: "The user handle"
+      name:
+        type: "string"
+        description: "The user full name"
+      password:
+        type: "string"
+        description: "The user password"
+      profile:
+        type: "string"
+    title: "UserResponse"
+  Empty:
+    type: "object"
+    title: "Empty Schema"
   IsFollowingResponse:
     type: "object"
     properties:
@@ -564,9 +360,36 @@ definitions:
         type: "string"
         description: "Boolean of the follow in question"
     title: "IsFollowingResponse"
-  FeedResponse:
-    type: "object"
-    title: "FeedResponse"
+  StatusesResponse:
+    title: "StatusesResponse"
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+        attachmentSrc:
+          type: "string"
+        ownerHandle:
+          type: "string"
+        date:
+          type: "string"
+        id:
+          type: "string"
+  UsersResponse:
+    title: "UsersResponse"
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        handle:
+          type: "string"
+        name:
+          type: "string"
+        password:
+          type: "string"
+        profile:
+          type: "string"
   SignupRequest:
     type: "object"
     properties:
@@ -579,6 +402,8 @@ definitions:
       name:
         type: "string"
         description: "The user full name"
+      profile:
+        type: "string"
     title: "SignupRequest"
   StatusResponse:
     type: "object"
@@ -599,39 +424,6 @@ definitions:
         type: "string"
         description: "The status id"
     title: "StatusResponse"
-  ProfileResponse:
-    type: "object"
-    properties:
-      src:
-        type: "string"
-        description: "The profile src"
-    title: "ProfileResponse"
-  Response:
-    type: "object"
-    properties:
-      message:
-        type: "string"
-        description: "Operation status message"
-    title: "Response"
-  UserResponse:
-    type: "object"
-    properties:
-      handle:
-        type: "string"
-        description: "The user handle"
-      name:
-        type: "string"
-        description: "The user full name"
-      password:
-        type: "string"
-        description: "The user password"
-    title: "UserResponse"
-  Empty:
-    type: "object"
-    title: "Empty Schema"
-  StoryResponse:
-    type: "object"
-    title: "StoryResponse"
   UpdateProfileRequest:
     type: "object"
     properties:
@@ -642,6 +434,13 @@ definitions:
         type: "string"
         description: "The profile src"
     title: "UpdateProfileRequest"
+  ProfileResponse:
+    type: "object"
+    properties:
+      src:
+        type: "string"
+        description: "The profile src"
+    title: "ProfileResponse"
   PostStatusRequest:
     type: "object"
     properties:
@@ -654,13 +453,4 @@ definitions:
       ownerHandle:
         type: "string"
         description: "The status ownerHandle"
-      date:
-        type: "string"
-        description: "The status date"
-      id:
-        type: "string"
-        description: "The status id"
     title: "PostStatusRequest"
-  FollowingResponse:
-    type: "object"
-    title: "FollowingResponse"

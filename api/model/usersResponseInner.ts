@@ -11,18 +11,9 @@
  */
 
 
-export interface UserResponse { 
-    /**
-     * The user handle
-     */
+export interface UsersResponseInner { 
     handle?: string;
-    /**
-     * The user full name
-     */
     name?: string;
-    /**
-     * The user password
-     */
     password?: string;
     profile?: string;
 }

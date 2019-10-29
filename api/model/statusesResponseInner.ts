@@ -11,18 +11,10 @@
  */
 
 
-export interface UserResponse { 
-    /**
-     * The user handle
-     */
-    handle?: string;
-    /**
-     * The user full name
-     */
-    name?: string;
-    /**
-     * The user password
-     */
-    password?: string;
-    profile?: string;
+export interface StatusesResponseInner { 
+    message?: string;
+    attachmentSrc?: string;
+    ownerHandle?: string;
+    date?: string;
+    id?: string;
 }

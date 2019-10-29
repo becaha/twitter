@@ -6,13 +6,15 @@ import {
   ProfileResponse,
   UserResponse,
   Response,
-  FollowersResponse,
-  FollowingResponse, StoryResponse, StatusResponse, FeedResponse, SignupRequest
+  StatusResponse, SignupRequest, StatusesResponse
 } from '../../api';
 import {UpdateProfileRequest} from '../../api/model/updateProfileRequest';
 import {Status} from './status/Status';
 import {PostStatusRequest} from '../../api/model/postStatusRequest';
 import {User} from './user/User';
+import {StoryResponse} from '../../api/model/storyResponse';
+import {FollowersResponse} from '../../api/model/followersResponse';
+import {FollowingResponse} from '../../api/model/followingResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -32,72 +34,89 @@ export class ProxyService {
 
   async getUser(handle: string) {
     const response: UserResponse = await this.apiGateway.usersHandleGet(handle).toPromise();
-    console.log(response.handle, response.name, response.password);
+    console.log('getUser', response.handle, response.name, response.password);
   }
 
   async signupUser(user: User) {
     // user.getHandle(), user.getPassword(), user.getName()
-    const request: SignupRequest = new SignupRequest(user);
+    const request: SignupRequest = {
+      handle: user.getHandle(),
+      password: user.getPassword(),
+      name: user.getName()
+    };
+
     const response: Response = await this.apiGateway.usersHandleSignupPost(user.getHandle(), request).toPromise();
-    console.log(response.message);
+    console.log('signup', response.message);
   }
 
   async getStory(handle: string) {
     const response: StoryResponse = await this.apiGateway.usersHandleStoryGet(handle).toPromise();
-    console.log(response);
+    console.log('get story', response);
   }
 
   async getFeed(handle: string) {
-    const response: FeedResponse = await this.apiGateway.usersHandleFeedGet(handle).toPromise();
-    console.log(response);
+    const response: StatusesResponse = await this.apiGateway.usersHandleFeedGet(handle).toPromise();
+    console.log('get feed', response);
   }
 
   async updateProfile(handle: string, profile: Attachment) {
-    const req: UpdateProfileRequest = new UpdateProfileRequest(handle, profile.getSrc());
+    const req: UpdateProfileRequest = {
+      handle,
+      src: profile.getSrc()
+    };
     const response: Response = await this.apiGateway.usersHandleProfilePost(handle, req).toPromise();
-    console.log(response.message);
+    console.log('update prof', response.message);
   }
 
   async getProfile(handle: string) {
     const response: ProfileResponse = await this.apiGateway.usersHandleProfileGet(handle).toPromise();
-    console.log(response.src);
+    console.log('get prof', response.src);
   }
 
   async getFollowers(handle: string) {
     const response: FollowersResponse = await this.apiGateway.usersHandleFollowersGet(handle).toPromise();
-    console.log(response);
+    console.log('get followers', response);
   }
 
   async getFollowing(handle: string) {
     const response: FollowingResponse = await this.apiGateway.usersHandleFollowingGet(handle).toPromise();
-    console.log(response);
+    console.log('get following', response);
   }
 
   async getStatus(statusId: string) {
     const response: StatusResponse = await this.apiGateway.statusesStatusStatusIdGet(statusId).toPromise();
-    console.log(response.id, response.message, response.date, response.ownerHandle, response.attachmentSrc);
+    console.log('get status', response.id, response.message, response.date, response.ownerHandle, response.attachmentSrc);
   }
 
   async postStatus(status: Status) {
     // status.getMessage(), status.getAttachment(), status.getOwner(), status.getDate(), status.getId()
-    const req: PostStatusRequest = new PostStatusRequest(status);
+    let src = '';
+    if (status.getAttachment() !== undefined) {
+      src = status.getAttachment().getSrc();
+    }
+    const req: PostStatusRequest = {
+      message: status.getMessageText(),
+      attachmentSrc: src,
+      ownerHandle: status.getOwner().getHandle()
+    };
     const response: Response = await this.apiGateway.statusesPostPost(req).toPromise();
-    console.log(response);
+    console.log('post', response);
   }
 
   async follow(userHandle: string, followHandle: string) {
     const response: Response = await this.apiGateway.followUserHandleFollowHandlePost(userHandle, followHandle).toPromise();
-    console.log(response.message);
+    console.log('follow', response.message);
   }
 
   async unfollow(userHandle: string, followHandle: string) {
     const response: Response = await this.apiGateway.followUserHandleFollowHandleUnfollowPost(userHandle, followHandle).toPromise();
-    console.log(response.message);
+    console.log('unfollow', response.message);
   }
 
   async isFollowing(userHandle: string, followHandle: string) {
-    const isFollowingResponse: IsFollowingResponse = await this.apiGateway.followUserHandleFollowHandleGet(userHandle, followHandle).toPromise();
-    console.log(isFollowingResponse.isFollowing);
+    const isFollowingResponse: IsFollowingResponse = await
+      this.apiGateway.followUserHandleFollowHandleGet(userHandle, followHandle).toPromise();
+    console.log('is following', isFollowingResponse.isFollowing);
   }
 
 

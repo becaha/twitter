@@ -2,6 +2,9 @@ import {Component, Input} from '@angular/core';
 import {User} from './user/User';
 import {UserService} from './user/user.service';
 import {ProxyService} from './proxy.service';
+import {Attachment} from './status/attachment/Attachment';
+import {Status} from './status/Status';
+import {Message} from './status/message/Message';
 
 @Component({
   selector: 'app-root',
@@ -25,14 +28,26 @@ export class AppComponent {
 
   test() {
     console.log('test');
-    this.proxy.getUser('bec');
-    this.proxy.isFollowing('bec', 'friend');
+    const user: User = new User('a', 'o', 'Becca', [], [], new Attachment('', ''));
+    const status: Status = new Status(new Message('msg'), user);
+    this.proxy.getUser(user.handle);
+    this.proxy.isFollowing(user.handle, 'friend');
+    this.proxy.signupUser(user); //
+    this.proxy.follow(user.handle, 'friend');
+    this.proxy.getFeed(user.handle);
+    this.proxy.getFollowers(user.handle);
+    this.proxy.getStory(user.handle);
+    this.proxy.getFollowing(user.handle);
+    this.proxy.getProfile(user.handle);
+    this.proxy.getStatus('a0');
+    this.proxy.postStatus(status); //
+    this.proxy.unfollow(user.handle, 'friend');
+    this.proxy.updateProfile(user.handle, new Attachment('', '')); //
   }
 
   /**
    * when user logs in, set the current user and
    * the view user as that logged in user
-   * @param event
    */
   onLogin(event) {
     this.userService.setCurrentUser(event);
