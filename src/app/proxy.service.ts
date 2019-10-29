@@ -21,7 +21,8 @@ import {FollowingResponse} from '../../api/model/followingResponse';
 })
 
 // after update and re-downloading of the yaml
-// java -jar swagger-codegen-cli.jar generate -i twitter-api-prod-swagger.yaml -l typescript-angular -o C:\Users\becab\IdeaProjects\TwitterLab\api --additional-properties supportsES6=true
+// java -jar swagger-codegen-cli.jar generate -i twitter-api-prod-swagger.yaml -l typescript-angular
+//  -o C:\Users\becab\IdeaProjects\TwitterLab\api --additional-properties supportsES6=true
 // then go into the DefaultService and replace the errors with strings
 
 

@@ -1,25 +1,30 @@
 import { Injectable } from '@angular/core';
 import {Status} from '../status/Status';
+import {ProxyService} from '../proxy.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatusesService {
   private mockAllStatuses: Status[] = [];
+  private proxy: ProxyService;
 
-  constructor() {
+  constructor(proxy: ProxyService) {
+    this.proxy = proxy;
   }
 
   addStatus(status: Status) {
     // TODO: not mock
-    this.mockAllStatuses.push(status);
+    this.mockAllStatuses.push(status); // TODO: 3
+    this.proxy.postStatus(status);
   }
 
   getStatus(id: string) {
-    const statuses = this.getAllStatuses().filter((status) => {
-      return status.getId() === id;
-    });
-    return statuses[0];
+    // const statuses = this.getAllStatuses().filter((status) => {
+    //   return status.getId() === id;
+    // });
+    // return statuses[0];
+    return this.proxy.getStatus(id);
   }
 
   getAllStatuses() {

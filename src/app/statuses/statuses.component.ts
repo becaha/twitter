@@ -34,7 +34,7 @@ export class StatusesComponent implements OnInit {
    * gets the viewUser from the route parameters by
    * getting the user by handle from the user service
    */
-  ngOnInit() {
+  async ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
       this.viewUser = this.userService.getUser(paramMap.get('handle'));
       if (this.viewUser == null) {
