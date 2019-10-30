@@ -5,6 +5,7 @@ import {Message} from '../status/message/Message';
 import {UserService} from '../user/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {StatusesService} from './statuses.service';
+import {Attachment} from '../status/attachment/Attachment';
 
 @Component({
   selector: 'app-statuses',
@@ -12,11 +13,13 @@ import {StatusesService} from './statuses.service';
   styleUrls: ['./statuses.component.css']
 })
 export class StatusesComponent implements OnInit {
-  @Input() owners: User[];
-  private statuses: Status[] = [];
+  // @Input() owners: User[];
+  @Input() statuses: Status[] = [];
+  // private statuses: Status[] = [];
   private userService: UserService;
   private currentUser: User;
   private viewUser: User;
+  private viewUserHandle: string;
   private statusForm: boolean;
   private text: string;
   private route: ActivatedRoute;
@@ -34,13 +37,17 @@ export class StatusesComponent implements OnInit {
    * gets the viewUser from the route parameters by
    * getting the user by handle from the user service
    */
-  async ngOnInit() {
+  ngOnInit() {
     this.route.paramMap.subscribe(paramMap => {
-      this.viewUser = this.userService.getUser(paramMap.get('handle'));
+      this.viewUserHandle = paramMap.get('handle');
       if (this.viewUser == null) {
         this.viewUser = this.userService.getCurrentUser();
       }
     });
+  }
+
+  async getViewUser() {
+    this.viewUser = await this.userService.getUser(this.viewUserHandle);
   }
 
   /**
@@ -48,19 +55,20 @@ export class StatusesComponent implements OnInit {
    * the owners are the users whose statuses are to be displayed
    * (a story user or a user following)
    */
-  public getStatuses() {
-    this.statuses = [];
-    let stories = this.owners.map(f => f.getStory());
-    // if it is a feed and not a story we have to add the current user to its following
-    if (this.owners.length !== 1) {
-      stories = stories.concat(this.currentUser.getStory());
-    }
-    for (const story of stories) {
-      this.statuses = this.statuses.concat(story);
-    }
-    this.statuses = this.statusesService.orderStatuses(this.statuses);
-    return this.statuses;
-  }
+  // public async getStatuses() {
+  //   await this.getViewUser();
+  //   this.statuses = [];
+  //   let stories = this.owners.map(f => f.getStory());
+  //   // if it is a feed and not a story we have to add the current user to its following
+  //   if (this.owners.length !== 1) {
+  //     stories = stories.concat(this.currentUser.getStory());
+  //   }
+  //   for (const story of stories) {
+  //     this.statuses = this.statuses.concat(story);
+  //   }
+  //   this.statuses = this.statusesService.orderStatuses(this.statuses);
+  //   return this.statuses;
+  // }
 
   /** on posting of the status,
    * time stamp it with the current date and
@@ -68,8 +76,9 @@ export class StatusesComponent implements OnInit {
    */
   public post() {
     const message = new Message(this.text);
-    const newStatus = new Status(message, this.viewUser);
-    this.statusesService.addStatus(this.currentUser.addStatus(newStatus));
+    //  constructor(message: Message, ownerHandle: string, profile: Attachment, attachment?: Attachment, date?: string, id?: string) {
+    const newStatus = new Status(message, this.viewUser.getHandle(), new Attachment(this.viewUser.getProfile().getSrc(), 'image'));
+    this.statusesService.addStatus(newStatus);
     // close status form
     this.statusForm = false;
   }

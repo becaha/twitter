@@ -11,16 +11,19 @@ import {Status} from '../status/Status';
 export class FeedComponent implements OnInit {
   private userService: UserService;
   private currentUser: User;
-  private following: User[];
+  private statuses: Status[];
 
   constructor(userService: UserService) {
     this.userService = userService;
     this.currentUser = userService.getCurrentUser();
-    // feed should only be for current user
-    this.following = this.currentUser.getFollowing();
   }
 
   ngOnInit() {
+  }
+
+  async getFeed() {
+    // this.statuses =
+    await this.userService.getFeed(this.currentUser);
   }
 
 }

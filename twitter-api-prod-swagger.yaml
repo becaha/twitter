@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-10-29T19:03:02Z"
+  version: "2019-10-30T17:33:34Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
@@ -372,6 +372,8 @@ definitions:
           type: "string"
         ownerHandle:
           type: "string"
+        profile:
+          type: "string"
         date:
           type: "string"
         id:
@@ -417,6 +419,9 @@ definitions:
       ownerHandle:
         type: "string"
         description: "The status ownerHandle"
+      profile:
+        type: "string"
+        description: "The status ownerHandle"
       date:
         type: "string"
         description: "The status date"
@@ -453,4 +458,6 @@ definitions:
       ownerHandle:
         type: "string"
         description: "The status ownerHandle"
+      profile:
+        type: "string"
     title: "PostStatusRequest"

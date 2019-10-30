@@ -15,6 +15,8 @@ import {User} from './user/User';
 import {StoryResponse} from '../../api/model/storyResponse';
 import {FollowersResponse} from '../../api/model/followersResponse';
 import {FollowingResponse} from '../../api/model/followingResponse';
+import {Message} from './status/message/Message';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,7 @@ import {FollowingResponse} from '../../api/model/followingResponse';
 
 // after update and re-downloading of the yaml
 // java -jar swagger-codegen-cli.jar generate -i twitter-api-prod-swagger.yaml -l typescript-angular
-//  -o C:\Users\becab\IdeaProjects\TwitterLab\api --additional-properties supportsES6=true
+// -o C:\Users\becab\IdeaProjects\TwitterLab\api --additional-properties supportsES6=true
 // then go into the DefaultService and replace the errors with strings
 
 
@@ -36,6 +38,7 @@ export class ProxyService {
   async getUser(handle: string) {
     const response: UserResponse = await this.apiGateway.usersHandleGet(handle).toPromise();
     console.log('getUser', response.handle, response.name, response.password);
+    return new User(response.handle, response.name, response.password, new Attachment(response.profile, 'image'));
   }
 
   async signupUser(user: User) {
@@ -72,6 +75,7 @@ export class ProxyService {
   async getProfile(handle: string) {
     const response: ProfileResponse = await this.apiGateway.usersHandleProfileGet(handle).toPromise();
     console.log('get prof', response.src);
+    return response.src;
   }
 
   async getFollowers(handle: string) {
@@ -87,6 +91,7 @@ export class ProxyService {
   async getStatus(statusId: string) {
     const response: StatusResponse = await this.apiGateway.statusesStatusStatusIdGet(statusId).toPromise();
     console.log('get status', response.id, response.message, response.date, response.ownerHandle, response.attachmentSrc);
+    return new Status(new Message(response.message), response.ownerHandle, new Attachment(response.profile, 'image'), new Attachment(response.attachmentSrc, 'image'), response.date, response.id);
   }
 
   async postStatus(status: Status) {
@@ -98,7 +103,7 @@ export class ProxyService {
     const req: PostStatusRequest = {
       message: status.getMessageText(),
       attachmentSrc: src,
-      ownerHandle: status.getOwner().getHandle()
+      ownerHandle: status.getOwnerHandle()
     };
     const response: Response = await this.apiGateway.statusesPostPost(req).toPromise();
     console.log('post', response);

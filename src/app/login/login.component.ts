@@ -31,13 +31,13 @@ export class LoginComponent implements OnInit {
    *   if no user exists, login fails
    *   if success, navigate to user's feed
    */
-  public login() {
+  public async login() {
     // creates dummy user with the handle and password
-    this.currentUser = this.userService.getMockUser();
+    this.currentUser = await this.userService.getUser(this.handle);
     this.userService.setCurrentUser(this.currentUser);
     // if successful take user to his feed
     // for now dummy user is a a
-    if (this.currentUser.handle === 'a' && this.password === 'a') {
+    if (this.handle === 'a' && this.password === 'a') {
       this.router.navigateByUrl('feed');
       this.loginUser.emit(this.currentUser);
     } else {

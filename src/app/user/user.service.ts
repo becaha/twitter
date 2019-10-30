@@ -113,10 +113,10 @@ export class UserService {
   //   return this.viewUser;
   // }
 
-  getUser(handle: string) {
+  async getUser(handle: string) {
     // const userByHandle = MOCK_USERS.filter(user => user.handle === handle);
     // return userByHandle[0];
-    return this.proxy.getUser(handle);
+    return await this.proxy.getUser(handle);
   }
 
   createUser(handle: string, password: string, name: string, followers: User[], following: User[], profile: Attachment) {
@@ -134,5 +134,29 @@ export class UserService {
   public setProfile(user: User, profile: any) {
     // this.profile = profile;
     this.proxy.updateProfile(user.handle, profile);
+  }
+
+  public async signup(user: User) {
+    return await this.proxy.signupUser(user);
+  }
+
+  public async getProfile(user: User) {
+    return await this.proxy.getProfile(user.handle);
+  }
+
+  public async getFollowing(user: User) {
+    return this.proxy.getFollowing(user.handle);
+  }
+
+  public async getFollowers(user: User) {
+    return await this.proxy.getFollowers(user.handle);
+  }
+
+  public async getFeed(user: User) {
+    return await this.proxy.getFeed(user.handle);
+  }
+
+  public async getStory(user: User) {
+    return await this.proxy.getStory(user.handle);
   }
 }

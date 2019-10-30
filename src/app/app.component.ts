@@ -23,26 +23,6 @@ export class AppComponent {
     this.currentUser = this.userService.getCurrentUser();
     console.log(this.currentUser);
     this.proxy = proxy;
-    this.test();
-  }
-
-  test() {
-    console.log('test');
-    const user: User = new User('a', 'o', 'Becca', [], [], new Attachment('', ''));
-    const status: Status = new Status(new Message('msg'), user);
-    this.proxy.getUser(user.handle);
-    this.proxy.isFollowing(user.handle, 'friend');
-    this.proxy.signupUser(user); //
-    this.proxy.follow(user.handle, 'friend');
-    this.proxy.getFeed(user.handle);
-    this.proxy.getFollowers(user.handle);
-    this.proxy.getStory(user.handle);
-    this.proxy.getFollowing(user.handle);
-    this.proxy.getProfile(user.handle);
-    this.proxy.getStatus('a0');
-    this.proxy.postStatus(status); //
-    this.proxy.unfollow(user.handle, 'friend');
-    this.proxy.updateProfile(user.handle, new Attachment('', '')); //
   }
 
   /**

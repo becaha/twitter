@@ -19,12 +19,12 @@ export class StatusesService {
     this.proxy.postStatus(status);
   }
 
-  getStatus(id: string) {
+  async getStatus(id: string) {
     // const statuses = this.getAllStatuses().filter((status) => {
     //   return status.getId() === id;
     // });
     // return statuses[0];
-    return this.proxy.getStatus(id);
+    return await this.proxy.getStatus(id);
   }
 
   getAllStatuses() {
@@ -38,15 +38,17 @@ export class StatusesService {
    * and it will be at the bottom
    */
   public orderStatuses(statuses: Status[]) {
-    const orderedStatuses = statuses.sort((a, b) => {
-      if (a.getDate().getTime() < b.getDate().getTime()) {
-        return 1;
-      } else if (a.getDate().getTime() === b.getDate().getTime()) {
-        return 0;
-      }
-      return -1;
-    });
-    return orderedStatuses;
+    // TODO: order statuses in backend
+    // const orderedStatuses = statuses.sort((a, b) => {
+    //   if (a.getDate().getTime() < b.getDate().getTime()) {
+    //     return 1;
+    //   } else if (a.getDate().getTime() === b.getDate().getTime()) {
+    //     return 0;
+    //   }
+    //   return -1;
+    // });
+    // return orderedStatuses;
+    return statuses;
   }
 
   // returns all statuses with given hashtag

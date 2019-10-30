@@ -17,6 +17,7 @@ export class StatusComponent implements OnInit {
   private statusesService: StatusesService;
   private route: ActivatedRoute;
   private isSingleStatus: boolean;
+  private singleStatusId: string;
 
   constructor(userService: UserService, statusesService: StatusesService, route: ActivatedRoute) {
     this.userService = userService;
@@ -30,14 +31,18 @@ export class StatusComponent implements OnInit {
    * if no parameter 'id', it is not a single status view
    */
   ngOnInit() {
-    // stand alone status has status id in route params
     this.route.paramMap.subscribe((paramMap) => {
-      const singleStatus = this.statusesService.getStatus(paramMap.get('id'));
-      if (singleStatus) {
-        this.status = singleStatus;
-        this.isSingleStatus = true;
-      }
+      this.singleStatusId = (paramMap.get('id'));
+      this.getSingleStatus();
     });
+  }
+
+  async getSingleStatus() {
+    const singleStatus = await this.statusesService.getStatus(this.singleStatusId);
+    if (singleStatus) {
+      this.status = singleStatus;
+      this.isSingleStatus = true;
+    }
   }
 
 }
