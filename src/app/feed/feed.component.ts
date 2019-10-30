@@ -19,11 +19,13 @@ export class FeedComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getFeed();
   }
 
   async getFeed() {
-    // this.statuses =
-    await this.userService.getFeed(this.currentUser);
+    console.log('get feed high');
+    this.statuses = await this.userService.getFeed(this.currentUser);
+    console.log('got feed', this.statuses);
   }
 
 }

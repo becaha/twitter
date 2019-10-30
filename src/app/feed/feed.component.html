@@ -1,2 +1,2 @@
 <!--<app-statuses *ngIf="this.following" [owners]="this.following"></app-statuses>-->
-<app-statuses [statuses]="getFeed()"></app-statuses>
+<app-statuses *ngIf="this.statuses" [statuses]="this.statuses"></app-statuses>
