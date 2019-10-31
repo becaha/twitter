@@ -38,31 +38,40 @@ export class ProxyService {
   async getUser(handle: string) {
     const response: UserResponse = await this.apiGateway.usersHandleGet(handle).toPromise();
     console.log('getUser', response.handle, response.name, response.password);
-    return new User(response.handle, response.name, response.password, new Attachment(response.profile, 'image'));
+    if (response.handle !== undefined) {
+      return new User(response.handle, response.name, response.password, new Attachment(response.profile, 'image'));
+    }
+    return null;
   }
 
-  async signupUser(user: User) {
+  async signupUser(handle: string, password: string, name: string, attachmentSrc: string) {
     // user.getHandle(), user.getPassword(), user.getName()
     const request: SignupRequest = {
-      handle: user.getHandle(),
-      password: user.getPassword(),
-      name: user.getName(),
-      profile: user.getProfile().getSrc()
+      handle,
+      password,
+      name,
+      profile: attachmentSrc
     };
 
-    const response: Response = await this.apiGateway.usersHandleSignupPost(user.getHandle(), request).toPromise();
+    const response: Response = await this.apiGateway.usersHandleSignupPost(handle, request).toPromise();
     console.log('signup', response.message);
+    // TODO: change this
+    return new User(handle, password, name, new Attachment(attachmentSrc, 'image'));
   }
 
   async getStory(handle: string) {
     const response: StoryResponse = await this.apiGateway.usersHandleStoryGet(handle).toPromise();
     console.log('get story', response);
-    return [];
+    return this.extractStatuses(response);
   }
 
   async getFeed(handle: string) {
     const response: StatusesResponse = await this.apiGateway.usersHandleFeedGet(handle).toPromise();
     console.log('get feed', response);
+    return this.extractStatuses(response);
+  }
+
+  extractStatuses(response) {
     const statuses: Status[] = [];
     response.forEach((value, index, array) => {
         statuses.push(new Status(new Message(value.message), value.ownerHandle, new Attachment(value.profile, 'image'),
@@ -90,13 +99,22 @@ export class ProxyService {
   async getFollowers(handle: string) {
     const response: FollowersResponse = await this.apiGateway.usersHandleFollowersGet(handle).toPromise();
     console.log('get followers', response);
-    return [];
+    return this.extractUsers(response);
   }
 
   async getFollowing(handle: string) {
     const response: FollowingResponse = await this.apiGateway.usersHandleFollowingGet(handle).toPromise();
     console.log('get following', response);
-    return [];
+    return this.extractUsers(response);
+  }
+
+  extractUsers(response) {
+    const users: User[] = [];
+    response.forEach((value, index, array) => {
+        users.push(new User(response.handle, response.password, response.name, new Attachment(response.profile, 'image')));
+      }
+    );
+    return users;
   }
 
   async getStatus(statusId: string) {

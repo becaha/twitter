@@ -5,6 +5,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {MOCK_USERS} from '../user/mock-users';
 import {FollowService} from '../follow/follow.service';
+import {Status} from '../status/Status';
 
 @Component({
   selector: 'app-story',
@@ -20,6 +21,7 @@ export class StoryComponent implements OnInit {
   private route: ActivatedRoute;
   private isFollowing: boolean;
   private followService: FollowService;
+  private statuses: Status[];
 
   constructor(userService: UserService, followService: FollowService, route: ActivatedRoute) {
     this.userService = userService;
@@ -43,12 +45,14 @@ export class StoryComponent implements OnInit {
     this.viewUser = await this.userService.getUser(this.viewUserHandle);
     if (this.viewUser == null) {
       this.viewUser = this.userService.getCurrentUser();
+      console.log('got user is null so set to ' + this.viewUser);
     }
-    this.setIsFollowing();
+    // this.setIsFollowing();
+    this.getStory();
   }
 
   async getStory() {
-    return await this.userService.getStory(this.viewUser);
+    this.statuses = await this.userService.getStory(this.viewUser);
   }
 
   /** returns viewedUser as an array of
@@ -80,6 +84,7 @@ export class StoryComponent implements OnInit {
    * currentUser follows the viewedUser
    */
   onFollow() {
+    console.log(this.currentUser, this.viewUser);
     this.followService.follow(this.currentUser, this.viewUser);
     // reset button
     this.isFollowing = true;

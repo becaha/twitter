@@ -116,7 +116,12 @@ export class UserService {
   async getUser(handle: string) {
     // const userByHandle = MOCK_USERS.filter(user => user.handle === handle);
     // return userByHandle[0];
-    return await this.proxy.getUser(handle);
+    const user = await this.proxy.getUser(handle);
+    // TODO: remove this, signup user
+    if (user == null && this.currentUser.handle === handle) {
+      return this.currentUser;
+    }
+    return user;
   }
 
   createUser(handle: string, password: string, name: string, followers: User[], following: User[], profile: Attachment) {
@@ -136,8 +141,8 @@ export class UserService {
     this.proxy.updateProfile(user.handle, profile);
   }
 
-  public async signup(user: User) {
-    return await this.proxy.signupUser(user);
+  public async signup(handle: string, password: string, name: string, attachmentSrc: string) {
+    return await this.proxy.signupUser(handle, password, name, attachmentSrc);
   }
 
   public async getProfile(user: User) {

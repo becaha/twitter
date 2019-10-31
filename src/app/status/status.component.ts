@@ -33,7 +33,9 @@ export class StatusComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
       this.singleStatusId = (paramMap.get('id'));
-      this.getSingleStatus();
+      if (this.singleStatusId) {
+        this.getSingleStatus();
+      }
     });
   }
 
