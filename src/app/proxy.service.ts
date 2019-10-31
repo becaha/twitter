@@ -23,8 +23,7 @@ import {Message} from './status/message/Message';
 })
 
 // after update and re-downloading of the yaml
-// java -jar swagger-codegen-cli.jar generate -i twitter-api-prod-swagger.yaml -l typescript-angular
-// -o C:\Users\becab\IdeaProjects\TwitterLab\api --additional-properties supportsES6=true
+// java -jar swagger-codegen-cli.jar generate -i twitter-api-prod-swagger.yaml -l typescript-angular -o C:\Users\becab\IdeaProjects\TwitterLab\api --additional-properties supportsES6=true
 // then go into the DefaultService and replace the errors with strings
 
 
@@ -52,7 +51,6 @@ export class ProxyService {
       name,
       profile: attachmentSrc
     };
-
     const response: Response = await this.apiGateway.usersHandleSignupPost(handle, request).toPromise();
     console.log('signup', response.message);
     // TODO: change this
@@ -98,22 +96,23 @@ export class ProxyService {
 
   async getFollowers(handle: string) {
     const response: FollowersResponse = await this.apiGateway.usersHandleFollowersGet(handle).toPromise();
-    console.log('get followers', response);
+    console.log('get followers');
     return this.extractUsers(response);
   }
 
   async getFollowing(handle: string) {
     const response: FollowingResponse = await this.apiGateway.usersHandleFollowingGet(handle).toPromise();
-    console.log('get following', response);
+    console.log('get following');
     return this.extractUsers(response);
   }
 
   extractUsers(response) {
     const users: User[] = [];
     response.forEach((value, index, array) => {
-        users.push(new User(response.handle, response.password, response.name, new Attachment(response.profile, 'image')));
+        users.push(new User(value.handle, value.password, value.name, new Attachment(value.profile, 'image')));
       }
     );
+    console.log('get users', users);
     return users;
   }
 
@@ -151,8 +150,7 @@ export class ProxyService {
   }
 
   async isFollowing(userHandle: string, followHandle: string) {
-    const response: IsFollowingResponse = await
-      this.apiGateway.followUserHandleFollowHandleGet(userHandle, followHandle).toPromise();
+    const response: IsFollowingResponse = await this.apiGateway.followUserHandleFollowHandleGet(followHandle, userHandle).toPromise();
     console.log('is following', response.isFollowing);
     const isFollowingBool: boolean = JSON.parse(response.isFollowing);
     console.log('is following boolean', isFollowingBool);

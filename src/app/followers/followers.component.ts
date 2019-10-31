@@ -28,9 +28,10 @@ export class FollowersComponent implements OnInit {
       this.getViewUser();
     });
   }
+
   async getViewUser() {
     this.viewUser = await this.userService.getUser(this.viewUserHandle);
-    this.followers = this.viewUser.getFollowers();
+    this.followers = await this.userService.getFollowers(this.viewUser);
   }
 
 
@@ -40,7 +41,7 @@ export class FollowersComponent implements OnInit {
    * re-fetch view users followers
    * @param event
    */
-  receiveFollowUpdate(event) {
-    this.followers = this.viewUser.getFollowers();
+  async receiveFollowUpdate(event) {
+    this.followers = await this.userService.getFollowers(this.viewUser);
   }
 }

@@ -34,12 +34,8 @@ export class FollowComponent implements OnInit {
    * if current user is following the displayed follow user,
    * sets isFollowing to true
    */
-  setIsFollowing() {
-    if (this.followService.isFollowing(this.currentUser, this.follow)) {
-      this.isFollowing = true;
-    } else {
-      this.isFollowing = false;
-    }
+  async setIsFollowing() {
+    this.isFollowing = await this.followService.isFollowing(this.currentUser, this.follow);
   }
 
   /**

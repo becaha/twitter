@@ -1,2 +1,2 @@
-<app-follows [follows]="this.followers" (updateFollows)="receiveFollowUpdate($event)"></app-follows>
+<app-follows *ngIf="this.followers" [follows]="this.followers" (updateFollows)="receiveFollowUpdate($event)"></app-follows>
 

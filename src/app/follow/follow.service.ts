@@ -13,9 +13,9 @@ export class FollowService {
   }
 
   // checks if user is following following
-  isFollowing(user: User, following: User) {
+  async isFollowing(user: User, following: User) {
     // return user.getFollowing().includes(following);
-    return this.proxy.isFollowing(user.handle, following.handle);
+    return await this.proxy.isFollowing(user.handle, following.handle);
   }
 
   // not called by UI!!
