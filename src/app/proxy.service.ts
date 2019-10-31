@@ -141,12 +141,12 @@ export class ProxyService {
   }
 
   async follow(userHandle: string, followHandle: string) {
-    const response: Response = await this.apiGateway.followUserHandleFollowHandlePost(userHandle, followHandle).toPromise();
+    const response: Response = await this.apiGateway.followUserHandleFollowHandlePost(followHandle, userHandle).toPromise();
     console.log('follow', response.message);
   }
 
   async unfollow(userHandle: string, followHandle: string) {
-    const response: Response = await this.apiGateway.followUserHandleFollowHandleUnfollowPost(userHandle, followHandle).toPromise();
+    const response: Response = await this.apiGateway.followUserHandleFollowHandleUnfollowPost(followHandle, userHandle).toPromise();
     console.log('unfollow', response.message);
   }
 
