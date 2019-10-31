@@ -15,13 +15,16 @@ import {User} from './user/User';
 import {StoryResponse} from '../../api/model/storyResponse';
 import {FollowersResponse} from '../../api/model/followersResponse';
 import {FollowingResponse} from '../../api/model/followingResponse';
+import {Message} from './status/message/Message';
+
 
 @Injectable({
   providedIn: 'root'
 })
 
 // after update and re-downloading of the yaml
-// java -jar swagger-codegen-cli.jar generate -i twitter-api-prod-swagger.yaml -l typescript-angular -o C:\Users\becab\IdeaProjects\TwitterLab\api --additional-properties supportsES6=true
+// java -jar swagger-codegen-cli.jar generate -i twitter-api-prod-swagger.yaml -l typescript-angular
+// -o C:\Users\becab\IdeaProjects\TwitterLab\api --additional-properties supportsES6=true
 // then go into the DefaultService and replace the errors with strings
 
 
@@ -35,28 +38,47 @@ export class ProxyService {
   async getUser(handle: string) {
     const response: UserResponse = await this.apiGateway.usersHandleGet(handle).toPromise();
     console.log('getUser', response.handle, response.name, response.password);
+    if (response.handle !== undefined) {
+      return new User(response.handle, response.name, response.password, new Attachment(response.profile, 'image'));
+    }
+    return null;
   }
 
-  async signupUser(user: User) {
+  async signupUser(handle: string, password: string, name: string, attachmentSrc: string) {
     // user.getHandle(), user.getPassword(), user.getName()
     const request: SignupRequest = {
-      handle: user.getHandle(),
-      password: user.getPassword(),
-      name: user.getName()
+      handle,
+      password,
+      name,
+      profile: attachmentSrc
     };
 
-    const response: Response = await this.apiGateway.usersHandleSignupPost(user.getHandle(), request).toPromise();
+    const response: Response = await this.apiGateway.usersHandleSignupPost(handle, request).toPromise();
     console.log('signup', response.message);
+    // TODO: change this
+    return new User(handle, password, name, new Attachment(attachmentSrc, 'image'));
   }
 
   async getStory(handle: string) {
     const response: StoryResponse = await this.apiGateway.usersHandleStoryGet(handle).toPromise();
     console.log('get story', response);
+    return this.extractStatuses(response);
   }
 
   async getFeed(handle: string) {
     const response: StatusesResponse = await this.apiGateway.usersHandleFeedGet(handle).toPromise();
     console.log('get feed', response);
+    return this.extractStatuses(response);
+  }
+
+  extractStatuses(response) {
+    const statuses: Status[] = [];
+    response.forEach((value, index, array) => {
+        statuses.push(new Status(new Message(value.message), value.ownerHandle, new Attachment(value.profile, 'image'),
+          new Attachment(value.attachmentSrc, ''), value.date, value.id));
+      }
+    );
+    return statuses;
   }
 
   async updateProfile(handle: string, profile: Attachment) {
@@ -71,21 +93,36 @@ export class ProxyService {
   async getProfile(handle: string) {
     const response: ProfileResponse = await this.apiGateway.usersHandleProfileGet(handle).toPromise();
     console.log('get prof', response.src);
+    return response.src;
   }
 
   async getFollowers(handle: string) {
     const response: FollowersResponse = await this.apiGateway.usersHandleFollowersGet(handle).toPromise();
     console.log('get followers', response);
+    return this.extractUsers(response);
   }
 
   async getFollowing(handle: string) {
     const response: FollowingResponse = await this.apiGateway.usersHandleFollowingGet(handle).toPromise();
     console.log('get following', response);
+    return this.extractUsers(response);
+  }
+
+  extractUsers(response) {
+    const users: User[] = [];
+    response.forEach((value, index, array) => {
+        users.push(new User(response.handle, response.password, response.name, new Attachment(response.profile, 'image')));
+      }
+    );
+    return users;
   }
 
   async getStatus(statusId: string) {
     const response: StatusResponse = await this.apiGateway.statusesStatusStatusIdGet(statusId).toPromise();
     console.log('get status', response.id, response.message, response.date, response.ownerHandle, response.attachmentSrc);
+    return new Status(new Message(response.message), response.ownerHandle,
+                      new Attachment(response.profile, 'image'),
+                      new Attachment(response.attachmentSrc, 'image'), response.date, response.id);
   }
 
   async postStatus(status: Status) {
@@ -97,7 +134,7 @@ export class ProxyService {
     const req: PostStatusRequest = {
       message: status.getMessageText(),
       attachmentSrc: src,
-      ownerHandle: status.getOwner().getHandle()
+      ownerHandle: status.getOwnerHandle()
     };
     const response: Response = await this.apiGateway.statusesPostPost(req).toPromise();
     console.log('post', response);
@@ -114,9 +151,12 @@ export class ProxyService {
   }
 
   async isFollowing(userHandle: string, followHandle: string) {
-    const isFollowingResponse: IsFollowingResponse = await
+    const response: IsFollowingResponse = await
       this.apiGateway.followUserHandleFollowHandleGet(userHandle, followHandle).toPromise();
-    console.log('is following', isFollowingResponse.isFollowing);
+    console.log('is following', response.isFollowing);
+    const isFollowingBool: boolean = JSON.parse(response.isFollowing);
+    console.log('is following boolean', isFollowingBool);
+    return isFollowingBool;
   }
 
 

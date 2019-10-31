@@ -12,7 +12,7 @@
       <button type="button" (click)="post()">Post</button>
     </div>
   </div>
-  <div *ngFor="let status of getStatuses()">
+  <div *ngFor="let status of statuses">
     <app-status [status]="status"></app-status>
   </div>
 </div>

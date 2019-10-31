@@ -1,11 +1,11 @@
 <div class="card card-row status">
   <div class="card-row-ownership">
-    <img class="card-row-image" src='../../assets/images/{{status.getOwner().getAttachmentSrc()}}' alt="profile picture">
-    <a class="card-text" routerLink="/story/{{status.getOwner().getHandle()}}">{{status.getOwner().getHandle()}}</a>
+    <img class="card-row-image" src='../../assets/images/{{status.getProfile().getSrc()}}' alt="profile picture">
+    <a class="card-text" routerLink="/story/{{status.getOwnerHandle()}}">{{status.getOwnerHandle()}}</a>
   </div>
   <div class="card-row-info">
     <div class="card-row-header">
-      <p>{{status.getDate().getMonth()}}/{{status.getDate().getDate()}}/{{status.getDate().getFullYear()}}</p>
+      <p>{{status.getDate()}}</p>
     </div>
     <div class="card-body">
       <app-message [messageStatus]="status"></app-message>
@@ -13,7 +13,7 @@
     <div *ngIf="!isSingleStatus" class="card-row-footer">
       <a routerLink="/status/{{status.getId()}}">View Status</a>
     </div>
-    <div *ngIf="status.getAttachment()" class="card-img">
+    <div *ngIf="status.getAttachment().getSrc() !== ''" class="card-img">
       <app-attachment [attachment]="status.getAttachment()"></app-attachment>
     </div>
   </div>

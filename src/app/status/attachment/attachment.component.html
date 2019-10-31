@@ -1,3 +1,5 @@
+<img *ngIf="attachment.getType() === ''" src="../../../assets/images/{{attachment.getSrc()}}" alt="attachment">
+
 <img *ngIf="attachment.getType() === 'image'" src="../../../assets/images/{{attachment.getSrc()}}" alt="attachment">
 
 <video *ngIf="attachment.getType() === 'video'" width="320" height="240" controls>

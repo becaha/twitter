@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
   private handle: string;
   private password: string;
   private name: string;
-  private attachment: Attachment;
+  private attachmentSrc: string;
   private userService: UserService;
   private signupError: boolean;
   private router: Router;
@@ -37,14 +37,14 @@ export class SignupComponent implements OnInit {
    * to the new user
    * if not all the inputs are given, sign up error
    */
-  signup() {
+  async signup() {
     // TODO: real attachment
-    this.attachment = new Attachment('redHat.jpg', 'image');
-    this.currentUser = this.userService.createUser(this.handle, this.password, this.name, [], [], this.attachment);
-    this.userService.setCurrentUser(this.currentUser);
-    this.userService.setViewUser(this.currentUser);
+    this.attachmentSrc = 'redHat.jpg';
     // TODO: add this.attachment
-    if (this.handle && this.password && this.name) {
+    if (this.handle && this.password && this.name && this.attachmentSrc) {
+      this.currentUser = await this.userService.signup(this.handle, this.password, this.name, this.attachmentSrc);
+      this.userService.setCurrentUser(this.currentUser);
+      this.userService.setViewUser(this.currentUser);
       this.router.navigateByUrl('feed');
       this.loginUser.emit(this.currentUser);
     } else {

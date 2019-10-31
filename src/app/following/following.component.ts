@@ -12,6 +12,7 @@ export class FollowingComponent implements OnInit {
   private userService: UserService;
   private currentUser: User;
   private viewUser: User;
+  private viewUserHandle: string;
   private following: User[];
   private route: ActivatedRoute;
 
@@ -27,10 +28,15 @@ export class FollowingComponent implements OnInit {
    */
   ngOnInit() {
     this.route.paramMap.subscribe( paramMap => {
-      this.viewUser = this.userService.getUser(paramMap.get('handle'));
-      this.following = this.viewUser.getFollowing();
+      this.viewUserHandle = paramMap.get('handle');
+      this.getViewUser();
     });
   }
+  async getViewUser() {
+    this.viewUser = await this.userService.getUser(this.viewUserHandle);
+    this.following = this.viewUser.getFollowing();
+  }
+
 
   /**
    * receives follow update

@@ -1,25 +1,47 @@
 import {Attachment} from './attachment/Attachment';
 import {Message} from './message/Message';
-import {User} from '../user/User';
 
 export class Status {
   private message: Message;
+  private ownerHandle: string;
+  private profile: Attachment;
   private attachment: Attachment;
-  private owner: User;
-  private date: Date;
+  private date: string;
   private id: string;
 
-  constructor(message: Message, owner?: User, attachment?: Attachment) {
+  // constructor(message: Message, ownerHandle?: string, attachment?: Attachment)
+  constructor(message: Message, ownerHandle: string, profile: Attachment, attachment?: Attachment, date?: string, id?: string) {
     this.message = message;
-    this.owner = owner;
+    this.ownerHandle = ownerHandle;
+    this.profile = profile;
     this.attachment = attachment;
     // date is when it is constructed
-    this.date = new Date();
+    this.date = date;
+    this.setDate();
+    this.id = id;
     this.setId();
   }
 
+
+  getProfile(): Attachment {
+    return this.profile;
+  }
+
+  setProfile(value: Attachment) {
+    this.profile = value;
+  }
+
+  public setDate() {
+    if (this.date == null) {
+      const date = new Date();
+      this.date = date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear();
+    }
+  }
+
   public setId() {
-    this.id = this.date.getDate().toString() + this.date.getMonth() + this.date.getFullYear() + this.date.getTime();
+    if (this.id == null) {
+      this.id = this.date;
+    }
   }
 
   public getId() {
@@ -34,13 +56,13 @@ export class Status {
     return this.message.getText();
   }
 
-  public getOwner() {
-    return this.owner;
+  public getOwnerHandle() {
+    return this.ownerHandle;
   }
 
-  public setOwner(owner: User) {
-    this.owner = owner;
-    this.id += owner.handle;
+  public setOwnerHandle(ownerHandle: string) {
+    this.ownerHandle = ownerHandle;
+    this.id += ownerHandle;
   }
 
   public getDate() {

@@ -1,4 +1,4 @@
-<div class="container-col">
+<div *ngIf="this.viewUser" class="container-col">
   <div class="profile">
     <div class="profile-pic">
       <!--TODO upload from user profile src, from assets/images -->
@@ -17,6 +17,6 @@
     </div>
   </div>
   <div>
-    <app-statuses *ngIf="viewUser" [owners]="getViewUsers()"></app-statuses>
+    <app-statuses *ngIf="statuses" [statuses]="statuses"></app-statuses>
   </div>
 </div>
