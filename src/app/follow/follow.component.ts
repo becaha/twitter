@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../user/user.service';
 import {User} from '../user/User';
@@ -20,17 +20,19 @@ export class FollowComponent implements OnInit {
   private isFollowing: boolean;
   private currentUser: User;
   private followService: FollowService;
+  private changer: ChangeDetectorRef;
 
-  constructor(router: Router, userService: UserService, followService: FollowService) {
+  constructor(router: Router, userService: UserService, followService: FollowService, changer: ChangeDetectorRef) {
     this.router = router;
     this.userService = userService;
     this.followService = followService;
     this.currentUser = this.userService.getCurrentUser();
-
+    this.changer = changer;
   }
 
   async ngOnInit() {
     await this.setIsFollowing();
+    this.changer.detectChanges();
   }
 
   /**
