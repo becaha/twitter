@@ -11,7 +11,7 @@ import {Attachment} from '../status/attachment/Attachment';
   styleUrls: ['./follow.component.css'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class FollowComponent implements OnInit, OnChanges {
+export class FollowComponent implements OnInit {
   // user following or follower
   @Input() follow: User;
   @Output() followUpdate = new EventEmitter();
