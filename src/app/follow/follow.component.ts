@@ -1,22 +1,23 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../user/user.service';
 import {User} from '../user/User';
 import {FollowService} from './follow.service';
+import {Attachment} from '../status/attachment/Attachment';
 
 @Component({
   selector: 'app-follow',
   templateUrl: './follow.component.html',
-  styleUrls: ['./follow.component.css']
+  styleUrls: ['./follow.component.css'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
-export class FollowComponent implements OnInit {
+export class FollowComponent implements OnInit, OnChanges {
   // user following or follower
   @Input() follow: User;
   @Output() followUpdate = new EventEmitter();
   private router: Router;
   private userService: UserService;
   private isFollowing: boolean;
-  private gotIsFollowing = false;
   private currentUser: User;
   private followService: FollowService;
 
@@ -25,10 +26,15 @@ export class FollowComponent implements OnInit {
     this.userService = userService;
     this.followService = followService;
     this.currentUser = this.userService.getCurrentUser();
+
   }
 
-  ngOnInit() {
-    this.setIsFollowing();
+  async ngOnChanges() {
+    await this.setIsFollowing();
+  }
+
+  async ngOnInit() {
+    await this.setIsFollowing();
   }
 
   /**
@@ -37,7 +43,7 @@ export class FollowComponent implements OnInit {
    */
   async setIsFollowing() {
     this.isFollowing = await this.followService.isFollowing(this.currentUser, this.follow);
-    this.gotIsFollowing = true;
+    // console.log('got is following', this.currentUser.handle, this.follow.getHandle(), this.isFollowing);
   }
 
   /**
@@ -55,7 +61,8 @@ export class FollowComponent implements OnInit {
     this.followService.unfollow(this.currentUser, this.follow);
     this.isFollowing = false;
     // reset follows
-    this.followUpdate.emit();
+    // TODO: refresh
+    // this.followUpdate.emit();
   }
 
 }

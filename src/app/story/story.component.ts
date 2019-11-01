@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {UserService} from '../user/user.service';
 import {User} from '../user/User';
 import {ActivatedRoute, ParamMap} from '@angular/router';
@@ -22,7 +22,7 @@ export class StoryComponent implements OnInit {
   private isFollowing: boolean;
   private gotIsFollowing = false;
   private followService: FollowService;
-  private statuses: Status[];
+  private statuses: Status[] = [];
 
   constructor(userService: UserService, followService: FollowService, route: ActivatedRoute) {
     this.userService = userService;
@@ -40,6 +40,16 @@ export class StoryComponent implements OnInit {
       this.viewUserHandle = paramMap.get('handle');
       this.getViewUser();
     });
+  }
+
+  @HostListener('window:scroll', [])
+  async onScroll() {
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+      // bottom of the page
+      console.log('scrolled to bottom');
+      const statuses = await this.userService.getStory(this.viewUser);
+      this.statuses = this.statuses.concat(statuses);
+    }
   }
 
   async getViewUser() {

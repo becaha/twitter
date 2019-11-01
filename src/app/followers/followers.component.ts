@@ -43,5 +43,12 @@ export class FollowersComponent implements OnInit {
    */
   async receiveFollowUpdate(event) {
     this.followers = await this.userService.getFollowers(this.viewUser);
+    console.log(this.followers);
+  }
+
+  async receiveMoreFollowsUpdate(event) {
+    const followers = await this.userService.getFollowers(this.viewUser);
+    this.followers = this.followers.concat(followers);
+    console.log(this.followers);
   }
 }

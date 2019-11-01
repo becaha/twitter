@@ -1,4 +1,6 @@
 <h4>Search results for {{searchText}}</h4>
-<div *ngFor="let foundStatus of foundStatuses">
-  <app-status [status]="foundStatus"></app-status>
+<div class="container" *ngIf="foundStatuses">
+  <div *ngFor="let foundStatus of foundStatuses">
+    <app-status [status]="foundStatus"></app-status>
+  </div>
 </div>

@@ -1,9 +1,15 @@
-<div *ngFor="let f of followsArray; let i = index">
-  <!-- make a new row every 4 follows -->
-  <div class="container-row">
-    <div *ngFor="let a of createArray(4); let colIndex = index" class="container-col">
-      <app-follow *ngIf="i*4 + colIndex < this.follows.length" [follow]="this.follows[i*4 + colIndex]" (followUpdate)="receiveFollowUpdate($event)"></app-follow>
-    </div>
+<!--<div *ngFor="let f of followsArray; let i = index">-->
+<!--  &lt;!&ndash; make a new row every 4 follows &ndash;&gt;-->
+<!--  <div class="container-row">-->
+<!--    <div *ngFor="let a of createArray(4); let colIndex = index" class="container-col">-->
+<!--      <app-follow *ngIf="i*4 + colIndex < this.follows.length" [follow]="this.follows[i*4 + colIndex]" (followUpdate)="receiveFollowUpdate($event)"></app-follow>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<div class="container">
+  <div class="card-follow" *ngFor="let f of follows">
+      <app-follow [follow]="f" (followUpdate)="receiveFollowUpdate($event)"></app-follow>
   </div>
 </div>
+
 

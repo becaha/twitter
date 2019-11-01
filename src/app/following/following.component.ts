@@ -47,6 +47,13 @@ export class FollowingComponent implements OnInit {
    */
   async receiveFollowUpdate(event) {
     this.following = await this.userService.getFollowing(this.viewUser);
+    console.log(this.following);
+  }
+
+  async receiveMoreFollowsUpdate(event) {
+    const following = await this.userService.getFollowing(this.viewUser);
+    this.following = this.following.concat(following);
+    console.log(this.following);
   }
 
 }

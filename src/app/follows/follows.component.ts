@@ -1,25 +1,22 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {User} from '../user/User';
 
 @Component({
   selector: 'app-follows',
   templateUrl: './follows.component.html',
-  styleUrls: ['./follows.component.css']
+  styleUrls: ['./follows.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FollowsComponent implements OnInit {
   @Input() follows: User[];
   @Output() updateFollows = new EventEmitter();
+  @Output() getMoreFollows = new EventEmitter();
   private followsArray;
 
   constructor() { }
 
   ngOnInit() {
-    const rows = Math.ceil(this.follows.length / 4);
-    this.followsArray = Array(rows);
-  }
-
-  createArray(num: number) {
-    return Array(num);
+    console.log('follows on init', this.follows);
   }
 
   /**
@@ -30,5 +27,14 @@ export class FollowsComponent implements OnInit {
    */
   receiveFollowUpdate(event) {
     this.updateFollows.emit();
+  }
+
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+      // bottom of the page
+      console.log('scrolled to bottom');
+      this.getMoreFollows.emit();
+    }
   }
 }

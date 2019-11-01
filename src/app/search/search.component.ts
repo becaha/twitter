@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {UserService} from '../user/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {Status} from '../status/Status';
@@ -14,7 +14,7 @@ export class SearchComponent implements OnInit {
   private route: ActivatedRoute;
   private searchText: string;
   private statusesService: StatusesService;
-  private foundStatuses: Status[];
+  private foundStatuses: Status[] = [];
 
   constructor(userService: UserService, statusesService: StatusesService, route: ActivatedRoute) {
     this.userService = userService;
@@ -28,8 +28,19 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe( paramMap => {
       this.searchText = paramMap.get('text');
-      this.search(this.searchText);
+      this.search();
     });
+  }
+
+  @HostListener('window:scroll', [])
+  async onScroll() {
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+      // bottom of the page
+      console.log('scrolled to bottom', this.searchText);
+      const foundStatuses = await this.statusesService.getHashtagStatuses(this.searchText);
+      console.log(foundStatuses);
+      this.foundStatuses = this.foundStatuses.concat(foundStatuses);
+    }
   }
 
   /**
@@ -37,8 +48,8 @@ export class SearchComponent implements OnInit {
    *  that mention it
    *  TODO: can search, and for more than hashtags
    */
-  async search(hashtag: string) {
-    this.foundStatuses = await this.statusesService.getHashtagStatuses(hashtag);
+  async search() {
+    this.foundStatuses = await this.statusesService.getHashtagStatuses(this.searchText);
     console.log('found statuses', this.foundStatuses);
   }
 
