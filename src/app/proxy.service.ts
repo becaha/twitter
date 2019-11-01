@@ -151,10 +151,14 @@ export class ProxyService {
 
   async isFollowing(userHandle: string, followHandle: string) {
     const response: IsFollowingResponse = await this.apiGateway.followUserHandleFollowHandleGet(followHandle, userHandle).toPromise();
-    console.log('is following', response.isFollowing);
     const isFollowingBool: boolean = JSON.parse(response.isFollowing);
     console.log('is following boolean', isFollowingBool);
     return isFollowingBool;
+  }
+
+  async getHashtagStatuses(hashtag: string) {
+    const response: StatusesResponse = await this.apiGateway.statusesHashtagHashtagGet(hashtag).toPromise();
+    return this.extractStatuses(response);
   }
 
 

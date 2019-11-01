@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-10-31T22:34:21Z"
+  version: "2019-11-01T00:49:12Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
@@ -75,6 +75,42 @@ paths:
             $ref: "#/definitions/Response"
           headers:
             Access-Control-Allow-Origin:
+              type: "string"
+  /statuses/hashtag/{hashtag}:
+    get:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "hashtag"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/StatusesResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+    options:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
               type: "string"
   /statuses/post:
     post:
@@ -290,23 +326,6 @@ paths:
             $ref: "#/definitions/Response"
           headers:
             Access-Control-Allow-Origin:
-              type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
               type: "string"
   /users/{handle}/story:
     get:

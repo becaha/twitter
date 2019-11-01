@@ -37,8 +37,8 @@ export class SearchComponent implements OnInit {
    *  that mention it
    *  TODO: can search, and for more than hashtags
    */
-  search(hashtag: string) {
-    this.foundStatuses = this.statusesService.getHashtagStatuses(hashtag);
+  async search(hashtag: string) {
+    this.foundStatuses = await this.statusesService.getHashtagStatuses(hashtag);
     console.log('found statuses', this.foundStatuses);
   }
 

@@ -52,10 +52,11 @@ export class StatusesService {
   }
 
   // returns all statuses with given hashtag
-  getHashtagStatuses(hashtag: string) {
-    const hashtagStatuses =  this.getAllStatuses().filter((status) => {
-      return status.getMessage().getHashtags().has(hashtag);
-    });
-    return this.orderStatuses(hashtagStatuses);
+  async getHashtagStatuses(hashtag: string) {
+    // const hashtagStatuses =  this.getAllStatuses().filter((status) => {
+    //   return status.getMessage().getHashtags().has(hashtag);
+    // });
+    // return this.orderStatuses(hashtagStatuses);
+    return await this.proxy.getHashtagStatuses(hashtag);
   }
 }
