@@ -20,6 +20,7 @@ export class StoryComponent implements OnInit {
   private viewUserHandle: string;
   private route: ActivatedRoute;
   private isFollowing: boolean;
+  private gotIsFollowing = false;
   private followService: FollowService;
   private statuses: Status[];
 
@@ -43,12 +44,14 @@ export class StoryComponent implements OnInit {
 
   async getViewUser() {
     this.viewUser = await this.userService.getUser(this.viewUserHandle);
+    console.log('story get view user', this.viewUser, this.currentUser);
     if (this.viewUser == null) {
       this.viewUser = this.userService.getCurrentUser();
       console.log('got user is null so set to ' + this.viewUser);
     }
     // this.setIsFollowing();
     this.getStory();
+    this.setIsFollowing();
   }
 
   async getStory() {
@@ -72,12 +75,14 @@ export class StoryComponent implements OnInit {
    * is following the viewedUser by getting the
    * currentUser's following
    */
-  setIsFollowing() {
-    if (this.currentUser.getFollowing().includes(this.viewUser)) {
-      this.isFollowing = true;
-    } else {
-      this.isFollowing = false;
-    }
+  async setIsFollowing() {
+    // if (this.currentUser.getFollowing().includes(this.viewUser)) {
+    //   this.isFollowing = true;
+    // } else {
+    //   this.isFollowing = false;
+    // }
+    this.isFollowing = await this.followService.isFollowing(this.currentUser, this.viewUser);
+    this.gotIsFollowing = true;
   }
 
   /**

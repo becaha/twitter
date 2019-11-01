@@ -36,8 +36,9 @@ export class ProxyService {
 
   async getUser(handle: string) {
     const response: UserResponse = await this.apiGateway.usersHandleGet(handle).toPromise();
-    console.log('getUser', response.handle, response.name, response.password);
-    if (response.handle !== undefined) {
+    console.log('getUser', response);
+    if (response !== null) {
+      console.log('getUser', response.handle, response.name, response.password);
       return new User(response.handle, response.name, response.password, new Attachment(response.profile, 'image'));
     }
     return null;
@@ -118,6 +119,7 @@ export class ProxyService {
 
   async getStatus(statusId: string) {
     const response: StatusResponse = await this.apiGateway.statusesStatusStatusIdGet(statusId).toPromise();
+    console.log(response);
     console.log('get status', response.id, response.message, response.date, response.ownerHandle, response.attachmentSrc);
     return new Status(new Message(response.message), response.ownerHandle,
                       new Attachment(response.profile, 'image'),
@@ -152,7 +154,7 @@ export class ProxyService {
   async isFollowing(userHandle: string, followHandle: string) {
     const response: IsFollowingResponse = await this.apiGateway.followUserHandleFollowHandleGet(followHandle, userHandle).toPromise();
     const isFollowingBool: boolean = JSON.parse(response.isFollowing);
-    console.log('is following boolean', isFollowingBool);
+    console.log(userHandle, ' is following ', followHandle, ' ', isFollowingBool);
     return isFollowingBool;
   }
 

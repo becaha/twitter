@@ -2,7 +2,7 @@
   <div class="profile">
     <div class="profile-pic">
       <!--TODO upload from user profile src, from assets/images -->
-      <img class="pic" src='../../assets/images/{{viewUser.getAttachmentSrc()}}' alt="profile picture">
+      <img class="pic" src='{{viewUser.getAttachmentSrc()}}' alt="profile picture">
       <app-upload [uploadMessage]="'Upload Picture'"></app-upload>
     </div>
     <div class="profile-info">
@@ -11,7 +11,7 @@
       <a class="profile-info-item" routerLink="/{{viewUser.getHandle()}}/followers">Followers</a>
       <a class="profile-info-item" routerLink="/{{viewUser.getHandle()}}/following">Following</a>
     </div>
-    <div *ngIf="currentUser !== viewUser" class="card-row-header">
+    <div *ngIf="currentUser.getHandle() !== viewUser.getHandle() && gotIsFollowing" class="card-row-header">
       <button *ngIf="!isFollowing" type="button" (click)="onFollow()">Follow</button>
       <button *ngIf="isFollowing" type="button" (click)="onUnfollow()">Unfollow</button>
     </div>

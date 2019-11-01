@@ -1,4 +1,4 @@
-<div class="card card-row status">
+<div *ngIf="status" class="card card-row status">
   <div class="card-row-ownership">
     <img class="card-row-image" src='../../assets/images/{{status.getProfile().getSrc()}}' alt="profile picture">
     <a class="card-text" routerLink="/story/{{status.getOwnerHandle()}}">{{status.getOwnerHandle()}}</a>

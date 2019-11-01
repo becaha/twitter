@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
    */
   async signup() {
     // TODO: real attachment
-    this.attachmentSrc = 'redHat.jpg';
+    this.attachmentSrc = '../../assets/images/redHat.jpg';
     // TODO: add this.attachment
     if (this.handle && this.password && this.name && this.attachmentSrc) {
       this.currentUser = await this.userService.signup(this.handle, this.password, this.name, this.attachmentSrc);

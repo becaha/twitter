@@ -16,6 +16,7 @@ export class FollowComponent implements OnInit {
   private router: Router;
   private userService: UserService;
   private isFollowing: boolean;
+  private gotIsFollowing = false;
   private currentUser: User;
   private followService: FollowService;
 
@@ -36,6 +37,7 @@ export class FollowComponent implements OnInit {
    */
   async setIsFollowing() {
     this.isFollowing = await this.followService.isFollowing(this.currentUser, this.follow);
+    this.gotIsFollowing = true;
   }
 
   /**
