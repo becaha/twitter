@@ -29,10 +29,6 @@ export class FollowComponent implements OnInit, OnChanges {
 
   }
 
-  async ngOnChanges() {
-    await this.setIsFollowing();
-  }
-
   async ngOnInit() {
     await this.setIsFollowing();
   }
@@ -43,7 +39,6 @@ export class FollowComponent implements OnInit, OnChanges {
    */
   async setIsFollowing() {
     this.isFollowing = await this.followService.isFollowing(this.currentUser, this.follow);
-    // console.log('got is following', this.currentUser.handle, this.follow.getHandle(), this.isFollowing);
   }
 
   /**
