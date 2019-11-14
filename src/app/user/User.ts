@@ -1,5 +1,4 @@
 import {Attachment} from '../status/attachment/Attachment';
-import {Status} from '../status/Status';
 
 export class User {
 
@@ -8,18 +7,11 @@ export class User {
   name: string;
   profile: Attachment; // url image
 
-  followers: User[] = [];
-  following: User[] = [];
-  story: Status[] = [];
-
-  constructor(handle: string, password: string, name: string, profile: Attachment)
-  constructor(handle: string, password: string, name: string, profile: Attachment, followers?: User[], following?: User[]) {
+  constructor(handle: string, password: string, name: string, profile: Attachment) {
     this.handle = handle;
     this.password = password;
     this.name = name;
     this.profile = profile;
-    this.followers = followers;
-    this.following = following;
   }
 
   public getHandle() {
@@ -34,20 +26,8 @@ export class User {
     return this.password;
   }
 
-  public getFollowers() {
-    return this.followers;
-  }
-
-  public getFollowing() {
-    return this.following;
-  }
-
   public getProfile() {
     return this.profile;
-  }
-
-  public getStory() {
-    return this.story;
   }
 
   public getAttachmentSrc() {

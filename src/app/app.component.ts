@@ -23,6 +23,12 @@ export class AppComponent {
     this.currentUser = this.userService.getCurrentUser();
     console.log(this.currentUser);
     this.proxy = proxy;
+    this.test();
+  }
+
+  async test() {
+    // const status = await this.proxy.getStatus('a0');
+    // console.log('test', status);
   }
 
   /**

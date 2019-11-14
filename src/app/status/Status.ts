@@ -9,7 +9,6 @@ export class Status {
   private date: string;
   private id: string;
 
-  // constructor(message: Message, ownerHandle?: string, attachment?: Attachment)
   constructor(message: Message, ownerHandle: string, profile: Attachment, attachment?: Attachment, date?: string, id?: string) {
     this.message = message;
     this.ownerHandle = ownerHandle;
@@ -69,16 +68,11 @@ export class Status {
     return this.date;
   }
 
-  public addAttachment(attachment: Attachment) {
+  public setAttachment(attachment: Attachment) {
     this.attachment = attachment;
   }
 
   public getAttachment() {
     return this.attachment;
   }
-
-  // // on posting of the status, time stamp it with the current date
-  // public post() {
-  //   this.date = new Date();
-  // }
 }

@@ -16,6 +16,7 @@ import {StoryResponse} from '../../api/model/storyResponse';
 import {FollowersResponse} from '../../api/model/followersResponse';
 import {FollowingResponse} from '../../api/model/followingResponse';
 import {Message} from './status/message/Message';
+import {FeedResponse} from '../../api/model/feedResponse';
 
 
 @Injectable({
@@ -39,7 +40,7 @@ export class ProxyService {
     console.log('getUser', response);
     if (response !== null) {
       console.log('getUser', response.handle, response.name, response.password);
-      return new User(response.handle, response.name, response.password, new Attachment(response.profile, 'image'));
+      return new User(response.handle, response.password, response.name, new Attachment(response.profile, 'image'));
     }
     return null;
   }
@@ -65,7 +66,8 @@ export class ProxyService {
   }
 
   async getFeed(handle: string) {
-    const response: StatusesResponse = await this.apiGateway.usersHandleFeedGet(handle).toPromise();
+    console.log('get feed');
+    const response: FeedResponse = await this.apiGateway.usersHandleFeedGet(handle).toPromise();
     console.log('get feed', response);
     return this.extractStatuses(response);
   }
@@ -127,15 +129,15 @@ export class ProxyService {
   }
 
   async postStatus(status: Status) {
-    // status.getMessage(), status.getAttachment(), status.getOwner(), status.getDate(), status.getId()
-    let src = '';
+    let src = 'None';
     if (status.getAttachment() !== undefined) {
       src = status.getAttachment().getSrc();
     }
     const req: PostStatusRequest = {
       message: status.getMessageText(),
       attachmentSrc: src,
-      ownerHandle: status.getOwnerHandle()
+      ownerHandle: status.getOwnerHandle(),
+      profile: status.getProfile().getSrc()
     };
     const response: Response = await this.apiGateway.statusesPostPost(req).toPromise();
     console.log('post', response);

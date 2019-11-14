@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Attachment} from './Attachment';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-attachment',
@@ -14,4 +15,4 @@ export class AttachmentComponent implements OnInit {
   }
 
   ngOnInit() {}
-  }
+}
