@@ -6,17 +6,13 @@ import {
   ProfileResponse,
   UserResponse,
   Response,
-  StatusResponse, SignupRequest, StatusesResponse
+  StatusResponse, SignupRequest, StatusesResponse, UsersResponse
 } from '../../api';
 import {UpdateProfileRequest} from '../../api/model/updateProfileRequest';
 import {Status} from './status/Status';
 import {PostStatusRequest} from '../../api/model/postStatusRequest';
 import {User} from './user/User';
-import {StoryResponse} from '../../api/model/storyResponse';
-import {FollowersResponse} from '../../api/model/followersResponse';
-import {FollowingResponse} from '../../api/model/followingResponse';
 import {Message} from './status/message/Message';
-import {FeedResponse} from '../../api/model/feedResponse';
 
 
 @Injectable({
@@ -59,15 +55,23 @@ export class ProxyService {
     return new User(handle, password, name, new Attachment(attachmentSrc, 'image'));
   }
 
+  async loginUser(handle: string, password: string) {
+
+  }
+
+  async logoutUser(handle: string) {
+
+  }
+
   async getStory(handle: string) {
-    const response: StoryResponse = await this.apiGateway.usersHandleStoryGet(handle).toPromise();
+    const response: StatusesResponse = await this.apiGateway.usersHandleStoryGet(handle).toPromise();
     console.log('get story', response);
     return this.extractStatuses(response);
   }
 
   async getFeed(handle: string) {
     console.log('get feed');
-    const response: FeedResponse = await this.apiGateway.usersHandleFeedGet(handle).toPromise();
+    const response: StatusesResponse = await this.apiGateway.usersHandleFeedGet(handle).toPromise();
     console.log('get feed', response);
     return this.extractStatuses(response);
   }
@@ -82,13 +86,15 @@ export class ProxyService {
     return statuses;
   }
 
-  async updateProfile(handle: string, profile: Attachment) {
+  async updateProfile(handle: string, profile: string) {
+    // profile is base64 encoded image
     const req: UpdateProfileRequest = {
       handle,
-      src: profile.getSrc()
+      src: profile
     };
     const response: Response = await this.apiGateway.usersHandleProfilePost(handle, req).toPromise();
     console.log('update prof', response.message);
+    return response;
   }
 
   async getProfile(handle: string) {
@@ -98,13 +104,13 @@ export class ProxyService {
   }
 
   async getFollowers(handle: string) {
-    const response: FollowersResponse = await this.apiGateway.usersHandleFollowersGet(handle).toPromise();
+    const response: UsersResponse = await this.apiGateway.usersHandleFollowersGet(handle).toPromise();
     console.log('get followers');
     return this.extractUsers(response);
   }
 
   async getFollowing(handle: string) {
-    const response: FollowingResponse = await this.apiGateway.usersHandleFollowingGet(handle).toPromise();
+    const response: UsersResponse = await this.apiGateway.usersHandleFollowingGet(handle).toPromise();
     console.log('get following');
     return this.extractUsers(response);
   }

@@ -2,7 +2,8 @@
   <div class="profile">
     <div class="profile-pic">
       <!--TODO upload from user profile src, from assets/images -->
-      <img class="pic" src='{{viewUser.getAttachmentSrc()}}' alt="profile picture">
+<!--      <img class="pic" src='{{viewUser.getAttachmentSrc()}}' alt="profile picture">-->
+      <img class="pic" src="https://cs340-bucket.s3-us-west-1.amazonaws.com/{{viewUser.getHandle()}}">
       <app-upload [uploadMessage]="'Upload Picture'"></app-upload>
     </div>
     <div class="profile-info">

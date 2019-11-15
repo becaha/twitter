@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-11-13T03:56:10Z"
+  version: "2019-11-15T18:25:20Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
@@ -95,23 +95,6 @@ paths:
           headers:
             Access-Control-Allow-Origin:
               type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
-              type: "string"
   /statuses/post:
     post:
       consumes:
@@ -131,23 +114,6 @@ paths:
             $ref: "#/definitions/Response"
           headers:
             Access-Control-Allow-Origin:
-              type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
               type: "string"
   /statuses/status/{statusId}:
     get:
@@ -244,6 +210,44 @@ paths:
           headers:
             Access-Control-Allow-Origin:
               type: "string"
+  /users/{handle}/login:
+    get:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "handle"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/AuthResponse"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+  /users/{handle}/logout:
+    post:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "handle"
+          in: "path"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Response"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
   /users/{handle}/profile:
     get:
       consumes:
@@ -326,23 +330,6 @@ paths:
             $ref: "#/definitions/Response"
           headers:
             Access-Control-Allow-Origin:
-              type: "string"
-    options:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/Empty"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
-            Access-Control-Allow-Methods:
-              type: "string"
-            Access-Control-Allow-Headers:
               type: "string"
   /users/{handle}/story:
     get:
@@ -497,3 +484,10 @@ definitions:
       profile:
         type: "string"
     title: "PostStatusRequest"
+  AuthResponse:
+    type: "object"
+    properties:
+      authToken:
+        type: "string"
+        description: "The user auth token"
+    title: "AuthResponse"

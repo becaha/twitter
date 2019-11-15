@@ -39,6 +39,10 @@ export class UserService {
     this.viewUser = viewUser;
   }
 
+  async updateProfile(base64image: string) {
+    return await this.proxy.updateProfile(this.currentUser.getHandle(), base64image);
+  }
+
   async getUser(handle: string) {
     // const userByHandle = MOCK_USERS.filter(user => user.handle === handle);
     // return userByHandle[0];
