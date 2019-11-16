@@ -3,7 +3,6 @@ import {UserService} from '../user/user.service';
 import {User} from '../user/User';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
-import {MOCK_USERS} from '../user/mock-users';
 import {FollowService} from '../follow/follow.service';
 import {Status} from '../status/Status';
 

@@ -1,17 +1,13 @@
-import {Attachment} from '../status/attachment/Attachment';
-
 export class User {
 
   handle: string;
   password: string;
   name: string;
-  profile: Attachment; // url image
 
-  constructor(handle: string, password: string, name: string, profile: Attachment) {
+  constructor(handle: string, password: string, name: string) {
     this.handle = handle;
     this.password = password;
     this.name = name;
-    this.profile = profile;
   }
 
   public getHandle() {
@@ -24,13 +20,5 @@ export class User {
 
   public getPassword() {
     return this.password;
-  }
-
-  public getProfile() {
-    return this.profile;
-  }
-
-  public getAttachmentSrc() {
-    return this.profile.getSrc();
   }
 }

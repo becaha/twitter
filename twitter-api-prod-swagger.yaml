@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-11-15T18:25:20Z"
+  version: "2019-11-16T01:01:05Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
@@ -114,6 +114,23 @@ paths:
             $ref: "#/definitions/Response"
           headers:
             Access-Control-Allow-Origin:
+              type: "string"
+    options:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
               type: "string"
   /statuses/status/{statusId}:
     get:
@@ -229,6 +246,23 @@ paths:
           headers:
             Access-Control-Allow-Origin:
               type: "string"
+    options:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
   /users/{handle}/logout:
     post:
       consumes:
@@ -247,6 +281,23 @@ paths:
             $ref: "#/definitions/Response"
           headers:
             Access-Control-Allow-Origin:
+              type: "string"
+    options:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
               type: "string"
   /users/{handle}/profile:
     get:
@@ -331,6 +382,23 @@ paths:
           headers:
             Access-Control-Allow-Origin:
               type: "string"
+    options:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
   /users/{handle}/story:
     get:
       consumes:
@@ -349,6 +417,23 @@ paths:
             $ref: "#/definitions/StatusesResponse"
           headers:
             Access-Control-Allow-Origin:
+              type: "string"
+    options:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
               type: "string"
 definitions:
   Response:
@@ -370,8 +455,6 @@ definitions:
       password:
         type: "string"
         description: "The user password"
-      profile:
-        type: "string"
     title: "UserResponse"
   Empty:
     type: "object"
@@ -393,8 +476,6 @@ definitions:
           type: "string"
         ownerHandle:
           type: "string"
-        profile:
-          type: "string"
         attachmentSrc:
           type: "string"
         date:
@@ -413,8 +494,6 @@ definitions:
           type: "string"
         password:
           type: "string"
-        profile:
-          type: "string"
   SignupRequest:
     type: "object"
     properties:
@@ -427,8 +506,6 @@ definitions:
       name:
         type: "string"
         description: "The user full name"
-      profile:
-        type: "string"
     title: "SignupRequest"
   StatusResponse:
     type: "object"
@@ -437,9 +514,6 @@ definitions:
         type: "string"
         description: "The status message"
       ownerHandle:
-        type: "string"
-        description: "The status ownerHandle"
-      profile:
         type: "string"
         description: "The status ownerHandle"
       attachmentSrc:
@@ -481,8 +555,6 @@ definitions:
       ownerHandle:
         type: "string"
         description: "The status ownerHandle"
-      profile:
-        type: "string"
     title: "PostStatusRequest"
   AuthResponse:
     type: "object"

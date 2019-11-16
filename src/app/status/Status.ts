@@ -4,30 +4,19 @@ import {Message} from './message/Message';
 export class Status {
   private message: Message;
   private ownerHandle: string;
-  private profile: Attachment;
   private attachment: Attachment;
   private date: string;
   private id: string;
 
-  constructor(message: Message, ownerHandle: string, profile: Attachment, attachment?: Attachment, date?: string, id?: string) {
+  constructor(message: Message, ownerHandle: string, attachment?: Attachment, date?: string, id?: string) {
     this.message = message;
     this.ownerHandle = ownerHandle;
-    this.profile = profile;
     this.attachment = attachment;
     // date is when it is constructed
     this.date = date;
     this.setDate();
     this.id = id;
     this.setId();
-  }
-
-
-  getProfile(): Attachment {
-    return this.profile;
-  }
-
-  setProfile(value: Attachment) {
-    this.profile = value;
   }
 
   public setDate() {

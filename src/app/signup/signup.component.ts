@@ -3,7 +3,7 @@ import {User} from '../user/User';
 import {Attachment} from '../status/attachment/Attachment';
 import {UserService} from '../user/user.service';
 import {Router} from '@angular/router';
-import {MOCK_USERS} from '../user/mock-users';
+import {UploadService} from '../upload/upload.service';
 
 @Component({
   selector: 'app-signup',
@@ -21,11 +21,13 @@ export class SignupComponent implements OnInit {
   private signupError: boolean;
   private router: Router;
   private currentUser: User;
+  private uploadService: UploadService;
 
-  constructor(router: Router, userService: UserService) {
+  constructor(router: Router, userService: UserService, uploadService: UploadService) {
     this.userService = userService;
     this.router = router;
     this.signupError = false;
+    this.uploadService = uploadService;
   }
 
   ngOnInit() {
@@ -39,10 +41,11 @@ export class SignupComponent implements OnInit {
    */
   async signup() {
     // TODO: real attachment
-    this.attachmentSrc = '../../assets/images/redHat.jpg';
+    this.attachmentSrc = this.uploadService.getProfile();
     // TODO: add this.attachment
     if (this.handle && this.password && this.name && this.attachmentSrc) {
-      this.currentUser = await this.userService.signup(this.handle, this.password, this.name, this.attachmentSrc);
+      await this.uploadService.newUserProfile(this.handle);
+      this.currentUser = await this.userService.signup(this.handle, this.password, this.name);
       this.userService.setCurrentUser(this.currentUser);
       this.userService.setViewUser(this.currentUser);
       this.router.navigateByUrl('feed');

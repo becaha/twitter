@@ -1,9 +1,10 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, Output} from '@angular/core';
 import {Attachment} from '../status/attachment/Attachment';
 import {fromEvent, Observable} from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import {ProxyService} from '../proxy.service';
 import {UserService} from '../user/user.service';
+import {UploadService} from './upload.service';
 
 @Component({
   selector: 'app-upload',
@@ -14,9 +15,13 @@ export class UploadComponent implements OnInit {
   @Input() uploadMessage: string;
   @Output() attachment: Attachment;
   private userService: UserService;
+  private changer: ChangeDetectorRef;
+  private uploadService: UploadService;
 
-  constructor(userService: UserService) {
+  constructor(userService: UserService, changer: ChangeDetectorRef, uploadService: UploadService) {
     this.userService = userService;
+    this.changer = changer;
+    this.uploadService = uploadService;
   }
 
   ngOnInit() {
@@ -27,28 +32,11 @@ export class UploadComponent implements OnInit {
    * @param event
    */
   async onFileUpload(event) {
-    console.log('on file upload');
-    // const file = event.target.files[0];
-    // console.log(file);
-    if (event.target.files.length > 0) {
-      const fileReader = new FileReader();
-      const imageToUpload = event.target.files.item(0);
-      this.imageToBase64(fileReader, imageToUpload)
-        .subscribe(base64image => {
-          // do something with base64 image..
-          console.log('base64 image', base64image);
-          this.userService.updateProfile(base64image);
-        });
-    }
+    await this.uploadService.onFileUpload(event);
   }
 
-  imageToBase64(fileReader: FileReader, fileToRead: File): Observable<string> {
-    fileReader.readAsDataURL(fileToRead);
-    return fromEvent(fileReader, 'load').pipe(pluck('currentTarget', 'result'));
+  updateProfile() {
+    console.log('detect changes');
+    this.changer.detectChanges();
   }
-
-  public uploadPic() {
-
-  }
-
 }

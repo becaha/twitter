@@ -77,7 +77,7 @@ export class StatusesComponent implements OnInit {
   public post() {
     const message = new Message(this.text);
     //  constructor(message: Message, ownerHandle: string, profile: Attachment, attachment?: Attachment, date?: string, id?: string) {
-    const newStatus = new Status(message, this.viewUser.getHandle(), new Attachment(this.viewUser.getProfile().getSrc(), 'image'));
+    const newStatus = new Status(message, this.viewUser.getHandle());
     this.statusesService.addStatus(newStatus);
     // close status form
     this.statusForm = false;

@@ -6,7 +6,7 @@ import {
   ProfileResponse,
   UserResponse,
   Response,
-  StatusResponse, SignupRequest, StatusesResponse, UsersResponse
+  StatusResponse, SignupRequest, StatusesResponse, UsersResponse, AuthResponse
 } from '../../api';
 import {UpdateProfileRequest} from '../../api/model/updateProfileRequest';
 import {Status} from './status/Status';
@@ -36,31 +36,33 @@ export class ProxyService {
     console.log('getUser', response);
     if (response !== null) {
       console.log('getUser', response.handle, response.name, response.password);
-      return new User(response.handle, response.password, response.name, new Attachment(response.profile, 'image'));
+      return new User(response.handle, response.password, response.name);
     }
     return null;
   }
 
-  async signupUser(handle: string, password: string, name: string, attachmentSrc: string) {
+  async signupUser(handle: string, password: string, name: string) {
     // user.getHandle(), user.getPassword(), user.getName()
     const request: SignupRequest = {
       handle,
       password,
-      name,
-      profile: attachmentSrc
+      name
     };
     const response: Response = await this.apiGateway.usersHandleSignupPost(handle, request).toPromise();
     console.log('signup', response.message);
     // TODO: change this
-    return new User(handle, password, name, new Attachment(attachmentSrc, 'image'));
+    return new User(handle, password, name);
   }
 
+  // TODO: real auth login
   async loginUser(handle: string, password: string) {
-
+    // const req: LoginRequest;
+    const response: AuthResponse = await this.apiGateway.usersHandleLoginGet(handle).toPromise();
   }
 
+  // TODO: real auth logout
   async logoutUser(handle: string) {
-
+    const response: Response = await this.apiGateway.usersHandleLogoutPost(handle).toPromise();
   }
 
   async getStory(handle: string) {
@@ -79,7 +81,7 @@ export class ProxyService {
   extractStatuses(response) {
     const statuses: Status[] = [];
     response.forEach((value, index, array) => {
-        statuses.push(new Status(new Message(value.message), value.ownerHandle, new Attachment(value.profile, 'image'),
+        statuses.push(new Status(new Message(value.message), value.ownerHandle,
           new Attachment(value.attachmentSrc, ''), value.date, value.id));
       }
     );
@@ -118,7 +120,7 @@ export class ProxyService {
   extractUsers(response) {
     const users: User[] = [];
     response.forEach((value, index, array) => {
-        users.push(new User(value.handle, value.password, value.name, new Attachment(value.profile, 'image')));
+        users.push(new User(value.handle, value.password, value.name));
       }
     );
     console.log('get users', users);
@@ -130,7 +132,6 @@ export class ProxyService {
     console.log(response);
     console.log('get status', response.id, response.message, response.date, response.ownerHandle, response.attachmentSrc);
     return new Status(new Message(response.message), response.ownerHandle,
-                      new Attachment(response.profile, 'image'),
                       new Attachment(response.attachmentSrc, 'image'), response.date, response.id);
   }
 
@@ -142,8 +143,7 @@ export class ProxyService {
     const req: PostStatusRequest = {
       message: status.getMessageText(),
       attachmentSrc: src,
-      ownerHandle: status.getOwnerHandle(),
-      profile: status.getProfile().getSrc()
+      ownerHandle: status.getOwnerHandle()
     };
     const response: Response = await this.apiGateway.statusesPostPost(req).toPromise();
     console.log('post', response);

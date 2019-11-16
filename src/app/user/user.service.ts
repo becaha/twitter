@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
 import {User} from './User';
-import {MOCK_USERS} from './mock-users';
-import {MOCK_STATUSES} from '../statuses/mock-statuses';
-import {Status} from '../status/Status';
-import {Message} from '../status/message/Message';
-import {Attachment} from '../status/attachment/Attachment';
 import {StatusesService} from '../statuses/statuses.service';
 import {ProxyService} from '../proxy.service';
 import {FollowService} from '../follow/follow.service';
@@ -39,10 +34,6 @@ export class UserService {
     this.viewUser = viewUser;
   }
 
-  async updateProfile(base64image: string) {
-    return await this.proxy.updateProfile(this.currentUser.getHandle(), base64image);
-  }
-
   async getUser(handle: string) {
     // const userByHandle = MOCK_USERS.filter(user => user.handle === handle);
     // return userByHandle[0];
@@ -60,8 +51,9 @@ export class UserService {
     this.proxy.updateProfile(user.handle, profile);
   }
 
-  public async signup(handle: string, password: string, name: string, attachmentSrc: string) {
-    return await this.proxy.signupUser(handle, password, name, attachmentSrc);
+  public async signup(handle: string, password: string, name: string) {
+    // await this.proxy.
+    return await this.proxy.signupUser(handle, password, name);
   }
 
   public async getProfile(user: User) {
