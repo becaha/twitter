@@ -11,5 +11,8 @@
  */
 
 
-export interface Empty { 
+export interface UsersResponseUsers { 
+    handle?: string;
+    name?: string;
+    password?: string;
 }

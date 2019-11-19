@@ -6,7 +6,7 @@ import {
   ProfileResponse,
   UserResponse,
   Response,
-  StatusResponse, SignupRequest, StatusesResponse, UsersResponse, AuthResponse
+  StatusesIndexResponse, SignupRequest, UsersResponse, AuthResponse, StatusesLastResponse, StatusResponse
 } from '../../api';
 import {UpdateProfileRequest} from '../../api/model/updateProfileRequest';
 import {Status} from './status/Status';
@@ -26,6 +26,7 @@ import {Message} from './status/message/Message';
 
 export class ProxyService {
   private apiGateway: DefaultService;
+  private pageSize = '1';
 
   constructor(apiGateway: DefaultService) {
     this.apiGateway = apiGateway;
@@ -65,27 +66,17 @@ export class ProxyService {
     const response: Response = await this.apiGateway.usersHandleLogoutPost(handle).toPromise();
   }
 
-  async getStory(handle: string) {
-    const response: StatusesResponse = await this.apiGateway.usersHandleStoryGet(handle).toPromise();
+  async getStory(handle: string, ownerHandle ?: string, id?: string) {
+    const response: StatusesLastResponse = await this.apiGateway.usersHandleStoryGet(this.pageSize, handle, ownerHandle, id).toPromise();
     console.log('get story', response);
-    return this.extractStatuses(response);
+    return response;
   }
 
-  async getFeed(handle: string) {
-    console.log('get feed');
-    const response: StatusesResponse = await this.apiGateway.usersHandleFeedGet(handle).toPromise();
+  async getFeed(handle: string, startIndex?: string) {
+    console.log('get feed', startIndex);
+    const response: StatusesIndexResponse = await this.apiGateway.usersHandleFeedGet(this.pageSize, handle, startIndex).toPromise();
     console.log('get feed', response);
-    return this.extractStatuses(response);
-  }
-
-  extractStatuses(response) {
-    const statuses: Status[] = [];
-    response.forEach((value, index, array) => {
-        statuses.push(new Status(new Message(value.message), value.ownerHandle,
-          new Attachment(value.attachmentSrc, ''), value.date, value.id));
-      }
-    );
-    return statuses;
+    return response;
   }
 
   async updateProfile(handle: string, profile: string) {
@@ -105,26 +96,18 @@ export class ProxyService {
     return response.src;
   }
 
-  async getFollowers(handle: string) {
-    const response: UsersResponse = await this.apiGateway.usersHandleFollowersGet(handle).toPromise();
+  async getFollowers(handle: string, userHandle?: string, followHandle?: string) {
+    const response: UsersResponse = await this.apiGateway.usersHandleFollowersGet(
+          this.pageSize, handle, userHandle, followHandle).toPromise();
     console.log('get followers');
-    return this.extractUsers(response);
+    return response;
   }
 
-  async getFollowing(handle: string) {
-    const response: UsersResponse = await this.apiGateway.usersHandleFollowingGet(handle).toPromise();
+  async getFollowing(handle: string, userHandle?: string, followHandle?: string) {
+    const response: UsersResponse = await this.apiGateway.usersHandleFollowingGet(
+      this.pageSize, handle, userHandle, followHandle).toPromise();
     console.log('get following');
-    return this.extractUsers(response);
-  }
-
-  extractUsers(response) {
-    const users: User[] = [];
-    response.forEach((value, index, array) => {
-        users.push(new User(value.handle, value.password, value.name));
-      }
-    );
-    console.log('get users', users);
-    return users;
+    return response;
   }
 
   async getStatus(statusId: string) {
@@ -166,9 +149,9 @@ export class ProxyService {
     return isFollowingBool;
   }
 
-  async getHashtagStatuses(hashtag: string) {
-    const response: StatusesResponse = await this.apiGateway.statusesHashtagHashtagGet(hashtag).toPromise();
-    return this.extractStatuses(response);
+  async getHashtagStatuses(hashtag: string, startIndex?: string) {
+    const response: StatusesIndexResponse = await this.apiGateway.statusesHashtagHashtagGet(this.pageSize, hashtag, startIndex).toPromise();
+    return response;
   }
 
 

@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-11-16T01:01:05Z"
+  version: "2019-11-19T00:53:19Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
@@ -83,6 +83,14 @@ paths:
       produces:
         - "application/json"
       parameters:
+        - name: "pageSize"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "startIndex"
+          in: "query"
+          required: false
+          type: "string"
         - name: "hashtag"
           in: "path"
           required: true
@@ -91,7 +99,7 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/StatusesResponse"
+            $ref: "#/definitions/StatusesIndexResponse"
           headers:
             Access-Control-Allow-Origin:
               type: "string"
@@ -177,6 +185,14 @@ paths:
       produces:
         - "application/json"
       parameters:
+        - name: "pageSize"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "startIndex"
+          in: "query"
+          required: false
+          type: "string"
         - name: "handle"
           in: "path"
           required: true
@@ -185,7 +201,7 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/StatusesResponse"
+            $ref: "#/definitions/StatusesIndexResponse"
           headers:
             Access-Control-Allow-Origin:
               type: "string"
@@ -196,6 +212,18 @@ paths:
       produces:
         - "application/json"
       parameters:
+        - name: "userHandle"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "followHandle"
+          in: "query"
+          required: false
+          type: "string"
         - name: "handle"
           in: "path"
           required: true
@@ -215,6 +243,18 @@ paths:
       produces:
         - "application/json"
       parameters:
+        - name: "userHandle"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "pageSize"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "followHandle"
+          in: "query"
+          required: false
+          type: "string"
         - name: "handle"
           in: "path"
           required: true
@@ -406,6 +446,18 @@ paths:
       produces:
         - "application/json"
       parameters:
+        - name: "pageSize"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "ownerHandle"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "id"
+          in: "query"
+          required: false
+          type: "string"
         - name: "handle"
           in: "path"
           required: true
@@ -414,7 +466,7 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/StatusesResponse"
+            $ref: "#/definitions/StatusesLastResponse"
           headers:
             Access-Control-Allow-Origin:
               type: "string"
@@ -436,29 +488,6 @@ paths:
             Access-Control-Allow-Headers:
               type: "string"
 definitions:
-  Response:
-    type: "object"
-    properties:
-      message:
-        type: "string"
-        description: "Operation status message"
-    title: "Response"
-  UserResponse:
-    type: "object"
-    properties:
-      handle:
-        type: "string"
-        description: "The user handle"
-      name:
-        type: "string"
-        description: "The user full name"
-      password:
-        type: "string"
-        description: "The user password"
-    title: "UserResponse"
-  Empty:
-    type: "object"
-    title: "Empty Schema"
   IsFollowingResponse:
     type: "object"
     properties:
@@ -466,34 +495,25 @@ definitions:
         type: "string"
         description: "Boolean of the follow in question"
     title: "IsFollowingResponse"
-  StatusesResponse:
-    title: "StatusesResponse"
-    type: "array"
-    items:
-      type: "object"
-      properties:
-        message:
-          type: "string"
-        ownerHandle:
-          type: "string"
-        attachmentSrc:
-          type: "string"
-        date:
-          type: "string"
-        id:
-          type: "string"
   UsersResponse:
+    type: "object"
+    properties:
+      users:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            handle:
+              type: "string"
+            name:
+              type: "string"
+            password:
+              type: "string"
+      userHandle:
+        type: "string"
+      followHandle:
+        type: "string"
     title: "UsersResponse"
-    type: "array"
-    items:
-      type: "object"
-      properties:
-        handle:
-          type: "string"
-        name:
-          type: "string"
-        password:
-          type: "string"
   SignupRequest:
     type: "object"
     properties:
@@ -526,6 +546,87 @@ definitions:
         type: "string"
         description: "The status id"
     title: "StatusResponse"
+  StatusesIndexResponse:
+    type: "object"
+    properties:
+      statuses:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            message:
+              type: "string"
+            ownerHandle:
+              type: "string"
+            attachmentSrc:
+              type: "string"
+            date:
+              type: "string"
+            id:
+              type: "string"
+      startIndex:
+        type: "string"
+    title: "StatusesResponse"
+  ProfileResponse:
+    type: "object"
+    properties:
+      src:
+        type: "string"
+        description: "The profile src"
+    title: "ProfileResponse"
+  StatusesLastResponse:
+    type: "object"
+    properties:
+      statuses:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            message:
+              type: "string"
+            ownerHandle:
+              type: "string"
+            attachmentSrc:
+              type: "string"
+            date:
+              type: "string"
+            id:
+              type: "string"
+      ownerHandle:
+        type: "string"
+      id:
+        type: "string"
+    title: "StatusesResponse"
+  AuthResponse:
+    type: "object"
+    properties:
+      authToken:
+        type: "string"
+        description: "The user auth token"
+    title: "AuthResponse"
+  Response:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+        description: "Operation status message"
+    title: "Response"
+  UserResponse:
+    type: "object"
+    properties:
+      handle:
+        type: "string"
+        description: "The user handle"
+      name:
+        type: "string"
+        description: "The user full name"
+      password:
+        type: "string"
+        description: "The user password"
+    title: "UserResponse"
+  Empty:
+    type: "object"
+    title: "Empty Schema"
   UpdateProfileRequest:
     type: "object"
     properties:
@@ -536,13 +637,6 @@ definitions:
         type: "string"
         description: "The profile src"
     title: "UpdateProfileRequest"
-  ProfileResponse:
-    type: "object"
-    properties:
-      src:
-        type: "string"
-        description: "The profile src"
-    title: "ProfileResponse"
   PostStatusRequest:
     type: "object"
     properties:
@@ -556,10 +650,3 @@ definitions:
         type: "string"
         description: "The status ownerHandle"
     title: "PostStatusRequest"
-  AuthResponse:
-    type: "object"
-    properties:
-      authToken:
-        type: "string"
-        description: "The user auth token"
-    title: "AuthResponse"

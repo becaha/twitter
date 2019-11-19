@@ -3,6 +3,7 @@ import {User} from './User';
 import {StatusesService} from '../statuses/statuses.service';
 import {ProxyService} from '../proxy.service';
 import {FollowService} from '../follow/follow.service';
+import {UsersLastResponse} from './UsersLastResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -60,19 +61,30 @@ export class UserService {
     return await this.proxy.getProfile(user.handle);
   }
 
-  public async getFollowing(user: User) {
-    return this.proxy.getFollowing(user.handle);
+  public async getFollowing(user: User, lastUserHandle?: string, lastFollowHandle?: string) {
+    const response = await this.proxy.getFollowing(user.handle, lastUserHandle, lastFollowHandle);
+    return this.extractUsersResponse(response);
   }
 
-  public async getFollowers(user: User) {
-    return await this.proxy.getFollowers(user.handle);
+  public async getFollowers(user: User, lastUserHandle?: string, lastFollowHandle?: string) {
+    const response = await this.proxy.getFollowers(user.handle, lastUserHandle, lastFollowHandle);
+    return this.extractUsersResponse(response);
   }
 
-  public async getFeed(user: User) {
-    return await this.proxy.getFeed(user.handle);
+  extractUsersResponse(response) {
+    const follows = this.extractUsers(response.follows);
+    const nextUserHandle = response.userHandle;
+    const nextFollowHandle = response.followHandle;
+    return new UsersLastResponse(follows, nextUserHandle, nextFollowHandle);
   }
 
-  public async getStory(user: User) {
-    return await this.proxy.getStory(user.handle);
+  extractUsers(response) {
+    const users: User[] = [];
+    response.users.forEach((value, index, array) => {
+        users.push(new User(value.handle, value.password, value.name));
+      }
+    );
+    console.log('get users', users);
+    return users;
   }
 }

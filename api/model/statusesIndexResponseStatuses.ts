@@ -11,5 +11,10 @@
  */
 
 
-export interface Empty { 
+export interface StatusesIndexResponseStatuses { 
+    message?: string;
+    ownerHandle?: string;
+    attachmentSrc?: string;
+    date?: string;
+    id?: string;
 }

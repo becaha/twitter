@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit {
   private searchText: string;
   private statusesService: StatusesService;
   private foundStatuses: Status[] = [];
+  private startIndex: string = null;
 
   constructor(userService: UserService, statusesService: StatusesService, route: ActivatedRoute) {
     this.userService = userService;
@@ -37,9 +38,9 @@ export class SearchComponent implements OnInit {
     if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
       // bottom of the page
       console.log('scrolled to bottom', this.searchText);
-      const foundStatuses = await this.statusesService.getHashtagStatuses(this.searchText);
-      console.log(foundStatuses);
-      this.foundStatuses = this.foundStatuses.concat(foundStatuses);
+      const statusesResponse = await this.statusesService.getHashtagStatuses(this.searchText, this.startIndex);
+      this.foundStatuses = this.foundStatuses.concat(statusesResponse.statuses);
+      this.startIndex = statusesResponse.startIndex;
     }
   }
 
@@ -49,7 +50,9 @@ export class SearchComponent implements OnInit {
    *  TODO: can search, and for more than hashtags
    */
   async search() {
-    this.foundStatuses = await this.statusesService.getHashtagStatuses(this.searchText);
+    const statusesResponse = await this.statusesService.getHashtagStatuses(this.searchText, this.startIndex);
+    this.foundStatuses = statusesResponse.statuses;
+    this.startIndex = statusesResponse.startIndex;
     console.log('found statuses', this.foundStatuses);
   }
 

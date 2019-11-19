@@ -2,6 +2,7 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {UserService} from '../user/user.service';
 import {User} from '../user/User';
 import {Status} from '../status/Status';
+import {StatusesService} from '../statuses/statuses.service';
 
 @Component({
   selector: 'app-feed',
@@ -10,11 +11,14 @@ import {Status} from '../status/Status';
 })
 export class FeedComponent implements OnInit {
   private userService: UserService;
+  private statusesService: StatusesService;
   private currentUser: User;
   private statuses: Status[] = [];
+  private startIndex = '0';
 
-  constructor(userService: UserService) {
+  constructor(userService: UserService, statusesService: StatusesService) {
     this.userService = userService;
+    this.statusesService = statusesService;
     this.currentUser = userService.getCurrentUser();
   }
 
@@ -26,14 +30,14 @@ export class FeedComponent implements OnInit {
   onScroll(): void {
     if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
       // bottom of the page
-      console.log('scrolled to bottom');
       this.getFeed();
     }
   }
 
   async getFeed() {
-    const statuses = await this.userService.getFeed(this.currentUser);
-    this.statuses = this.statuses.concat(statuses);
+    const statusesResponse = await this.statusesService.getFeed(this.currentUser, this.startIndex);
+    this.statuses = this.statuses.concat(statusesResponse.statuses);
+    this.startIndex = statusesResponse.startIndex;
   }
 
 }

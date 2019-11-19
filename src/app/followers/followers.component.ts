@@ -15,6 +15,8 @@ export class FollowersComponent implements OnInit {
   private viewUserHandle: string;
   private followers: User[];
   private route: ActivatedRoute;
+  private lastUserHandle: string = null;
+  private lastFollowHandle: string = null;
 
   constructor(userService: UserService, route: ActivatedRoute) {
     this.userService = userService;
@@ -31,9 +33,15 @@ export class FollowersComponent implements OnInit {
 
   async getViewUser() {
     this.viewUser = await this.userService.getUser(this.viewUserHandle);
-    this.followers = await this.userService.getFollowers(this.viewUser);
+    await this.getFollowers();
   }
 
+  async getFollowers() {
+    const response = await this.userService.getFollowers(this.viewUser, this.lastUserHandle, this.lastFollowHandle);
+    this.followers = response.getUsers();
+    this.lastUserHandle = response.getUserHandle();
+    this.lastFollowHandle = response.getFollowHandle();
+  }
 
   /**
    * receives follow update
@@ -42,13 +50,15 @@ export class FollowersComponent implements OnInit {
    * @param event
    */
   async receiveFollowUpdate(event) {
-    this.followers = await this.userService.getFollowers(this.viewUser);
+    await this.getFollowers();
     console.log(this.followers);
   }
 
   async receiveMoreFollowsUpdate(event) {
-    const followers = await this.userService.getFollowers(this.viewUser);
-    this.followers = this.followers.concat(followers);
+    const response = await this.userService.getFollowers(this.viewUser, this.lastUserHandle, this.lastFollowHandle);
+    this.followers = this.followers.concat(response.getUsers());
+    this.lastUserHandle = response.getUserHandle();
+    this.lastFollowHandle = response.getFollowHandle();
     console.log(this.followers);
   }
 }

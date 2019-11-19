@@ -5,6 +5,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {FollowService} from '../follow/follow.service';
 import {Status} from '../status/Status';
+import {StatusesService} from '../statuses/statuses.service';
 
 @Component({
   selector: 'app-story',
@@ -21,10 +22,14 @@ export class StoryComponent implements OnInit {
   private isFollowing: boolean;
   private gotIsFollowing = false;
   private followService: FollowService;
+  private statusesService: StatusesService;
   private statuses: Status[] = [];
+  private lastOwnerHandle: string = null;
+  private lastId: string = null;
 
-  constructor(userService: UserService, followService: FollowService, route: ActivatedRoute) {
+  constructor(userService: UserService, statusesService: StatusesService, followService: FollowService, route: ActivatedRoute) {
     this.userService = userService;
+    this.statusesService = statusesService;
     this.followService = followService;
     this.currentUser = userService.getCurrentUser();
     this.route = route;
@@ -46,8 +51,10 @@ export class StoryComponent implements OnInit {
     if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
       // bottom of the page
       console.log('scrolled to bottom');
-      const statuses = await this.userService.getStory(this.viewUser);
-      this.statuses = this.statuses.concat(statuses);
+      const statusesResponse = await this.statusesService.getStory(this.viewUser, this.lastOwnerHandle, this.lastId);
+      this.statuses = this.statuses.concat(statusesResponse.statuses);
+      this.lastOwnerHandle = statusesResponse.getOwnerHandle();
+      this.lastId = statusesResponse.getId();
     }
   }
 
@@ -64,7 +71,10 @@ export class StoryComponent implements OnInit {
   }
 
   async getStory() {
-    this.statuses = await this.userService.getStory(this.viewUser);
+    const statusesResponse = await this.statusesService.getStory(this.viewUser, this.lastOwnerHandle, this.lastId);
+    this.statuses = statusesResponse.statuses;
+    this.lastOwnerHandle = statusesResponse.getOwnerHandle();
+    this.lastId = statusesResponse.getId();
   }
 
   /** returns viewedUser as an array of

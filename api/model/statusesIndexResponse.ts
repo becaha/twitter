@@ -9,7 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { StatusesIndexResponseStatuses } from './statusesIndexResponseStatuses';
 
 
-export interface Empty { 
+export interface StatusesIndexResponse { 
+    statuses?: Array<StatusesIndexResponseStatuses>;
+    startIndex?: string;
 }

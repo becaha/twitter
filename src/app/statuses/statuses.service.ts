@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Status} from '../status/Status';
 import {ProxyService} from '../proxy.service';
+import {User} from '../user/User';
+import {Message} from '../status/message/Message';
+import {Attachment} from '../status/attachment/Attachment';
+import {StatusesIndexResponse} from './StatusesIndexResponse';
+import {StatusesLastResponse} from './StatusesLastResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +44,38 @@ export class StatusesService {
     return statuses;
   }
 
+
+  public async getFeed(user: User, startIndex?: string) {
+    const response = await this.proxy.getFeed(user.handle, startIndex);
+    const statuses = this.extractStatuses(response);
+    const nextIndex = response.startIndex;
+    console.log(response, response.startIndex);
+    return new StatusesIndexResponse(statuses, nextIndex);
+  }
+
+  public async getStory(user: User, lastOwnerHandle?: string, lastId?: string) {
+    const response = await this.proxy.getStory(user.handle, lastOwnerHandle, lastId);
+    const statuses = this.extractStatuses(response);
+    const nextOwnerHandle = response.ownerHandle;
+    const nextId = response.id;
+    return new StatusesLastResponse(statuses, nextOwnerHandle, nextId);
+  }
+
   // returns all statuses with given hashtag
-  async getHashtagStatuses(hashtag: string) {
-    return await this.proxy.getHashtagStatuses(hashtag);
+  async getHashtagStatuses(hashtag: string, startIndex?: string) {
+    const response = await this.proxy.getHashtagStatuses(hashtag, startIndex);
+    const statuses = this.extractStatuses(response);
+    const nextIndex = response.startIndex;
+    return new StatusesIndexResponse(statuses, nextIndex);
+  }
+
+  extractStatuses(response) {
+    const statuses: Status[] = [];
+    response.statuses.forEach((value, index, array) => {
+        statuses.push(new Status(new Message(value.message), value.ownerHandle,
+          new Attachment(value.attachmentSrc, ''), value.date, value.id));
+      }
+    );
+    return statuses;
   }
 }
