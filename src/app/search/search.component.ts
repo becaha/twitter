@@ -15,7 +15,9 @@ export class SearchComponent implements OnInit {
   private searchText: string;
   private statusesService: StatusesService;
   private foundStatuses: Status[] = [];
-  private startIndex: string = null;
+  private startIndex = '0';
+  private noMore = false;
+  private awaiting = false;
 
   constructor(userService: UserService, statusesService: StatusesService, route: ActivatedRoute) {
     this.userService = userService;
@@ -35,12 +37,23 @@ export class SearchComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   async onScroll() {
-    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - .5) {
       // bottom of the page
       console.log('scrolled to bottom', this.searchText);
+      if (this.noMore || this.awaiting) {
+      return [];
+    }
+      this.awaiting = true;
       const statusesResponse = await this.statusesService.getHashtagStatuses(this.searchText, this.startIndex);
+      console.log(statusesResponse);
       this.foundStatuses = this.foundStatuses.concat(statusesResponse.statuses);
       this.startIndex = statusesResponse.startIndex;
+      this.awaiting = false;
+      if (this.startIndex === '-1') {
+        this.noMore = true;
+      } else {
+        this.noMore = false;
+      }
     }
   }
 
@@ -50,9 +63,20 @@ export class SearchComponent implements OnInit {
    *  TODO: can search, and for more than hashtags
    */
   async search() {
+    if (this.noMore || this.awaiting) {
+      return [];
+    }
+    this.awaiting = true;
     const statusesResponse = await this.statusesService.getHashtagStatuses(this.searchText, this.startIndex);
+    console.log(statusesResponse);
     this.foundStatuses = statusesResponse.statuses;
     this.startIndex = statusesResponse.startIndex;
+    this.awaiting = false;
+    if (this.startIndex === '-1') {
+      this.noMore = true;
+    } else {
+      this.noMore = false;
+    }
     console.log('found statuses', this.foundStatuses);
   }
 

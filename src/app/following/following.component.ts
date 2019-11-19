@@ -17,6 +17,8 @@ export class FollowingComponent implements OnInit {
   private route: ActivatedRoute;
   private lastUserHandle: string = null;
   private lastFollowHandle: string = null;
+  private noMore = false;
+  private awaiting = false;
 
   constructor(userService: UserService, route: ActivatedRoute) {
     this.userService = userService;
@@ -37,14 +39,27 @@ export class FollowingComponent implements OnInit {
 
   async getViewUser() {
     this.viewUser = await this.userService.getUser(this.viewUserHandle);
-    await this.getFollowing();
+    this.following = await this.getFollowing();
   }
 
   async getFollowing() {
+    if (this.noMore || this.awaiting) {
+      return [];
+    }
+    this.awaiting = true;
     const response = await this.userService.getFollowing(this.viewUser, this.lastUserHandle, this.lastFollowHandle);
-    this.following = response.getUsers();
+    const following = response.getUsers();
+    console.log('following', response);
     this.lastUserHandle = response.getUserHandle();
     this.lastFollowHandle = response.getFollowHandle();
+    this.awaiting = false;
+    if (this.lastUserHandle === '' && this.lastFollowHandle === '') {
+      console.log('no more');
+      this.noMore = true;
+    } else {
+      this.noMore = false;
+    }
+    return following;
   }
 
 
@@ -55,16 +70,15 @@ export class FollowingComponent implements OnInit {
    * @param event
    */
   async receiveFollowUpdate(event) {
-    await this.getFollowing();
+    this.following = await this.getFollowing();
     console.log(this.following);
   }
 
   async receiveMoreFollowsUpdate(event) {
-    const response = await this.userService.getFollowing(this.viewUser, this.lastUserHandle, this.lastFollowHandle);
-    this.following = this.following.concat(response.getUsers());
-    this.lastUserHandle = response.getUserHandle();
-    this.lastFollowHandle = response.getFollowHandle();
-    console.log(this.following);
+    const following = await this.getFollowing();
+    if (following) {
+      this.following = this.following.concat(following);
+    }
   }
 
 }

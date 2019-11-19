@@ -68,20 +68,29 @@ export class UserService {
 
   public async getFollowers(user: User, lastUserHandle?: string, lastFollowHandle?: string) {
     const response = await this.proxy.getFollowers(user.handle, lastUserHandle, lastFollowHandle);
+    console.log('get followers', response);
     return this.extractUsersResponse(response);
   }
 
   extractUsersResponse(response) {
-    const follows = this.extractUsers(response.follows);
+    console.log('users response', response);
+    const follows = this.extractUsers(response);
     const nextUserHandle = response.userHandle;
     const nextFollowHandle = response.followHandle;
     return new UsersLastResponse(follows, nextUserHandle, nextFollowHandle);
   }
 
+  isBlankUser(user) {
+    return user.handle === '';
+  }
+
   extractUsers(response) {
+    console.log('users', response);
     const users: User[] = [];
     response.users.forEach((value, index, array) => {
-        users.push(new User(value.handle, value.password, value.name));
+        if (!this.isBlankUser(value)) {
+          users.push(new User(value.handle, value.password, value.name));
+        }
       }
     );
     console.log('get users', users);

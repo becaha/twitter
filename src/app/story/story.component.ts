@@ -26,6 +26,8 @@ export class StoryComponent implements OnInit {
   private statuses: Status[] = [];
   private lastOwnerHandle: string = null;
   private lastId: string = null;
+  private noMore = false;
+  private awaiting = false;
 
   constructor(userService: UserService, statusesService: StatusesService, followService: FollowService, route: ActivatedRoute) {
     this.userService = userService;
@@ -48,33 +50,57 @@ export class StoryComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   async onScroll() {
-    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - .5) {
       // bottom of the page
       console.log('scrolled to bottom');
+      if (this.noMore || this.awaiting) {
+      return [];
+    }
+      this.awaiting = true;
       const statusesResponse = await this.statusesService.getStory(this.viewUser, this.lastOwnerHandle, this.lastId);
       this.statuses = this.statuses.concat(statusesResponse.statuses);
       this.lastOwnerHandle = statusesResponse.getOwnerHandle();
       this.lastId = statusesResponse.getId();
+      this.awaiting = false;
+      if (this.lastOwnerHandle === '' && this.lastId === '') {
+        this.noMore = true;
+      } else {
+        this.noMore = false;
+      }
     }
   }
 
   async getViewUser() {
+    this.lastOwnerHandle = null;
+    this.lastId = null;
+    this.noMore = false;
+    this.awaiting = false;
     this.viewUser = await this.userService.getUser(this.viewUserHandle);
     console.log('story get view user', this.viewUser, this.currentUser);
     if (this.viewUser == null) {
       this.viewUser = this.userService.getCurrentUser();
       console.log('got user is null so set to ' + this.viewUser);
     }
-    // this.setIsFollowing();
-    this.getStory();
+    await this.getStory();
     this.setIsFollowing();
   }
 
   async getStory() {
+    if (this.noMore || this.awaiting) {
+      return [];
+    }
+    this.awaiting = true;
     const statusesResponse = await this.statusesService.getStory(this.viewUser, this.lastOwnerHandle, this.lastId);
     this.statuses = statusesResponse.statuses;
+    console.log('get story', this.statuses);
     this.lastOwnerHandle = statusesResponse.getOwnerHandle();
     this.lastId = statusesResponse.getId();
+    this.awaiting = false;
+    if (this.lastOwnerHandle === '' && this.lastId === '') {
+      this.noMore = true;
+    } else {
+      this.noMore = false;
+    }
   }
 
   /** returns viewedUser as an array of
@@ -95,11 +121,6 @@ export class StoryComponent implements OnInit {
    * currentUser's following
    */
   async setIsFollowing() {
-    // if (this.currentUser.getFollowing().includes(this.viewUser)) {
-    //   this.isFollowing = true;
-    // } else {
-    //   this.isFollowing = false;
-    // }
     this.isFollowing = await this.followService.isFollowing(this.currentUser, this.viewUser);
     this.gotIsFollowing = true;
   }

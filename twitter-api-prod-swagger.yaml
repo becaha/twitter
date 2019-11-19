@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-11-19T00:53:19Z"
+  version: "2019-11-19T21:03:11Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
@@ -89,7 +89,7 @@ paths:
           type: "string"
         - name: "startIndex"
           in: "query"
-          required: false
+          required: true
           type: "string"
         - name: "hashtag"
           in: "path"
@@ -191,7 +191,7 @@ paths:
           type: "string"
         - name: "startIndex"
           in: "query"
-          required: false
+          required: true
           type: "string"
         - name: "handle"
           in: "path"

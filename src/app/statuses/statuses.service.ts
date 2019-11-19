@@ -45,7 +45,7 @@ export class StatusesService {
   }
 
 
-  public async getFeed(user: User, startIndex?: string) {
+  public async getFeed(user: User, startIndex: string) {
     const response = await this.proxy.getFeed(user.handle, startIndex);
     const statuses = this.extractStatuses(response);
     const nextIndex = response.startIndex;
@@ -62,18 +62,24 @@ export class StatusesService {
   }
 
   // returns all statuses with given hashtag
-  async getHashtagStatuses(hashtag: string, startIndex?: string) {
+  async getHashtagStatuses(hashtag: string, startIndex: string) {
     const response = await this.proxy.getHashtagStatuses(hashtag, startIndex);
     const statuses = this.extractStatuses(response);
     const nextIndex = response.startIndex;
     return new StatusesIndexResponse(statuses, nextIndex);
   }
 
+  isBlankStatus(status) {
+    return status.id === '' && status.ownerHandle === '';
+  }
+
   extractStatuses(response) {
     const statuses: Status[] = [];
     response.statuses.forEach((value, index, array) => {
-        statuses.push(new Status(new Message(value.message), value.ownerHandle,
-          new Attachment(value.attachmentSrc, ''), value.date, value.id));
+        if (!this.isBlankStatus(value)) {
+          statuses.push(new Status(new Message(value.message), value.ownerHandle,
+            new Attachment(value.attachmentSrc, ''), value.date, value.id));
+        }
       }
     );
     return statuses;

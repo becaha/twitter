@@ -15,6 +15,8 @@ export class FeedComponent implements OnInit {
   private currentUser: User;
   private statuses: Status[] = [];
   private startIndex = '0';
+  private noMore = false;
+  private awaiting = false;
 
   constructor(userService: UserService, statusesService: StatusesService) {
     this.userService = userService;
@@ -28,16 +30,27 @@ export class FeedComponent implements OnInit {
 
   @HostListener('window:scroll', [])
   onScroll(): void {
-    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - .5) {
+      console.log('scroll bottom');
       // bottom of the page
       this.getFeed();
     }
   }
 
   async getFeed() {
+    if (this.noMore || this.awaiting) {
+      return [];
+    }
+    this.awaiting = true;
     const statusesResponse = await this.statusesService.getFeed(this.currentUser, this.startIndex);
     this.statuses = this.statuses.concat(statusesResponse.statuses);
     this.startIndex = statusesResponse.startIndex;
+    this.awaiting = false;
+    if (this.startIndex === '-1') {
+      this.noMore = true;
+    } else {
+      this.noMore = false;
+    }
   }
 
 }

@@ -26,7 +26,8 @@ import {Message} from './status/message/Message';
 
 export class ProxyService {
   private apiGateway: DefaultService;
-  private pageSize = '1';
+  private followsPageSize = '4';
+  private statusesPageSize = '4';
 
   constructor(apiGateway: DefaultService) {
     this.apiGateway = apiGateway;
@@ -66,16 +67,16 @@ export class ProxyService {
     const response: Response = await this.apiGateway.usersHandleLogoutPost(handle).toPromise();
   }
 
-  async getStory(handle: string, ownerHandle ?: string, id?: string) {
-    const response: StatusesLastResponse = await this.apiGateway.usersHandleStoryGet(this.pageSize, handle, ownerHandle, id).toPromise();
+  async getStory(handle: string, ownerHandle?: string, id?: string) {
+    const response: StatusesLastResponse = await this.apiGateway.usersHandleStoryGet(this.statusesPageSize, handle, ownerHandle, id).toPromise();
     console.log('get story', response);
     return response;
   }
 
-  async getFeed(handle: string, startIndex?: string) {
+  async getFeed(handle: string, startIndex: string) {
     console.log('get feed', startIndex);
-    const response: StatusesIndexResponse = await this.apiGateway.usersHandleFeedGet(this.pageSize, handle, startIndex).toPromise();
-    console.log('get feed', response);
+    const response: StatusesIndexResponse = await this.apiGateway.usersHandleFeedGet(this.statusesPageSize, startIndex, handle).toPromise();
+    console.log('get feed statuses', response.statuses);
     return response;
   }
 
@@ -98,15 +99,15 @@ export class ProxyService {
 
   async getFollowers(handle: string, userHandle?: string, followHandle?: string) {
     const response: UsersResponse = await this.apiGateway.usersHandleFollowersGet(
-          this.pageSize, handle, userHandle, followHandle).toPromise();
-    console.log('get followers');
+          this.followsPageSize, handle, userHandle, followHandle).toPromise();
+    console.log('get followers', response);
     return response;
   }
 
   async getFollowing(handle: string, userHandle?: string, followHandle?: string) {
     const response: UsersResponse = await this.apiGateway.usersHandleFollowingGet(
-      this.pageSize, handle, userHandle, followHandle).toPromise();
-    console.log('get following');
+      this.followsPageSize, handle, userHandle, followHandle).toPromise();
+    console.log('get following', response);
     return response;
   }
 
@@ -149,8 +150,10 @@ export class ProxyService {
     return isFollowingBool;
   }
 
-  async getHashtagStatuses(hashtag: string, startIndex?: string) {
-    const response: StatusesIndexResponse = await this.apiGateway.statusesHashtagHashtagGet(this.pageSize, hashtag, startIndex).toPromise();
+  async getHashtagStatuses(hashtag: string, startIndex: string) {
+    console.log('get hash', this.statusesPageSize, startIndex, hashtag);
+    const response: StatusesIndexResponse = await this.apiGateway.statusesHashtagHashtagGet(this.statusesPageSize, startIndex, hashtag).toPromise();
+    console.log(response);
     return response;
   }
 
