@@ -36,13 +36,11 @@ export class UserService {
   }
 
   async getUser(handle: string) {
-    // const userByHandle = MOCK_USERS.filter(user => user.handle === handle);
-    // return userByHandle[0];
     const user = await this.proxy.getUser(handle);
     // TODO: remove this, signup user
-    if (user == null && this.currentUser.handle === handle) {
-      return this.currentUser;
-    }
+    // if (user = null && this.currentUser.handle === handle) {
+    //   return this.currentUser;
+    // }
     return user;
   }
 
