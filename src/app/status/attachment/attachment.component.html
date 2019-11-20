@@ -1,7 +1,11 @@
-<img *ngIf="attachment.getType() === ''" src="../../../assets/images/{{attachment.getSrc()}}" alt="attachment">
+<!--<img *ngIf="attachment.getType() === ''" src="../../../assets/images/{{attachment.getSrc()}}" alt="attachment">-->
 
-<img *ngIf="attachment.getType() === 'image'" src="../../../assets/images/{{attachment.getSrc()}}" alt="attachment">
+<!--<img *ngIf="attachment.getType() === 'url'" [src]="attachment.getSrc()" height="200" alt="attachment">-->
 
-<video *ngIf="attachment.getType() === 'video'" width="320" height="240" controls>
-  <source src="../../../assets/videos/{{attachment.getSrc()}}" type="{{attachment.getVideoType()}}">
-</video>
+<img [src]="attachment.getSrc()" height="200" alt="attachment">
+
+
+<!--<video *ngIf="attachment.getType() === 'video'" width="320" height="240" controls>-->
+<!--  <source src="../../../assets/videos/{{attachment.getSrc()}}" type="{{attachment.getVideoType()}}">-->
+<!--</video>-->
+

@@ -24,6 +24,7 @@ export class StatusesComponent implements OnInit {
   private text: string;
   private route: ActivatedRoute;
   private statusesService: StatusesService;
+  private attachmentUrl: string;
 
   constructor(userService: UserService, statusesService: StatusesService, route: ActivatedRoute) {
     this.userService = userService;
@@ -77,7 +78,7 @@ export class StatusesComponent implements OnInit {
   public post() {
     const message = new Message(this.text);
     //  constructor(message: Message, ownerHandle: string, profile: Attachment, attachment?: Attachment, date?: string, id?: string) {
-    const newStatus = new Status(message, this.viewUser.getHandle());
+    const newStatus = new Status(message, this.viewUser.getHandle(), new Attachment(this.attachmentUrl, 'url'));
     this.statusesService.addStatus(newStatus);
     // close status form
     this.statusForm = false;

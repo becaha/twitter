@@ -8,7 +8,13 @@
       <textarea class="form-control" [(ngModel)]="text"></textarea>
     </div>
     <div class="container-row space-between">
-      <app-upload [uploadMessage]="'Add attachment'"></app-upload>
+<!--      <app-upload [uploadMessage]="'Add attachment'"></app-upload>-->
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Add attachment url</span>
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="attachmentUrl"/>
+      </div>
       <button type="button" (click)="post()">Post</button>
     </div>
   </div>
