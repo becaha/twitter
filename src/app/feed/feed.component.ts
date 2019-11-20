@@ -14,7 +14,7 @@ export class FeedComponent implements OnInit {
   private statusesService: StatusesService;
   private currentUser: User;
   private statuses: Status[] = [];
-  private startIndex = '0';
+  private startIndex = 'max';
   private noMore = false;
   private awaiting = false;
 

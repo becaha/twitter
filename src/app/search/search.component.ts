@@ -15,7 +15,7 @@ export class SearchComponent implements OnInit {
   private searchText: string;
   private statusesService: StatusesService;
   private foundStatuses: Status[] = [];
-  private startIndex = '0';
+  private startIndex = 'max';
   private noMore = false;
   private awaiting = false;
 
