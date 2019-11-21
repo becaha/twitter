@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-11-19T21:03:11Z"
+  version: "2019-11-21T00:51:46Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
@@ -83,13 +83,17 @@ paths:
       produces:
         - "application/json"
       parameters:
+        - name: "lastHashtag"
+          in: "query"
+          required: false
+          type: "string"
         - name: "pageSize"
           in: "query"
           required: true
           type: "string"
-        - name: "startIndex"
+        - name: "lastTimestamp"
           in: "query"
-          required: true
+          required: false
           type: "string"
         - name: "hashtag"
           in: "path"
@@ -99,7 +103,7 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/StatusesIndexResponse"
+            $ref: "#/definitions/HashtagStatusesResponse"
           headers:
             Access-Control-Allow-Origin:
               type: "string"
@@ -185,13 +189,17 @@ paths:
       produces:
         - "application/json"
       parameters:
+        - name: "lastHandle"
+          in: "query"
+          required: false
+          type: "string"
         - name: "pageSize"
           in: "query"
           required: true
           type: "string"
-        - name: "startIndex"
+        - name: "lastTimestamp"
           in: "query"
-          required: true
+          required: false
           type: "string"
         - name: "handle"
           in: "path"
@@ -201,7 +209,7 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/StatusesIndexResponse"
+            $ref: "#/definitions/FeedStatusesResponse"
           headers:
             Access-Control-Allow-Origin:
               type: "string"
@@ -466,7 +474,7 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/StatusesLastResponse"
+            $ref: "#/definitions/StoryStatusesResponse"
           headers:
             Access-Control-Allow-Origin:
               type: "string"
@@ -514,6 +522,31 @@ definitions:
       followHandle:
         type: "string"
     title: "UsersResponse"
+  FeedStatusesResponse:
+    type: "object"
+    properties:
+      statuses:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            message:
+              type: "string"
+            ownerHandle:
+              type: "string"
+            attachmentSrc:
+              type: "string"
+            date:
+              type: "string"
+            id:
+              type: "string"
+            timestamp:
+              type: "string"
+      lastHandle:
+        type: "string"
+      lastTimestamp:
+        type: "string"
+    title: "FeedStatusesResponse"
   SignupRequest:
     type: "object"
     properties:
@@ -545,28 +578,9 @@ definitions:
       id:
         type: "string"
         description: "The status id"
+      timestamp:
+        type: "number"
     title: "StatusResponse"
-  StatusesIndexResponse:
-    type: "object"
-    properties:
-      statuses:
-        type: "array"
-        items:
-          type: "object"
-          properties:
-            message:
-              type: "string"
-            ownerHandle:
-              type: "string"
-            attachmentSrc:
-              type: "string"
-            date:
-              type: "string"
-            id:
-              type: "string"
-      startIndex:
-        type: "string"
-    title: "StatusesResponse"
   ProfileResponse:
     type: "object"
     properties:
@@ -574,29 +588,6 @@ definitions:
         type: "string"
         description: "The profile src"
     title: "ProfileResponse"
-  StatusesLastResponse:
-    type: "object"
-    properties:
-      statuses:
-        type: "array"
-        items:
-          type: "object"
-          properties:
-            message:
-              type: "string"
-            ownerHandle:
-              type: "string"
-            attachmentSrc:
-              type: "string"
-            date:
-              type: "string"
-            id:
-              type: "string"
-      ownerHandle:
-        type: "string"
-      id:
-        type: "string"
-    title: "StatusesResponse"
   AuthResponse:
     type: "object"
     properties:
@@ -624,9 +615,59 @@ definitions:
         type: "string"
         description: "The user password"
     title: "UserResponse"
+  HashtagStatusesResponse:
+    type: "object"
+    properties:
+      statuses:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            message:
+              type: "string"
+            ownerHandle:
+              type: "string"
+            attachmentSrc:
+              type: "string"
+            date:
+              type: "string"
+            id:
+              type: "string"
+            timestamp:
+              type: "number"
+      lastHashtag:
+        type: "string"
+      lastTimestamp:
+        type: "string"
+    title: "HashtagStatusesResponse"
   Empty:
     type: "object"
     title: "Empty Schema"
+  StoryStatusesResponse:
+    type: "object"
+    properties:
+      statuses:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            message:
+              type: "string"
+            ownerHandle:
+              type: "string"
+            attachmentSrc:
+              type: "string"
+            date:
+              type: "string"
+            id:
+              type: "string"
+            timestamp:
+              type: "number"
+      ownerHandle:
+        type: "string"
+      id:
+        type: "string"
+    title: "StoryStatusesResponse"
   UpdateProfileRequest:
     type: "object"
     properties:

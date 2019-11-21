@@ -15,7 +15,8 @@ export class SearchComponent implements OnInit {
   private searchText: string;
   private statusesService: StatusesService;
   private foundStatuses: Status[] = [];
-  private startIndex = 'max';
+  private lastHashtag;
+  private lastTimestamp;
   private noMore = false;
   private awaiting = false;
 
@@ -29,8 +30,13 @@ export class SearchComponent implements OnInit {
    * gets the search text from the route parameters
    */
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.route.paramMap.subscribe( paramMap => {
       this.searchText = paramMap.get('text');
+      this.noMore = false;
+      this.awaiting = false;
+      this.lastTimestamp = null;
+      this.lastHashtag = null;
       this.search();
     });
   }
@@ -40,20 +46,8 @@ export class SearchComponent implements OnInit {
     if (window.innerHeight + window.scrollY >= document.body.scrollHeight - .5) {
       // bottom of the page
       console.log('scrolled to bottom', this.searchText);
-      if (this.noMore || this.awaiting) {
-      return [];
-    }
-      this.awaiting = true;
-      const statusesResponse = await this.statusesService.getHashtagStatuses(this.searchText, this.startIndex);
-      console.log(statusesResponse);
-      this.foundStatuses = this.foundStatuses.concat(statusesResponse.statuses);
-      this.startIndex = statusesResponse.startIndex;
-      this.awaiting = false;
-      if (this.startIndex === '-1') {
-        this.noMore = true;
-      } else {
-        this.noMore = false;
-      }
+      const statuses = await this.getHashtagStatuses();
+      this.foundStatuses = this.foundStatuses.concat(statuses);
     }
   }
 
@@ -63,21 +57,27 @@ export class SearchComponent implements OnInit {
    *  TODO: can search, and for more than hashtags
    */
   async search() {
+    this.foundStatuses = await this.getHashtagStatuses();
+    console.log('found statuses', this.foundStatuses);
+  }
+
+  async getHashtagStatuses() {
     if (this.noMore || this.awaiting) {
       return [];
     }
     this.awaiting = true;
-    const statusesResponse = await this.statusesService.getHashtagStatuses(this.searchText, this.startIndex);
+    const statusesResponse = await this.statusesService.getHashtagStatuses(this.searchText, this.lastHashtag, this.lastTimestamp);
     console.log(statusesResponse);
-    this.foundStatuses = statusesResponse.statuses;
-    this.startIndex = statusesResponse.startIndex;
+    const statuses = statusesResponse.statuses;
+    this.lastHashtag = statusesResponse.lastHashtag;
+    this.lastTimestamp = statusesResponse.lastTimestamp;
     this.awaiting = false;
-    if (this.startIndex === '-1') {
+    if (!this.lastHashtag && !this.lastTimestamp) {
       this.noMore = true;
     } else {
       this.noMore = false;
     }
-    console.log('found statuses', this.foundStatuses);
+    return statuses;
   }
 
 }

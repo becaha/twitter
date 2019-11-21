@@ -9,11 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { FeedStatusesResponseStatuses } from './feedStatusesResponseStatuses';
 
 
-export interface AuthResponse { 
-    /**
-     * The user auth token
-     */
-    authToken?: string;
+export interface FeedStatusesResponse { 
+    statuses?: Array<FeedStatusesResponseStatuses>;
+    lastHandle?: string;
+    lastTimestamp?: string;
 }

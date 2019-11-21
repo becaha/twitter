@@ -1,6 +1,6 @@
 import {Status} from '../status/Status';
 
-export class StatusesLastResponse {
+export class StoryResponse {
 
   statuses: Status[];
   ownerHandle: string;

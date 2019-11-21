@@ -11,9 +11,11 @@
  */
 
 
-export interface AuthResponse { 
-    /**
-     * The user auth token
-     */
-    authToken?: string;
+export interface HashtagStatusesResponseStatuses { 
+    message?: string;
+    ownerHandle?: string;
+    attachmentSrc?: string;
+    date?: string;
+    id?: string;
+    timestamp?: number;
 }

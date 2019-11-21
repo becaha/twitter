@@ -42,6 +42,7 @@ export class StoryComponent implements OnInit {
    * getting the user by handle from the user service
    */
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.route.paramMap.subscribe( paramMap => {
       this.viewUserHandle = paramMap.get('handle');
       this.getViewUser();
@@ -54,8 +55,8 @@ export class StoryComponent implements OnInit {
       // bottom of the page
       console.log('scrolled to bottom');
       if (this.noMore || this.awaiting) {
-      return [];
-    }
+        return [];
+      }
       this.awaiting = true;
       const statusesResponse = await this.statusesService.getStory(this.viewUser, this.lastOwnerHandle, this.lastId);
       this.statuses = this.statuses.concat(statusesResponse.statuses);
@@ -75,8 +76,8 @@ export class StoryComponent implements OnInit {
     this.lastId = null;
     this.noMore = false;
     this.awaiting = false;
-    this.viewUser = await this.userService.getUser(this.viewUserHandle);
     console.log('story get view user', this.viewUser, this.currentUser);
+    this.viewUser = await this.userService.getUser(this.viewUserHandle);
     if (this.viewUser == null) {
       this.viewUser = this.userService.getCurrentUser();
       console.log('got user is null so set to ' + this.viewUser);

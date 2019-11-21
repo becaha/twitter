@@ -14,7 +14,8 @@ export class FeedComponent implements OnInit {
   private statusesService: StatusesService;
   private currentUser: User;
   private statuses: Status[] = [];
-  private startIndex = 'max';
+  private lastHandle;
+  private lastTimestamp;
   private noMore = false;
   private awaiting = false;
 
@@ -25,6 +26,7 @@ export class FeedComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.getFeed();
   }
 
@@ -42,11 +44,12 @@ export class FeedComponent implements OnInit {
       return [];
     }
     this.awaiting = true;
-    const statusesResponse = await this.statusesService.getFeed(this.currentUser, this.startIndex);
+    const statusesResponse = await this.statusesService.getFeed(this.currentUser, this.lastHandle, this.lastTimestamp);
     this.statuses = this.statuses.concat(statusesResponse.statuses);
-    this.startIndex = statusesResponse.startIndex;
+    this.lastHandle = statusesResponse.lastHandle;
+    this.lastTimestamp = statusesResponse.lastTimestamp;
     this.awaiting = false;
-    if (this.startIndex === '-1') {
+    if (!this.lastHandle && !this.lastTimestamp) {
       this.noMore = true;
     } else {
       this.noMore = false;

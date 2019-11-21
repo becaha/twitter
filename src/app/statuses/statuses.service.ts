@@ -4,8 +4,9 @@ import {ProxyService} from '../proxy.service';
 import {User} from '../user/User';
 import {Message} from '../status/message/Message';
 import {Attachment} from '../status/attachment/Attachment';
-import {StatusesIndexResponse} from './StatusesIndexResponse';
-import {StatusesLastResponse} from './StatusesLastResponse';
+import {FeedResponse} from './FeedResponse';
+import {StoryResponse} from './StoryResponse';
+import {HashtagResponse} from './HashtagResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -45,12 +46,13 @@ export class StatusesService {
   }
 
 
-  public async getFeed(user: User, startIndex: string) {
-    const response = await this.proxy.getFeed(user.handle, startIndex);
+  public async getFeed(user: User, lastHandle?: string, lastTimestamp?: string) {
+    const response = await this.proxy.getFeed(user.handle, lastHandle, lastTimestamp);
     const statuses = this.extractStatuses(response);
-    const nextIndex = response.startIndex;
-    console.log(response, response.startIndex);
-    return new StatusesIndexResponse(statuses, nextIndex);
+    const nextHandle = response.lastHandle;
+    const nextTimestamp = response.lastTimestamp;
+    console.log(response, response.lastHandle);
+    return new FeedResponse(statuses, nextHandle, nextTimestamp);
   }
 
   public async getStory(user: User, lastOwnerHandle?: string, lastId?: string) {
@@ -58,15 +60,16 @@ export class StatusesService {
     const statuses = this.extractStatuses(response);
     const nextOwnerHandle = response.ownerHandle;
     const nextId = response.id;
-    return new StatusesLastResponse(statuses, nextOwnerHandle, nextId);
+    return new StoryResponse(statuses, nextOwnerHandle, nextId);
   }
 
   // returns all statuses with given hashtag
-  async getHashtagStatuses(hashtag: string, startIndex: string) {
-    const response = await this.proxy.getHashtagStatuses(hashtag, startIndex);
+  async getHashtagStatuses(hashtag: string, lastHashtag?: string, lastTimestamp?: string) {
+    const response = await this.proxy.getHashtagStatuses(hashtag, lastHashtag, lastTimestamp);
     const statuses = this.extractStatuses(response);
-    const nextIndex = response.startIndex;
-    return new StatusesIndexResponse(statuses, nextIndex);
+    const nextHashtag = response.lastHashtag;
+    const nextTimestamp = response.lastTimestamp;
+    return new HashtagResponse(statuses, nextHashtag, nextTimestamp);
   }
 
   isBlankStatus(status) {

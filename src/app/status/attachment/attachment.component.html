@@ -1,11 +1,17 @@
-<!--<img *ngIf="attachment.getType() === ''" src="../../../assets/images/{{attachment.getSrc()}}" alt="attachment">-->
-
 <!--<img *ngIf="attachment.getType() === 'url'" [src]="attachment.getSrc()" height="200" alt="attachment">-->
 
-<img [src]="attachment.getSrc()" height="200" alt="attachment">
+<!--<img [src]="attachment.getSrc()" height="200" alt="attachment">-->
 
 
 <!--<video *ngIf="attachment.getType() === 'video'" width="320" height="240" controls>-->
 <!--  <source src="../../../assets/videos/{{attachment.getSrc()}}" type="{{attachment.getVideoType()}}">-->
 <!--</video>-->
+
+<!--<video width="320" height="240" controls (click)="toggleVideo($event)" #videoPlayer>-->
+<!--  <source [src]="attachment.getSrc()" type="{{attachment.getVideoType()}}">-->
+<!--</video>-->
+
+<iframe height="200" [src]="src" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 

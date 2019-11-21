@@ -6,7 +6,7 @@ import {
   ProfileResponse,
   UserResponse,
   Response,
-  StatusesIndexResponse, SignupRequest, UsersResponse, AuthResponse, StatusesLastResponse, StatusResponse
+  SignupRequest, UsersResponse, AuthResponse, StatusResponse, StoryStatusesResponse, FeedStatusesResponse, HashtagStatusesResponse
 } from '../../api';
 import {UpdateProfileRequest} from '../../api/model/updateProfileRequest';
 import {Status} from './status/Status';
@@ -68,14 +68,14 @@ export class ProxyService {
   }
 
   async getStory(handle: string, ownerHandle?: string, id?: string) {
-    const response: StatusesLastResponse = await this.apiGateway.usersHandleStoryGet(this.statusesPageSize, handle, ownerHandle, id).toPromise();
+    const response: StoryStatusesResponse = await this.apiGateway.usersHandleStoryGet(this.statusesPageSize, handle, ownerHandle, id).toPromise();
     console.log('get story', response);
     return response;
   }
 
-  async getFeed(handle: string, startIndex: string) {
-    console.log('get feed', startIndex);
-    const response: StatusesIndexResponse = await this.apiGateway.usersHandleFeedGet(this.statusesPageSize, startIndex, handle).toPromise();
+  async getFeed(handle: string, lastHandle?: string, lastTimestamp?: string) {
+    console.log('get feed');
+    const response: FeedStatusesResponse = await this.apiGateway.usersHandleFeedGet(this.statusesPageSize, handle, lastHandle, lastTimestamp).toPromise();
     console.log('get feed statuses', response.statuses);
     return response;
   }
@@ -150,9 +150,9 @@ export class ProxyService {
     return isFollowingBool;
   }
 
-  async getHashtagStatuses(hashtag: string, startIndex: string) {
-    console.log('get hash', this.statusesPageSize, startIndex, hashtag);
-    const response: StatusesIndexResponse = await this.apiGateway.statusesHashtagHashtagGet(this.statusesPageSize, startIndex, hashtag).toPromise();
+  async getHashtagStatuses(hashtag: string, lastHashtag?: string, lastTimestamp?: string) {
+    console.log('get hash', this.statusesPageSize, lastHashtag, hashtag);
+    const response: HashtagStatusesResponse = await this.apiGateway.statusesHashtagHashtagGet(this.statusesPageSize, hashtag, lastHashtag, lastTimestamp).toPromise();
     console.log(response);
     return response;
   }

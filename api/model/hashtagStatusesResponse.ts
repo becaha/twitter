@@ -9,11 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { HashtagStatusesResponseStatuses } from './hashtagStatusesResponseStatuses';
 
 
-export interface AuthResponse { 
-    /**
-     * The user auth token
-     */
-    authToken?: string;
+export interface HashtagStatusesResponse { 
+    statuses?: Array<HashtagStatusesResponseStatuses>;
+    lastHashtag?: string;
+    lastTimestamp?: string;
 }
