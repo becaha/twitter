@@ -13,6 +13,7 @@ export class AttachmentComponent implements OnInit {
   private src;
   // 'https://www.youtube.com/embed/3CClOsC26Lw'
   private sanitizer;
+  private type = 'image';
 
   constructor(sanitizer: DomSanitizer) {
     this.sanitizer = sanitizer;
@@ -20,7 +21,8 @@ export class AttachmentComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.attachment);
-    if (this.attachment.getType() === 'video') {
+    if (this.attachment.getSrc().includes('youtube.com')) {
+      this.type = 'video';
       this.src = this.sanitizer.bypassSecurityTrustResourceUrl(this.attachment.getSrc());
     }
   }
