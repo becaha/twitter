@@ -1,7 +1,7 @@
 <div *ngIf="status" class="card card-row status">
   <div class="card-row-ownership">
 <!--    <img class="card-row-image" src='../../assets/images/{{status.getProfile().getSrc()}}' alt="profile picture">-->
-    <img class="card-row-image" src="https://cs340-bucket.s3-us-west-1.amazonaws.com/{{status.getOwnerHandle()}}" alt="profile picture">
+    <img class="card-row-image" src="https://cs340-profile-bucket.s3-us-east-2.amazonaws.com/{{status.getOwnerHandle()}}" alt="profile picture">
     <a class="card-text" routerLink="/story/{{status.getOwnerHandle()}}">{{status.getOwnerHandle()}}</a>
   </div>
   <div class="card-row-info">

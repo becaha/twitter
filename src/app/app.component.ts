@@ -44,7 +44,8 @@ export class AppComponent {
   /**
    * logout the current user by setting the users to null
    */
-  logout() {
+  async logout() {
+    const response = await this.userService.logout(this.userService.getCurrentUser().getHandle());
     this.userService.setCurrentUser(null);
     this.userService.setViewUser(null);
     this.currentUser = null;

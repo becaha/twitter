@@ -1,8 +1,7 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {UserService} from '../user/user.service';
 import {User} from '../user/User';
-import {ActivatedRoute, ParamMap} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
 import {FollowService} from '../follow/follow.service';
 import {Status} from '../status/Status';
 import {StatusesService} from '../statuses/statuses.service';
@@ -42,6 +41,7 @@ export class StoryComponent implements OnInit {
    * getting the user by handle from the user service
    */
   ngOnInit() {
+    console.log('story');
     window.scrollTo(0, 0);
     this.route.paramMap.subscribe( paramMap => {
       this.viewUserHandle = paramMap.get('handle');
@@ -76,7 +76,7 @@ export class StoryComponent implements OnInit {
     this.lastId = null;
     this.noMore = false;
     this.awaiting = false;
-    console.log('story get view user', this.viewUser, this.currentUser);
+    console.log('story get view user', this.viewUserHandle, this.currentUser);
     this.viewUser = await this.userService.getUser(this.viewUserHandle);
     if (this.viewUser == null) {
       this.viewUser = this.userService.getCurrentUser();

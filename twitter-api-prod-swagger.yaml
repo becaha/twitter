@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-11-22T05:35:12Z"
+  version: "2019-11-22T17:39:31Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
@@ -305,7 +305,7 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/AuthResponse"
+            $ref: "#/definitions/UserResponse"
           headers:
             Access-Control-Allow-Origin:
               type: "string"
@@ -423,7 +423,7 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/AuthResponse"
+            $ref: "#/definitions/UserResponse"
           headers:
             Access-Control-Allow-Origin:
               type: "string"
@@ -512,8 +512,6 @@ definitions:
               type: "string"
             name:
               type: "string"
-            password:
-              type: "string"
       userHandle:
         type: "string"
       followHandle:
@@ -587,15 +585,6 @@ definitions:
       timestamp:
         type: "number"
     title: "StatusResponse"
-  AuthResponse:
-    type: "object"
-    properties:
-      message:
-        type: "string"
-        description: "The status message"
-      authToken:
-        type: "string"
-    title: "AuthResponse"
   FollowRequest:
     type: "object"
     properties:
@@ -624,7 +613,7 @@ definitions:
       name:
         type: "string"
         description: "The user full name"
-      password:
+      authorization:
         type: "string"
         description: "The user password"
     title: "UserResponse"

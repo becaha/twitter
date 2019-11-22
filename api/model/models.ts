@@ -1,4 +1,3 @@
-export * from './authResponse';
 export * from './empty';
 export * from './feedStatusesResponse';
 export * from './feedStatusesResponseStatuses';

@@ -42,12 +42,14 @@ export class UploadService {
   async updateUserProfile() {
     if (this.userService.getCurrentUser()) {
       const auth = this.userService.getAuth();
+      console.log('auth', auth);
       return await this.proxy.updateProfile(this.userService.getCurrentUser().getHandle(), this.profile, auth);
     }
   }
 
   async newUserProfile(handle: string) {
     const auth = this.userService.getAuth();
+    console.log('auth', auth);
     return await this.proxy.updateProfile(handle, this.profile, auth);
   }
 

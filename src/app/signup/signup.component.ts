@@ -40,14 +40,18 @@ export class SignupComponent implements OnInit {
    * if not all the inputs are given, sign up error
    */
   async signup() {
-    // TODO: real attachment
+    // profile should be uploaded
     this.attachmentSrc = this.uploadService.getProfile();
-    // TODO: add this.attachment
+    // every field is filled in
     if (this.handle && this.password && this.name && this.attachmentSrc) {
+      const user = await this.userService.signup(this.handle, this.password, this.name);
+      if (!user) {
+        this.signupError = true;
+        this.loginUser.emit(null);
+        return;
+      }
       await this.uploadService.newUserProfile(this.handle);
-      this.currentUser = new User(this.handle, this.password, this.name);
-      const response = await this.userService.signup(this.handle, this.password, this.name);
-      this.userService.setAuth(response.authToken);
+      this.currentUser = user;
       this.userService.setCurrentUser(this.currentUser);
       this.userService.setViewUser(this.currentUser);
       this.router.navigateByUrl('feed');

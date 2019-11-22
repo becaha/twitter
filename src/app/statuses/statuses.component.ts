@@ -39,11 +39,19 @@ export class StatusesComponent implements OnInit {
    * getting the user by handle from the user service
    */
   ngOnInit() {
+    console.log('statuses');
     this.route.paramMap.subscribe(paramMap => {
       this.viewUserHandle = paramMap.get('handle');
-      if (this.viewUser == null) {
+      console.log('view', this.viewUserHandle);
+      // if (this.viewUser == null) {
+      //   this.viewUser = this.userService.getCurrentUser();
+      // }
+      if (this.viewUserHandle) {
+        this.getViewUser();
+      } else {
         this.viewUser = this.userService.getCurrentUser();
       }
+      console.log('statuses', this.statuses);
     });
   }
 

@@ -7,7 +7,6 @@ import {
   Response,
   SignupRequest,
   UsersResponse,
-  AuthResponse,
   StatusResponse,
   StoryStatusesResponse,
   FeedStatusesResponse,
@@ -32,7 +31,7 @@ import {Message} from './status/message/Message';
 
 export class ProxyService {
   private apiGateway: DefaultService;
-  private followsPageSize = '4';
+  private followsPageSize = '3';
   private statusesPageSize = '4';
 
   constructor(apiGateway: DefaultService) {
@@ -43,8 +42,8 @@ export class ProxyService {
     const response: UserResponse = await this.apiGateway.usersHandleGet(handle).toPromise();
     console.log('getUser', response);
     if (response !== null) {
-      console.log('getUser', response.handle, response.name, response.password);
-      return new User(response.handle, response.password, response.name);
+      console.log('getUser', response.handle, response.name);
+      return new User(response.handle, response.name);
     }
     return null;
   }
@@ -55,26 +54,24 @@ export class ProxyService {
       password,
       name
     };
-    const response: AuthResponse = await this.apiGateway.usersHandleSignupPost(handle, request).toPromise();
-    console.log('signup', response.authToken);
-    // TODO: change this
+    const response: UserResponse = await this.apiGateway.usersHandleSignupPost(handle, request).toPromise();
+    console.log('signup', response.authorization);
     return response;
   }
 
-  // TODO: real auth login
   async loginUser(handle: string, password: string) {
     const req: LoginRequest = {
       handle,
       password
     };
-    const response: AuthResponse = await this.apiGateway.usersHandleLoginPost(handle, req).toPromise();
-    console.log('login', response.authToken);
+    const response: UserResponse = await this.apiGateway.usersHandleLoginPost(handle, req).toPromise();
+    console.log('login', response.authorization);
     return response;
   }
 
-  // TODO: real auth logout
   async logoutUser(handle: string) {
     const response: Response = await this.apiGateway.usersHandleLogoutPost(handle).toPromise();
+    return response;
   }
 
   async getStory(handle: string, ownerHandle?: string, id?: string) {

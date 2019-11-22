@@ -46,12 +46,19 @@ export class UserService {
   }
 
   async login(handle: string, password: string) {
-    return await this.proxy.loginUser(handle, password);
+    const response = await this.proxy.loginUser(handle, password);
+    this.auth = response.authorization;
+    return new User(response.handle, response.name);
+  }
+
+  async logout(handle: string) {
+    return await this.proxy.logoutUser(handle);
   }
 
   public async signup(handle: string, password: string, name: string) {
-    // await this.proxy.
-    return await this.proxy.signupUser(handle, password, name);
+    const response = await this.proxy.signupUser(handle, password, name);
+    this.auth = response.authorization;
+    return new User(response.handle, response.name);
   }
 
   public async getFollowing(user: User, lastUserHandle?: string, lastFollowHandle?: string) {
@@ -82,7 +89,7 @@ export class UserService {
     const users: User[] = [];
     response.users.forEach((value, index, array) => {
         if (!this.isBlankUser(value)) {
-          users.push(new User(value.handle, value.password, value.name));
+          users.push(new User(value.handle, value.name));
         }
       }
     );

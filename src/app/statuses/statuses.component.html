@@ -1,5 +1,5 @@
 <div class="container-col">
-  <button *ngIf="!statusForm && (currentUser === viewUser)" type="button" class="button-right" (click)="statusForm = true">Post new status</button>
+  <button *ngIf="!statusForm && (currentUser.getHandle() === viewUser.getHandle())" type="button" class="button-right" (click)="statusForm = true">Post new status</button>
   <div *ngIf="statusForm" class="card container-col status-form">
     <div class="input-group">
       <div class="input-group-prepend">

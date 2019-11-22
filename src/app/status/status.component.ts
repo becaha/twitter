@@ -36,6 +36,7 @@ export class StatusComponent implements OnInit {
       if (this.singleStatusId) {
         this.getSingleStatus();
       }
+      console.log('status', this.status);
     });
   }
 
