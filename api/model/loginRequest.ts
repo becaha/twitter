@@ -9,11 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { UsersResponseUsers } from './usersResponseUsers';
 
 
-export interface UsersResponse { 
-    users?: Array<UsersResponseUsers>;
-    userHandle?: string;
-    followHandle?: string;
+export interface LoginRequest { 
+    /**
+     * The user handle
+     */
+    handle?: string;
+    password?: string;
 }

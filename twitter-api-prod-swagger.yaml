@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-11-21T00:51:46Z"
+  version: "2019-11-22T05:35:12Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
@@ -45,6 +45,11 @@ paths:
           in: "path"
           required: true
           type: "string"
+        - in: "body"
+          name: "FollowRequest"
+          required: true
+          schema:
+            $ref: "#/definitions/FollowRequest"
       responses:
         200:
           description: "200 response"
@@ -68,6 +73,11 @@ paths:
           in: "path"
           required: true
           type: "string"
+        - in: "body"
+          name: "FollowRequest"
+          required: true
+          schema:
+            $ref: "#/definitions/FollowRequest"
       responses:
         200:
           description: "200 response"
@@ -276,7 +286,7 @@ paths:
             Access-Control-Allow-Origin:
               type: "string"
   /users/{handle}/login:
-    get:
+    post:
       consumes:
         - "application/json"
       produces:
@@ -286,6 +296,11 @@ paths:
           in: "path"
           required: true
           type: "string"
+        - in: "body"
+          name: "LoginRequest"
+          required: true
+          schema:
+            $ref: "#/definitions/LoginRequest"
       responses:
         200:
           description: "200 response"
@@ -348,24 +363,6 @@ paths:
             Access-Control-Allow-Headers:
               type: "string"
   /users/{handle}/profile:
-    get:
-      consumes:
-        - "application/json"
-      produces:
-        - "application/json"
-      parameters:
-        - name: "handle"
-          in: "path"
-          required: true
-          type: "string"
-      responses:
-        200:
-          description: "200 response"
-          schema:
-            $ref: "#/definitions/ProfileResponse"
-          headers:
-            Access-Control-Allow-Origin:
-              type: "string"
     post:
       consumes:
         - "application/json"
@@ -426,7 +423,7 @@ paths:
         200:
           description: "200 response"
           schema:
-            $ref: "#/definitions/Response"
+            $ref: "#/definitions/AuthResponse"
           headers:
             Access-Control-Allow-Origin:
               type: "string"
@@ -547,6 +544,15 @@ definitions:
       lastTimestamp:
         type: "string"
     title: "FeedStatusesResponse"
+  LoginRequest:
+    type: "object"
+    properties:
+      handle:
+        type: "string"
+        description: "The user handle"
+      password:
+        type: "string"
+    title: "UserRequest"
   SignupRequest:
     type: "object"
     properties:
@@ -581,20 +587,27 @@ definitions:
       timestamp:
         type: "number"
     title: "StatusResponse"
-  ProfileResponse:
-    type: "object"
-    properties:
-      src:
-        type: "string"
-        description: "The profile src"
-    title: "ProfileResponse"
   AuthResponse:
     type: "object"
     properties:
+      message:
+        type: "string"
+        description: "The status message"
       authToken:
         type: "string"
-        description: "The user auth token"
     title: "AuthResponse"
+  FollowRequest:
+    type: "object"
+    properties:
+      userHandle:
+        type: "string"
+        description: "The user that is following"
+      followHandle:
+        type: "string"
+        description: "The user to be followed"
+      authorization:
+        type: "string"
+    title: "FollowRequest"
   Response:
     type: "object"
     properties:
@@ -677,6 +690,8 @@ definitions:
       src:
         type: "string"
         description: "The profile src"
+      authorization:
+        type: "string"
     title: "UpdateProfileRequest"
   PostStatusRequest:
     type: "object"
@@ -690,4 +705,6 @@ definitions:
       ownerHandle:
         type: "string"
         description: "The status ownerHandle"
+      authorization:
+        type: "string"
     title: "PostStatusRequest"

@@ -3,10 +3,16 @@ import {Attachment} from './status/attachment/Attachment';
 import {
   DefaultService,
   IsFollowingResponse,
-  ProfileResponse,
   UserResponse,
   Response,
-  SignupRequest, UsersResponse, AuthResponse, StatusResponse, StoryStatusesResponse, FeedStatusesResponse, HashtagStatusesResponse
+  SignupRequest,
+  UsersResponse,
+  AuthResponse,
+  StatusResponse,
+  StoryStatusesResponse,
+  FeedStatusesResponse,
+  HashtagStatusesResponse,
+  FollowRequest, LoginRequest
 } from '../../api';
 import {UpdateProfileRequest} from '../../api/model/updateProfileRequest';
 import {Status} from './status/Status';
@@ -44,22 +50,26 @@ export class ProxyService {
   }
 
   async signupUser(handle: string, password: string, name: string) {
-    // user.getHandle(), user.getPassword(), user.getName()
     const request: SignupRequest = {
       handle,
       password,
       name
     };
-    const response: Response = await this.apiGateway.usersHandleSignupPost(handle, request).toPromise();
-    console.log('signup', response.message);
+    const response: AuthResponse = await this.apiGateway.usersHandleSignupPost(handle, request).toPromise();
+    console.log('signup', response.authToken);
     // TODO: change this
-    return new User(handle, password, name);
+    return response;
   }
 
   // TODO: real auth login
   async loginUser(handle: string, password: string) {
-    // const req: LoginRequest;
-    const response: AuthResponse = await this.apiGateway.usersHandleLoginGet(handle).toPromise();
+    const req: LoginRequest = {
+      handle,
+      password
+    };
+    const response: AuthResponse = await this.apiGateway.usersHandleLoginPost(handle, req).toPromise();
+    console.log('login', response.authToken);
+    return response;
   }
 
   // TODO: real auth logout
@@ -68,33 +78,30 @@ export class ProxyService {
   }
 
   async getStory(handle: string, ownerHandle?: string, id?: string) {
-    const response: StoryStatusesResponse = await this.apiGateway.usersHandleStoryGet(this.statusesPageSize, handle, ownerHandle, id).toPromise();
+    const response: StoryStatusesResponse = await this.apiGateway.usersHandleStoryGet
+      (this.statusesPageSize, handle, ownerHandle, id).toPromise();
     console.log('get story', response);
     return response;
   }
 
   async getFeed(handle: string, lastHandle?: string, lastTimestamp?: string) {
     console.log('get feed');
-    const response: FeedStatusesResponse = await this.apiGateway.usersHandleFeedGet(this.statusesPageSize, handle, lastHandle, lastTimestamp).toPromise();
+    const response: FeedStatusesResponse = await this.apiGateway.usersHandleFeedGet
+      (this.statusesPageSize, handle, lastHandle, lastTimestamp).toPromise();
     console.log('get feed statuses', response.statuses);
     return response;
   }
 
-  async updateProfile(handle: string, profile: string) {
+  async updateProfile(handle: string, profile: string, auth: string) {
     // profile is base64 encoded image
     const req: UpdateProfileRequest = {
       handle,
-      src: profile
+      src: profile,
+      authorization: auth
     };
     const response: Response = await this.apiGateway.usersHandleProfilePost(handle, req).toPromise();
     console.log('update prof', response.message);
     return response;
-  }
-
-  async getProfile(handle: string) {
-    const response: ProfileResponse = await this.apiGateway.usersHandleProfileGet(handle).toPromise();
-    console.log('get prof', response.src);
-    return response.src;
   }
 
   async getFollowers(handle: string, userHandle?: string, followHandle?: string) {
@@ -119,7 +126,7 @@ export class ProxyService {
                       new Attachment(response.attachmentSrc, 'image'), response.date, response.id);
   }
 
-  async postStatus(status: Status) {
+  async postStatus(status: Status, auth: string) {
     let src = 'None';
     if (status.getAttachment() !== undefined) {
       src = status.getAttachment().getSrc();
@@ -127,19 +134,30 @@ export class ProxyService {
     const req: PostStatusRequest = {
       message: status.getMessageText(),
       attachmentSrc: src,
-      ownerHandle: status.getOwnerHandle()
+      ownerHandle: status.getOwnerHandle(),
+      authorization: auth
     };
     const response: Response = await this.apiGateway.statusesPostPost(req).toPromise();
     console.log('post', response);
   }
 
-  async follow(userHandle: string, followHandle: string) {
-    const response: Response = await this.apiGateway.followUserHandleFollowHandlePost(followHandle, userHandle).toPromise();
+  async follow(userHandle: string, followHandle: string, auth: string) {
+    const req: FollowRequest = {
+      userHandle,
+      followHandle,
+      authorization: auth
+    };
+    const response: Response = await this.apiGateway.followUserHandleFollowHandlePost(followHandle, userHandle, req).toPromise();
     console.log('follow', response.message);
   }
 
-  async unfollow(userHandle: string, followHandle: string) {
-    const response: Response = await this.apiGateway.followUserHandleFollowHandleUnfollowPost(followHandle, userHandle).toPromise();
+  async unfollow(userHandle: string, followHandle: string, auth: string) {
+    const req: FollowRequest = {
+      userHandle,
+      followHandle,
+      authorization: auth
+    };
+    const response: Response = await this.apiGateway.followUserHandleFollowHandleUnfollowPost(followHandle, userHandle, req).toPromise();
     console.log('unfollow', response.message);
   }
 
@@ -152,7 +170,8 @@ export class ProxyService {
 
   async getHashtagStatuses(hashtag: string, lastHashtag?: string, lastTimestamp?: string) {
     console.log('get hash', this.statusesPageSize, lastHashtag, hashtag);
-    const response: HashtagStatusesResponse = await this.apiGateway.statusesHashtagHashtagGet(this.statusesPageSize, hashtag, lastHashtag, lastTimestamp).toPromise();
+    const response: HashtagStatusesResponse = await this.apiGateway.statusesHashtagHashtagGet
+      (this.statusesPageSize, hashtag, lastHashtag, lastTimestamp).toPromise();
     console.log(response);
     return response;
   }

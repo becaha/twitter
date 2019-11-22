@@ -9,11 +9,16 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { UsersResponseUsers } from './usersResponseUsers';
 
 
-export interface UsersResponse { 
-    users?: Array<UsersResponseUsers>;
+export interface FollowRequest { 
+    /**
+     * The user that is following
+     */
     userHandle?: string;
+    /**
+     * The user to be followed
+     */
     followHandle?: string;
+    authorization?: string;
 }

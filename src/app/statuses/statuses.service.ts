@@ -7,19 +7,23 @@ import {Attachment} from '../status/attachment/Attachment';
 import {FeedResponse} from './FeedResponse';
 import {StoryResponse} from './StoryResponse';
 import {HashtagResponse} from './HashtagResponse';
+import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatusesService {
   private proxy: ProxyService;
+  private userService: UserService;
 
-  constructor(proxy: ProxyService) {
+  constructor(proxy: ProxyService, userService: UserService) {
     this.proxy = proxy;
+    this.userService = userService;
   }
 
   addStatus(status: Status) {
-    this.proxy.postStatus(status);
+    const auth = this.userService.getAuth();
+    this.proxy.postStatus(status, auth);
   }
 
   async getStatus(id: string) {

@@ -41,12 +41,14 @@ export class UploadService {
 
   async updateUserProfile() {
     if (this.userService.getCurrentUser()) {
-      return await this.proxy.updateProfile(this.userService.getCurrentUser().getHandle(), this.profile);
+      const auth = this.userService.getAuth();
+      return await this.proxy.updateProfile(this.userService.getCurrentUser().getHandle(), this.profile, auth);
     }
   }
 
   async newUserProfile(handle: string) {
-    return await this.proxy.updateProfile(handle, this.profile);
+    const auth = this.userService.getAuth();
+    return await this.proxy.updateProfile(handle, this.profile, auth);
   }
 
   imageToBase64(fileReader: FileReader, fileToRead: File): Observable<string> {

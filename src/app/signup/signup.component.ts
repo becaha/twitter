@@ -45,7 +45,9 @@ export class SignupComponent implements OnInit {
     // TODO: add this.attachment
     if (this.handle && this.password && this.name && this.attachmentSrc) {
       await this.uploadService.newUserProfile(this.handle);
-      this.currentUser = await this.userService.signup(this.handle, this.password, this.name);
+      this.currentUser = new User(this.handle, this.password, this.name);
+      const response = await this.userService.signup(this.handle, this.password, this.name);
+      this.userService.setAuth(response.authToken);
       this.userService.setCurrentUser(this.currentUser);
       this.userService.setViewUser(this.currentUser);
       this.router.navigateByUrl('feed');

@@ -11,14 +11,19 @@ import {UsersLastResponse} from './UsersLastResponse';
 export class UserService {
   private currentUser: User; // logged in user
   private viewUser: User; // user displayed in page
-  private followService: FollowService;
-  private statusesService: StatusesService;
   private proxy: ProxyService;
+  private auth: string;
 
-  constructor(followService: FollowService, statusesService: StatusesService, proxy: ProxyService) {
-    this.followService = followService;
-    this.statusesService = statusesService;
+  constructor(proxy: ProxyService) {
     this.proxy = proxy;
+  }
+
+  getAuth() {
+    return this.auth;
+  }
+
+  setAuth(auth: string) {
+    this.auth = auth;
   }
 
   setCurrentUser(currentUser: User) {
@@ -37,26 +42,16 @@ export class UserService {
 
   async getUser(handle: string) {
     const user = await this.proxy.getUser(handle);
-    // TODO: remove this, signup user
-    // if (user = null && this.currentUser.handle === handle) {
-    //   return this.currentUser;
-    // }
     return user;
   }
 
-  // TODO what type???
-  public setProfile(user: User, profile: any) {
-    // this.profile = profile;
-    this.proxy.updateProfile(user.handle, profile);
+  async login(handle: string, password: string) {
+    return await this.proxy.loginUser(handle, password);
   }
 
   public async signup(handle: string, password: string, name: string) {
     // await this.proxy.
     return await this.proxy.signupUser(handle, password, name);
-  }
-
-  public async getProfile(user: User) {
-    return await this.proxy.getProfile(user.handle);
   }
 
   public async getFollowing(user: User, lastUserHandle?: string, lastFollowHandle?: string) {
