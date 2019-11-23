@@ -45,7 +45,7 @@ export class SignupComponent implements OnInit {
     // every field is filled in
     if (this.handle && this.password && this.name && this.attachmentSrc) {
       const user = await this.userService.signup(this.handle, this.password, this.name);
-      if (!user) {
+      if (!user || user.getHandle() === '') {
         this.signupError = true;
         this.loginUser.emit(null);
         return;

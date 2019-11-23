@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-11-22T17:39:31Z"
+  version: "2019-11-23T14:26:46Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
@@ -58,6 +58,23 @@ paths:
           headers:
             Access-Control-Allow-Origin:
               type: "string"
+    options:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
   /follow/{userHandle}/{followHandle}/unfollow:
     post:
       consumes:
@@ -85,6 +102,23 @@ paths:
             $ref: "#/definitions/Response"
           headers:
             Access-Control-Allow-Origin:
+              type: "string"
+    options:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
               type: "string"
   /statuses/hashtag/{hashtag}:
     get:

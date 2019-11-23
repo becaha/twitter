@@ -32,25 +32,23 @@ export class LoginComponent implements OnInit {
    *   if success, navigate to user's feed
    */
   public async login() {
-    // creates dummy user with the handle and password
+    if (!this.handle || !this.password) {
+      this.loginError = true;
+      this.loginUser.emit(null);
+      return;
+    }
     const user = await this.userService.login(this.handle, this.password);
-    if (!user) {
+    console.log('user', user);
+    if (!user || user.getHandle() === '') {
       this.loginError = true;
       this.loginUser.emit(null);
       return;
     }
     this.currentUser = user;
-    // if successful take user to his feed
-    // for now dummy user is a a
-    // if (this.currentUser && this.handle === this.currentUser.getHandle() && this.password === this.currentUser.getPassword()) {
     this.userService.setCurrentUser(this.currentUser);
     console.log(this.handle, this.password, this.currentUser.getHandle());
     this.router.navigateByUrl('feed');
     this.loginUser.emit(this.currentUser);
-    // } else {
-    //   this.loginError = true;
-    //   this.loginUser.emit(null);
-    // }
   }
 
   public cancel() {
