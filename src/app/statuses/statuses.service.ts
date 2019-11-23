@@ -85,7 +85,7 @@ export class StatusesService {
     response.statuses.forEach((value, index, array) => {
         if (!this.isBlankStatus(value)) {
           statuses.push(new Status(new Message(value.message), value.ownerHandle,
-            new Attachment(value.attachmentSrc, ''), value.date, value.id));
+            new Attachment(value.attachmentSrc), value.date, value.id));
         }
       }
     );

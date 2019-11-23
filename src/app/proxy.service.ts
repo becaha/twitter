@@ -90,6 +90,7 @@ export class ProxyService {
   }
 
   async updateProfile(handle: string, profile: string, auth: string) {
+    console.log('update prof', handle, profile, auth);
     // profile is base64 encoded image
     const req: UpdateProfileRequest = {
       handle,
@@ -97,7 +98,7 @@ export class ProxyService {
       authorization: auth
     };
     const response: Response = await this.apiGateway.usersHandleProfilePost(handle, req).toPromise();
-    console.log('update prof', response.message);
+    console.log('update prof', response);
     return response;
   }
 
@@ -120,13 +121,17 @@ export class ProxyService {
     console.log(response);
     console.log('get status', response.id, response.message, response.date, response.ownerHandle, response.attachmentSrc);
     return new Status(new Message(response.message), response.ownerHandle,
-                      new Attachment(response.attachmentSrc, 'image'), response.date, response.id);
+                      new Attachment(response.attachmentSrc), response.date, response.id);
   }
 
   async postStatus(status: Status, auth: string) {
-    let src = 'None';
+    let src;
     if (status.getAttachment() !== undefined) {
       src = status.getAttachment().getSrc();
+    }
+    console.log('src', src);
+    if (src === '' || !src) {
+      src = 'None';
     }
     const req: PostStatusRequest = {
       message: status.getMessageText(),
