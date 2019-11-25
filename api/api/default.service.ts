@@ -143,7 +143,7 @@ export class DefaultService {
             'application/json'
         ];
 
-        return this.httpClient.options<Empty>(`${this.basePath}/follow/${encodeURIComponent(String(userHandle))}/${encodeURIComponent(String(followHandle))}`,
+        return this.httpClient.options<Empty>(`${this.basePath}/follow/${encodeURIComponent(String('userHandle'))}/${encodeURIComponent(String('followHandle'))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -237,7 +237,7 @@ export class DefaultService {
             'application/json'
         ];
 
-        return this.httpClient.options<Empty>(`${this.basePath}/follow/${encodeURIComponent(String(userHandle))}/${encodeURIComponent(String(followHandle))}/unfollow`,
+        return this.httpClient.options<Empty>(`${this.basePath}/follow/${encodeURIComponent(String('userHandle'))}/${encodeURIComponent(String('followHandle'))}/unfollow`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

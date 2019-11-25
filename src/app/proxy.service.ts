@@ -90,7 +90,7 @@ export class ProxyService {
   }
 
   async updateProfile(handle: string, profile: string, auth: string) {
-    console.log('update prof', handle, profile, auth);
+    console.log('update prof', handle, auth);
     // profile is base64 encoded image
     const req: UpdateProfileRequest = {
       handle,

@@ -18,6 +18,7 @@ export class StatusComponent implements OnInit {
   private route: ActivatedRoute;
   private isSingleStatus: boolean;
   private singleStatusId: string;
+  private time;
 
   constructor(userService: UserService, statusesService: StatusesService, route: ActivatedRoute) {
     this.userService = userService;
@@ -36,7 +37,8 @@ export class StatusComponent implements OnInit {
       if (this.singleStatusId) {
         this.getSingleStatus();
       }
-      console.log('status', this.status);
+      this.time = new Date().getTime();
+      // console.log('status', this.status);
     });
   }
 

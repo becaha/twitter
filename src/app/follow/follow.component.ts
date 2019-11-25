@@ -21,6 +21,7 @@ export class FollowComponent implements OnInit {
   private currentUser: User;
   private followService: FollowService;
   private changer: ChangeDetectorRef;
+  private time;
 
   constructor(router: Router, userService: UserService, followService: FollowService, changer: ChangeDetectorRef) {
     this.router = router;
@@ -33,6 +34,7 @@ export class FollowComponent implements OnInit {
   async ngOnInit() {
     await this.setIsFollowing();
     this.changer.detectChanges();
+    this.time = new Date().getTime();
   }
 
   /**

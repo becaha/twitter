@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {UserService} from '../user/user.service';
 import {User} from '../user/User';
 import {ActivatedRoute} from '@angular/router';
@@ -27,13 +27,16 @@ export class StoryComponent implements OnInit {
   private lastId: string = null;
   private noMore = false;
   private awaiting = false;
+  private changer: ChangeDetectorRef;
+  private src: string;
 
-  constructor(userService: UserService, statusesService: StatusesService, followService: FollowService, route: ActivatedRoute) {
+  constructor(userService: UserService, statusesService: StatusesService, followService: FollowService, route: ActivatedRoute, changer: ChangeDetectorRef) {
     this.userService = userService;
     this.statusesService = statusesService;
     this.followService = followService;
     this.currentUser = userService.getCurrentUser();
     this.route = route;
+    this.changer = changer;
   }
 
   /**
@@ -42,9 +45,12 @@ export class StoryComponent implements OnInit {
    */
   ngOnInit() {
     console.log('story');
+    // this.src = null;
     window.scrollTo(0, 0);
     this.route.paramMap.subscribe( paramMap => {
       this.viewUserHandle = paramMap.get('handle');
+      this.src = 'https://cs340-profile-bucket.s3-us-east-2.amazonaws.com/' + this.viewUserHandle + '?time=' + new Date().getTime();
+      // this.changer.detectChanges();
       this.getViewUser();
     });
   }
