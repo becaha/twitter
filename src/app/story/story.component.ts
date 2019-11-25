@@ -46,9 +46,9 @@ export class StoryComponent implements OnInit {
   ngOnInit() {
     console.log('story');
     // this.src = null;
-    window.scrollTo(0, 0);
     this.route.paramMap.subscribe( paramMap => {
       this.viewUserHandle = paramMap.get('handle');
+      window.scrollTo(0, 0);
       this.src = 'https://cs340-profile-bucket.s3-us-east-2.amazonaws.com/' + this.viewUserHandle + '?time=' + new Date().getTime();
       // this.changer.detectChanges();
       this.getViewUser();

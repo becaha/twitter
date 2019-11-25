@@ -30,13 +30,13 @@ export class SearchComponent implements OnInit {
    * gets the search text from the route parameters
    */
   ngOnInit() {
-    window.scrollTo(0, 0);
     this.route.paramMap.subscribe( paramMap => {
       this.searchText = paramMap.get('text');
       this.noMore = false;
       this.awaiting = false;
       this.lastTimestamp = null;
       this.lastHashtag = null;
+      window.scrollTo(0, 0);
       this.search();
     });
   }
@@ -45,7 +45,6 @@ export class SearchComponent implements OnInit {
   async onScroll() {
     if (window.innerHeight + window.scrollY >= document.body.scrollHeight - .5) {
       // bottom of the page
-      console.log('scrolled to bottom', this.searchText);
       const statuses = await this.getHashtagStatuses();
       this.foundStatuses = this.foundStatuses.concat(statuses);
     }
@@ -58,7 +57,7 @@ export class SearchComponent implements OnInit {
    */
   async search() {
     this.foundStatuses = await this.getHashtagStatuses();
-    console.log('found statuses', this.foundStatuses);
+    // console.log('found statuses', this.foundStatuses);
   }
 
   async getHashtagStatuses() {

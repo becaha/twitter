@@ -11,12 +11,12 @@ export class FollowsComponent implements OnInit {
   @Input() follows: User[];
   @Output() updateFollows = new EventEmitter();
   @Output() getMoreFollows = new EventEmitter();
-  private followsArray;
 
   constructor() { }
 
   ngOnInit() {
     console.log('follows on init', this.follows);
+    window.scrollTo(0, 0);
   }
 
   /**
