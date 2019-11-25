@@ -29,12 +29,13 @@ export class FollowComponent implements OnInit {
     this.followService = followService;
     this.currentUser = this.userService.getCurrentUser();
     this.changer = changer;
+    this.time = new Date().getTime();
   }
 
   async ngOnInit() {
+    this.time = new Date().getTime();
     await this.setIsFollowing();
     this.changer.detectChanges();
-    this.time = new Date().getTime();
   }
 
   /**
