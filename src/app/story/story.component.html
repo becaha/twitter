@@ -1,10 +1,10 @@
 <div *ngIf="this.viewUser" class="container-col">
   <div class="profile">
     <div class="profile-pic">
-      <!--TODO upload from user profile src, from assets/images -->
-<!--      <img class="pic" src='{{viewUser.getAttachmentSrc()}}' alt="profile picture">-->
       <img class="pic" [src]="src">
-      <app-upload [uploadMessage]="'Upload Picture'"></app-upload>
+      <div *ngIf="currentUser.getHandle() === viewUser.getHandle()">
+        <app-upload [uploadMessage]="'Upload Picture'"></app-upload>
+      </div>
     </div>
     <div class="profile-info">
       <p class="profile-info-item">{{viewUser.getHandle()}}</p>

@@ -1,7 +1,7 @@
 ---
 swagger: "2.0"
 info:
-  version: "2019-11-23T14:26:46Z"
+  version: "2019-11-25T17:30:38Z"
   title: "twitter-api"
 host: "hpbubuiaz6.execute-api.us-east-1.amazonaws.com"
 basePath: "/prod"
@@ -634,6 +634,8 @@ definitions:
   Response:
     type: "object"
     properties:
+      success:
+        type: "string"
       message:
         type: "string"
         description: "Operation status message"

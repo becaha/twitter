@@ -83,11 +83,11 @@ export class StatusesComponent implements OnInit {
    * time stamp it with the current date and
    * add it to the current user's statuses
    */
-  public post() {
+  async post() {
     const message = new Message(this.text);
     //  constructor(message: Message, ownerHandle: string, profile: Attachment, attachment?: Attachment, date?: string, id?: string) {
     const newStatus = new Status(message, this.viewUser.getHandle(), new Attachment(this.attachmentUrl));
-    this.statusesService.addStatus(newStatus);
+    await this.statusesService.addStatus(newStatus);
     // close status form
     this.statusForm = false;
   }

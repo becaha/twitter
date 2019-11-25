@@ -52,7 +52,10 @@ export class UserService {
   }
 
   async logout(handle: string) {
-    return await this.proxy.logoutUser(handle);
+    const response = await this.proxy.logoutUser(handle);
+    this.setCurrentUser(null);
+    this.setViewUser(null);
+    return response;
   }
 
   public async signup(handle: string, password: string, name: string) {

@@ -1,8 +1,5 @@
 import {ChangeDetectorRef, Component, Input, OnInit, Output} from '@angular/core';
 import {Attachment} from '../status/attachment/Attachment';
-import {fromEvent, Observable} from 'rxjs';
-import { pluck } from 'rxjs/operators';
-import {ProxyService} from '../proxy.service';
 import {UserService} from '../user/user.service';
 import {UploadService} from './upload.service';
 
@@ -33,10 +30,5 @@ export class UploadComponent implements OnInit {
    */
   async onFileUpload(event) {
     await this.uploadService.onFileUpload(event);
-  }
-
-  updateProfile() {
-    console.log('detect changes');
-    this.changer.detectChanges();
   }
 }

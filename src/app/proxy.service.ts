@@ -70,7 +70,9 @@ export class ProxyService {
   }
 
   async logoutUser(handle: string) {
+    console.log('logout user');
     const response: Response = await this.apiGateway.usersHandleLogoutPost(handle).toPromise();
+    console.log(response);
     return response;
   }
 
@@ -141,6 +143,7 @@ export class ProxyService {
     };
     const response: Response = await this.apiGateway.statusesPostPost(req).toPromise();
     console.log('post', response);
+    return response;
   }
 
   async follow(userHandle: string, followHandle: string, auth: string) {
@@ -150,7 +153,8 @@ export class ProxyService {
       authorization: auth
     };
     const response: Response = await this.apiGateway.followUserHandleFollowHandlePost(followHandle, userHandle, req).toPromise();
-    console.log('follow', response.message);
+    console.log('follow', response);
+    return response;
   }
 
   async unfollow(userHandle: string, followHandle: string, auth: string) {
@@ -160,7 +164,8 @@ export class ProxyService {
       authorization: auth
     };
     const response: Response = await this.apiGateway.followUserHandleFollowHandleUnfollowPost(followHandle, userHandle, req).toPromise();
-    console.log('unfollow', response.message);
+    console.log('unfollow', response);
+    return response;
   }
 
   async isFollowing(userHandle: string, followHandle: string) {
@@ -177,6 +182,4 @@ export class ProxyService {
     console.log(response);
     return response;
   }
-
-
 }

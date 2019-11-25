@@ -1,23 +1,14 @@
-<!-- in line display of attachment means? -->
-<!-- upload not actually do anything? -->
-<!-- method interfaces -->
-<!-- view to view model = post status , login, sign up -->
-<!-- view : html -->
-<!-- view model: js-->
-<!--Feed is computed in database, when status is posted, it is added to all follower feeds-->
-
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark menu-container">
     <a class="navbar-brand logo">Twitter</a>
     <div>
-      <button *ngIf="!currentUser" type="button" class="btn btn-light" routerLink="/signup" (click)="signup = true">Sign Up</button>
-      <button *ngIf="!currentUser" type="button" class="btn btn-light" routerLink="/login" (click)="signup = false">Log In</button>
-      <button *ngIf="currentUser" type="button" class="btn btn-light" routerLink="/login" (click)="logout()">Logout</button>
+      <button *ngIf="!this.userService.getCurrentUser()" type="button" class="btn btn-light" routerLink="/signup" (click)="signup = true">Sign Up</button>
+      <button *ngIf="!this.userService.getCurrentUser()" type="button" class="btn btn-light" routerLink="/login" (click)="signup = false">Log In</button>
+      <button *ngIf="this.userService.getCurrentUser()" type="button" class="btn btn-light" routerLink="/login" (click)="logout()">Logout</button>
     </div>
   </nav>
   <div class="container-base">
-    <div *ngIf="currentUser" class="side-bar">
+    <div *ngIf="this.userService.getCurrentUser()" class="side-bar">
       <ul class="navbar-nav">
         <li class="side-bar-item">
           <a class="nav-link side-bar-link" routerLink="/feed">Feed</a>
@@ -28,9 +19,9 @@
       </ul>
     </div>
     <div class="container-col">
-      <app-login *ngIf="!currentUser && !signup" (loginUser)=onLogin($event)></app-login>
-      <app-signup *ngIf="!currentUser && signup" (loginUser)=onLogin($event)></app-signup>
-      <router-outlet *ngIf="currentUser"></router-outlet>
+      <app-login *ngIf="!this.userService.getCurrentUser() && !signup" (loginUser)=onLogin($event)></app-login>
+      <app-signup *ngIf="!this.userService.getCurrentUser() && signup" (loginUser)=onLogin($event)></app-signup>
+      <router-outlet *ngIf="this.userService.getCurrentUser()"></router-outlet>
 <!--      <router-outlet></router-outlet>-->
     </div>
   </div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from '../user/User';
 import {ProxyService} from '../proxy.service';
 import {UserService} from '../user/user.service';
+import {AuthService} from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,12 @@ import {UserService} from '../user/user.service';
 export class FollowService {
   private proxy: ProxyService;
   private userService: UserService;
+  private authService: AuthService;
 
-  constructor(proxy: ProxyService, userService: UserService) {
+  constructor(proxy: ProxyService, userService: UserService, authService: AuthService) {
     this.userService = userService;
     this.proxy = proxy;
+    this.authService = authService;
   }
 
   // checks if user is following following
@@ -21,15 +24,17 @@ export class FollowService {
   }
 
   // user unfollows another user (called a following)
-  public unfollow(user: User, following: User) {
+  async unfollow(user: User, following: User) {
     const auth = this.userService.getAuth();
-    this.proxy.unfollow(user.handle, following.handle, auth);
+    const response = await this.proxy.unfollow(user.handle, following.handle, auth);
+    await this.authService.checkAuthorized(user.handle, response);
   }
 
   // user follows another user (called a following)
-  public follow(user: User, following: User) {
+  async follow(user: User, following: User) {
     const auth = this.userService.getAuth();
-    this.proxy.follow(user.handle, following.handle, auth);
+    const response = await this.proxy.follow(user.handle, following.handle, auth);
+    await this.authService.checkAuthorized(user.handle, response);
   }
 
 }
